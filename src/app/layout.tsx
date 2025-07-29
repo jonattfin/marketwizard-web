@@ -1,7 +1,12 @@
-import type { Metadata } from "next";
-import { Geist, Geist_Mono } from "next/font/google";
+import type {Metadata} from "next";
+import {Geist, Geist_Mono} from "next/font/google";
 import "./globals.css";
 import {SpeedInsights} from "@vercel/speed-insights/next";
+
+import '@fontsource/roboto/300.css';
+import '@fontsource/roboto/400.css';
+import '@fontsource/roboto/500.css';
+import '@fontsource/roboto/700.css';
 
 const geistSans = Geist({
   variable: "--font-geist-sans",
@@ -19,16 +24,23 @@ export const metadata: Metadata = {
 };
 
 export default function RootLayout({
-  children,
-}: Readonly<{
+                                     children,
+                                   }: Readonly<{
   children: React.ReactNode;
 }>) {
   return (
     <html lang="en">
-      <body className={`${geistSans.variable} ${geistMono.variable}`}>
-        {children}
-        <SpeedInsights />
-      </body>
+    <head>
+      <link
+        rel="stylesheet"
+        href="https://fonts.googleapis.com/icon?family=Material+Icons"
+      />
+      <meta name="viewport" content="initial-scale=1, width=device-width" />
+    </head>
+    <body className={`${geistSans.variable} ${geistMono.variable}`}>
+    {children}
+    <SpeedInsights/>
+    </body>
     </html>
   );
 }
