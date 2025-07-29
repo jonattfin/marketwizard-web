@@ -1,7 +1,9 @@
 import type {Metadata} from "next";
 import {Geist, Geist_Mono} from "next/font/google";
 import "./globals.css";
+
 import {SpeedInsights} from "@vercel/speed-insights/next";
+import { Analytics } from "@vercel/analytics/next"
 
 import '@fontsource/roboto/300.css';
 import '@fontsource/roboto/400.css';
@@ -40,6 +42,7 @@ export default function RootLayout({
     <body className={`${geistSans.variable} ${geistMono.variable}`}>
     {children}
     <SpeedInsights/>
+    <Analytics/>
     </body>
     </html>
   );
