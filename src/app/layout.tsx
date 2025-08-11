@@ -4,6 +4,7 @@ import { Analytics } from "@vercel/analytics/next"
 import { SpeedInsights } from "@vercel/speed-insights/next"
 
 import "./globals.css";
+import Link from "next/link";
 
 const geistSans = Geist({
   variable: "--font-geist-sans",
@@ -28,7 +29,16 @@ export default function RootLayout({
   return (
     <html lang="en">
       <body className={`${geistSans.variable} ${geistMono.variable}`}>
-        {children}
+        <main>
+          {children}
+        </main>
+        <hr/>
+        <footer>
+          <ul>
+            <li><Link href={"/"}>Home</Link></li>
+            <li><Link href="/news">News</Link></li>
+          </ul>
+        </footer>
         <Analytics/>
         <SpeedInsights />
       </body>

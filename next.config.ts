@@ -6,6 +6,9 @@ const withBundleAnalyzer = require('@next/bundle-analyzer')({
 
 const nextConfig: NextConfig = {
   /* config options here */
+  images: {
+    domains: ['images.unsplash.com']
+  }
 };
 
 export default withBundleAnalyzer(nextConfig);
