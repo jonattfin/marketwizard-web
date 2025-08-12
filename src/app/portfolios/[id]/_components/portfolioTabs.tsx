@@ -6,6 +6,7 @@ import Tab from '@mui/material/Tab';
 import Box from '@mui/material/Box';
 
 import {BasicBarChart, BasicPieChart, BasicLineChart, BasicScatterChart} from './charts';
+import News from './news';
 
 interface TabPanelProps {
   children?: React.ReactNode;
@@ -14,7 +15,7 @@ interface TabPanelProps {
 }
 
 function CustomTabPanel(props: TabPanelProps) {
-  const { children, value, index, ...other } = props;
+  const {children, value, index, ...other} = props;
 
   return (
     <div
@@ -24,20 +25,20 @@ function CustomTabPanel(props: TabPanelProps) {
       aria-labelledby={`simple-tab-${index}`}
       {...other}
     >
-      {value === index && <Box sx={{ p: 3 }}>{children}</Box>}
+      {value === index && <Box sx={{p: 3}}>{children}</Box>}
     </div>
   );
 }
 
 export default function PortfolioTabs() {
-   const [value, setValue] = useState(0);
+  const [value, setValue] = useState(0);
 
   const handleChange = (event: React.SyntheticEvent, newValue: number) => {
     setValue(newValue);
   };
 
   return (
-    <Box sx={{ width: '100%' }}>
+    <Box sx={{width: '100%'}}>
       <Tabs
         value={value}
         onChange={handleChange}
@@ -45,28 +46,32 @@ export default function PortfolioTabs() {
         indicatorColor="secondary"
         aria-label="secondary tabs example"
       >
-        <Tab label="Overview" />
-        <Tab label="Holdings" />
-        <Tab label="Transactions" />
-        <Tab label="Analysis" />
+        <Tab label="Overview"/>
+        <Tab label="Holdings"/>
+        <Tab label="Transactions"/>
+        <Tab label="Analysis"/>
       </Tabs>
       <CustomTabPanel value={value} index={0}>
         <>
           Overview
-          <BasicBarChart />
+          <BasicBarChart/>
+          <News/>
         </>
       </CustomTabPanel>
       <CustomTabPanel value={value} index={1}>
         Holdings
         <BasicPieChart/>
+        <News/>
       </CustomTabPanel>
       <CustomTabPanel value={value} index={2}>
         Transactions
         <BasicLineChart/>
+        <News/>
       </CustomTabPanel>
       <CustomTabPanel value={value} index={3}>
         Analysis
         <BasicScatterChart/>
+        <News/>
       </CustomTabPanel>
     </Box>
   );
