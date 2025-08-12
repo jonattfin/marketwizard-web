@@ -87,7 +87,7 @@ export default function PortfolioTabs() {
              <Slider defaultValue={1} max={3} color="success"/>
           </Grid>
            <Grid size={4}>
-            <h4>Beta</h4>
+            <h4>Sortino ratio</h4>
              Should have enough data to analyze by Sep 1 2025
              <Slider defaultValue={2} max={5} color="warning" />
           </Grid>
