@@ -15,3 +15,11 @@ export type Stock = {
   allocation: number;
   description: string
 }
+
+export type News = {
+  id: string;
+  time: string;
+  symbol: string;
+  headline: string;
+  provider: string;
+}

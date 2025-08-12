@@ -1,4 +1,4 @@
-import {Stock, Portfolio} from './types'
+import {Stock, Portfolio, News} from './types'
 
 export const portfolios: Portfolio[] = [];
   for (let i = 0; i < 5; i++) {
@@ -21,4 +21,12 @@ export const stocks: Stock[] = [
   {id: "4", description: 'Lululemon Athletica', symbol: 'LULU', allocation: 10},
   {id: "5", description: 'Deckers Outdoor Corporation', symbol: 'DECK', allocation: 14},
   {id: "6", description: 'Exponent Inc', symbol: "EXPO", allocation: 7},
+];
+
+export const news: News[] = [
+  {id: "1", time: "today", symbol: 'ASML', headline: 'Applied Materials before Q3 Earnings', provider: "Zacks"},
+  {id: "2", time: "today", symbol: 'DECK', headline: 'Will HOKA momentum fuel another strong year for Deckers?', provider: "Dow Jones"},
+  {id: "3", time: "today", symbol: 'EXPO', headline: 'Exponent inc sec 10-q report', provider: "Zacks"},
+  {id: "4", time: "yesterday", symbol: 'LULU', headline: 'Lululemon is maintained at outperform by baird', provider: "Reuters"},
+  {id: "5", time: "3 days ago", symbol: 'DECK', headline: 'US imports fall more than expected in June', provider: "TradingView"},
 ];
