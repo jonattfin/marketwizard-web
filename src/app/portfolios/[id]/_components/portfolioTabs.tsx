@@ -78,17 +78,17 @@ export default function PortfolioTabs() {
         <Grid container spacing={2}>
           <Grid size={4}>
             <h4>Beta</h4>
-            You'll have enough data to analyze by Sep 1 2025
+            Should have enough data to analyze by Sep 1 2025
             <Slider defaultValue={1} max={2} color={"error"} />
           </Grid>
            <Grid size={4}>
             <h4>Sharpe ratio</h4>
-            You'll have enough data to analyze by Sep 1 2025
+            Should have enough data to analyze by Sep 1 2025
              <Slider defaultValue={1} max={3} color="success"/>
           </Grid>
            <Grid size={4}>
             <h4>Beta</h4>
-            You'll have enough data to analyze by Sep 1 2025
+             Should have enough data to analyze by Sep 1 2025
              <Slider defaultValue={2} max={5} color="warning" />
           </Grid>
         </Grid>
