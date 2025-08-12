@@ -6,6 +6,7 @@ import { PieChart } from '@mui/x-charts/PieChart';
 import { LineChart } from '@mui/x-charts/LineChart';
 import { ScatterChart } from '@mui/x-charts/ScatterChart';
 import {scatterData} from './data';
+import {Stock} from "@/api/types";
 
 export function BasicBarChart() {
   return (
@@ -17,16 +18,22 @@ export function BasicBarChart() {
   );
 }
 
-export function BasicPieChart() {
+export type BasicPieChartProps = {
+  stocks: Stock[];
+}
+
+export function BasicPieChart({stocks}: BasicPieChartProps) {
+  const data = stocks.map(stock => ({
+    id: stock.id,
+    value: stock.allocation,
+    label: stock.symbol,
+  }));
+
   return (
     <PieChart
       series={[
         {
-          data: [
-            { id: 0, value: 10, label: 'series A' },
-            { id: 1, value: 15, label: 'series B' },
-            { id: 2, value: 20, label: 'series C' },
-          ],
+          data
         },
       ]}
       width={200}

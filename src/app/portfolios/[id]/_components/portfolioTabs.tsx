@@ -7,6 +7,8 @@ import Box from '@mui/material/Box';
 
 import {BasicBarChart, BasicPieChart, BasicLineChart, BasicScatterChart} from './charts';
 import News from './news';
+import Holdings from './holdings';
+import {stocks} from '@/api';
 
 interface TabPanelProps {
   children?: React.ReactNode;
@@ -60,8 +62,8 @@ export default function PortfolioTabs() {
       </CustomTabPanel>
       <CustomTabPanel value={value} index={1}>
         Holdings
-        <BasicPieChart/>
-        <News/>
+        <BasicPieChart stocks={stocks}/>
+        <Holdings stocks={stocks}/>
       </CustomTabPanel>
       <CustomTabPanel value={value} index={2}>
         Transactions

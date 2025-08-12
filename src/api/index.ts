@@ -1,13 +1,4 @@
-export type Portfolio = {
-  id: string;
-  name: string;
-  description?: string;
-  imageUrl: string;
-  lastUpdated: string;
-  totalAmount: number;
-  yield: number;
-  holdings: number;
-}
+import {Stock, Portfolio} from './types'
 
 export const portfolios: Portfolio[] = [];
   for (let i = 0; i < 5; i++) {
@@ -22,3 +13,12 @@ export const portfolios: Portfolio[] = [];
       yield: 20
     })
   }
+
+export const stocks: Stock[] = [
+  {id: "1", description: 'ASML Holding', symbol: 'ASML', allocation: 16},
+  {id: "2", description: 'Vanguard FTSE-World', symbol: 'VWRL', allocation: 43},
+  {id: "3", description: 'Schneider Electric', symbol: 'SU', allocation: 7},
+  {id: "4", description: 'Lululemon Athletica', symbol: 'LULU', allocation: 10},
+  {id: "5", description: 'Deckers Outdoor Corporation', symbol: 'DECK', allocation: 14},
+  {id: "6", description: 'Exponent Inc', symbol: "EXPO", allocation: 7},
+];

@@ -5,7 +5,7 @@ import CardContent from '@mui/material/CardContent';
 import Link from 'next/link';
 import Typography from '@mui/material/Typography';
 import Image from 'next/image';
-import {Portfolio} from "@/api";
+import {Portfolio} from "@/api/types";
 import {styled} from "@mui/material/styles";
 
 const CustomLink = styled(Link)`
