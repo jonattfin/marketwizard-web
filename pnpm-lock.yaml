@@ -35,6 +35,9 @@ importers:
       '@next/bundle-analyzer':
         specifier: ^15.4.6
         version: 15.4.6
+      '@types/lodash':
+        specifier: ^4.17.20
+        version: 4.17.20
       '@vercel/analytics':
         specifier: ^1.5.0
         version: 1.5.0(next@15.4.6(@babel/core@7.28.0)(react-dom@19.1.0(react@19.1.0))(react@19.1.0))(react@19.1.0)
@@ -44,6 +47,9 @@ importers:
       cross-env:
         specifier: ^10.0.0
         version: 10.0.0
+      lodash:
+        specifier: ^4.17.21
+        version: 4.17.21
       lorem-ipsum:
         specifier: ^2.0.8
         version: 2.0.8
@@ -1174,6 +1180,9 @@ packages:
 
   '@types/json5@0.0.29':
     resolution: {integrity: sha512-dRLjCWHYg4oaA77cxO64oO+7JwCwnIzkZPdrrC71jQmQtlhM556pwKo5bUzqvZndkVbeFLIIi+9TC40JNF5hNQ==}
+
+  '@types/lodash@4.17.20':
+    resolution: {integrity: sha512-H3MHACvFUEiujabxhaI/ImO6gUrd8oOurg7LQtS7mbwIXA/cUqWrvBsaeJ23aZEPk1TAYkurjfMbSELfoCXlGA==}
 
   '@types/mdx@2.0.13':
     resolution: {integrity: sha512-+OWZQfAYyio6YkJb3HLxDrvnx6SWWDbC0zVPfBRzUk0/nqoDyf6dNxQi3eArPe8rJ473nobTMQ/8Zk+LxJ+Yuw==}
@@ -4388,6 +4397,8 @@ snapshots:
   '@types/json-schema@7.0.15': {}
 
   '@types/json5@0.0.29': {}
+
+  '@types/lodash@4.17.20': {}
 
   '@types/mdx@2.0.13': {}
 

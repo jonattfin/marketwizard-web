@@ -56,7 +56,7 @@ export default function PortfolioTabs() {
       <CustomTabPanel value={value} index={0}>
         <>
           Overview
-          <BasicBarChart/>
+          <BasicLineChart/>
           <News/>
         </>
       </CustomTabPanel>
@@ -67,7 +67,7 @@ export default function PortfolioTabs() {
       </CustomTabPanel>
       <CustomTabPanel value={value} index={2}>
         Transactions
-        <BasicLineChart/>
+        <BasicBarChart/>
         <News/>
       </CustomTabPanel>
       <CustomTabPanel value={value} index={3}>

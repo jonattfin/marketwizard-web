@@ -11,7 +11,7 @@ const columns: GridColDef<Stock>[] = [
     field: 'symbol',
     headerName: 'Symbol',
     width: 150,
-    editable: true,
+    editable: false,
   },
   {
     field: 'allocation',
@@ -48,7 +48,6 @@ export default function DataGridDemo({stocks}: DataGridProps) {
             },
           }}
           pageSizeOptions={[5]}
-          checkboxSelection
           disableRowSelectionOnClick
         />
       </Box>
