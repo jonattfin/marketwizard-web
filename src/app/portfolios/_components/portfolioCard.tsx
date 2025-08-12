@@ -2,19 +2,15 @@ import * as React from 'react';
 import Card from '@mui/material/Card';
 import CardActions from '@mui/material/CardActions';
 import CardContent from '@mui/material/CardContent';
-import Button from '@mui/material/Button';
+import Link from 'next/link';
 import Typography from '@mui/material/Typography';
 import Image from 'next/image';
+import {Portfolio} from "@/api";
+import {styled} from "@mui/material/styles";
 
-export type Portfolio = {
-  id: string;
-  name: string;
-  imageUrl: string;
-  lastUpdated: string;
-  totalAmount: string;
-  yield: string;
-  holdings: string;
-}
+const CustomLink = styled(Link)`
+    color: #555ab9;
+`;
 
 export default function PortfolioCard(props: Portfolio) {
   return (
@@ -37,7 +33,7 @@ export default function PortfolioCard(props: Portfolio) {
         </Typography>
       </CardContent>
       <CardActions>
-        <Button size="small">Learn More</Button>
+        <CustomLink href={`/portfolios/${props.id}`}>Learn More</CustomLink>
       </CardActions>
     </Card>
   );

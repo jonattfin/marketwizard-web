@@ -20,7 +20,7 @@ const CustomButton = styled(Button)`
 `;
 
 const CustomLink = styled(Link)`
-    color: aliceblue;
+    color: #555ab9;
 `;
 
 export default function TemplateMenu({name}: TemplateMenuProps) {
