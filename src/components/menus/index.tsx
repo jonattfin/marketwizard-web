@@ -64,10 +64,10 @@ const StyledInputBase = styled(InputBase)(({theme}) => ({
 
 type PrimarySearchAppBarProps = {
   theme: string;
-  setTheme: (theme: string) => void;
+  setThemeAction: (theme: string) => void;
 }
 
-export default function PrimarySearchAppBar({theme, setTheme}:PrimarySearchAppBarProps) {
+export default function PrimarySearchAppBar({theme, setThemeAction}:PrimarySearchAppBarProps) {
   const [anchorEl, setAnchorEl] = React.useState<null | HTMLElement>(null);
   const [mobileMoreAnchorEl, setMobileMoreAnchorEl] =
     React.useState<null | HTMLElement>(null);
@@ -190,7 +190,7 @@ export default function PrimarySearchAppBar({theme, setTheme}:PrimarySearchAppBa
           <Box sx={{flexGrow: 1}}/>
           <Box sx={{display: {xs: 'none', md: 'flex'}}}>
             <LightModeIcon ></LightModeIcon>
-            <Switch checked={theme==="dark"} onClick={() => setTheme(theme === "light"? "dark": "light")}></Switch>
+            <Switch checked={theme==="dark"} onClick={() => setThemeAction(theme === "light"? "dark": "light")}></Switch>
             <DarkModeIcon></DarkModeIcon>
             <IconButton size="large" aria-label="show 4 new mails" color="inherit">
               <Badge badgeContent={4} color="error">

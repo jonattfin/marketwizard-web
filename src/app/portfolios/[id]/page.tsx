@@ -4,7 +4,7 @@ import SummaryPortfolioCard from "./_components/summaryPortfolioCard";
 
 import {portfolios} from "@/api";
 import Box from "@mui/material/Box";
-import {Accordion, Breadcrumbs, CardContent, CardMedia, Grid, styled} from "@mui/material";
+import {Accordion, Breadcrumbs, CardContent, CardMedia, Grid} from "@mui/material";
 import Typography from "@mui/material/Typography";
 import AccordionSummary from "@mui/material/AccordionSummary";
 import ExpandMoreIcon from "@mui/icons-material/ExpandMore";

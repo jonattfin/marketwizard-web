@@ -54,7 +54,7 @@ export default function RootLayout({
                                    }: Readonly<{
   children: React.ReactNode;
 }>) {
-  const [theme, setTheme] = useState<string>("dark");
+  const [theme, setThemeAction] = useState<string>("dark");
 
   return (
     <html lang="en">
@@ -71,7 +71,7 @@ export default function RootLayout({
         <Grid size={9}>
           <CustomBox>
             <header>
-              <AppMenu {...{theme, setTheme}}/>
+              <AppMenu {...{theme, setThemeAction}}/>
             </header>
             <main>
               {children}
