@@ -1,18 +1,113 @@
 import {Stock, Portfolio, News, Indice, Commodity, PortfolioStock} from './types'
+import random from "lodash/random";
 
-export const portfolios: Portfolio[] = [];
-for (let i = 0; i < 5; i++) {
+function createPortfolios() {
+  const portfolios: Portfolio[] = [];
+
   portfolios.push({
-    id: i.toString(),
-    name: `portfolio ${i}`,
-    description: "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua",
-    imageUrl: "https://images.unsplash.com/photo-1605460375648-278bcbd579a6",
-    holdings: 10,
-    lastUpdated: 'one minute ago',
-    totalAmount: 1000,
-    yield: 20
-  })
+    id: "1",
+    name: "Defensive",
+    description: `
+    Designed for investment goals with a short-term horizon. 
+    It is best suited for investors who prioritize stability and capital preservation over high growth. 
+    This portfolio typically includes 98% in ETFs that replicate bonds and 2% in cash (EUR) to ensure capital preservation.
+    `,
+    imageUrl: "https://images.unsplash.com/photo-1620365744528-88da1e08ac96",
+    holdings: random(1, 10),
+    lastUpdated: "one minute ago",
+    totalAmount: 500,
+    yield: 3,
+    risk: 1,
+    sharpeRatio: 0.02,
+    maximumDrawdown: -10.28,
+    averageAnnualReturn: 2.09,
+    standardDeviation: 6.03
+  });
+
+  portfolios.push({
+    id: "2",
+    name: "Slow and Steady",
+    description: `
+    Designed for investment goals with a short-medium term horizon. 
+    Ideal for investors who value principal conservation but are comfortable with a small degree of risk and volatility to seek some growth potential.
+    This portfolio typically comprises 25% in ETFs containing stocks, 73% in ETFs that replicate bonds, and 2% in cash (EUR)
+    `,
+    imageUrl:  "https://images.unsplash.com/photo-1618044733300-9472054094ee",
+    holdings: random(1, 10),
+    lastUpdated: "one minute ago",
+    totalAmount: 500,
+    yield: 3,
+    risk: 2,
+    sharpeRatio: 0.75,
+    maximumDrawdown: -16.05,
+    averageAnnualReturn: 5.55,
+    standardDeviation: 4.85
+  });
+
+  portfolios.push({
+    id: "3",
+    name: "Balanced bundle",
+    description: `
+    This portfolio is designed for investment goals with a medium-term horizon. 
+    It is best for investors seeking relatively higher returns while being willing to accept modest risk.
+    This portfolio usually includes a diversified mix of 52% in ETFs containing stocks, 48% in ETFs that replicate bonds, and 2% in cash (EUR).
+    `,
+    imageUrl: "https://images.unsplash.com/photo-1612178991541-b48cc8e92a4d",
+    holdings: random(1, 10),
+    lastUpdated: "one minute ago",
+    totalAmount: 500,
+    yield: 3,
+    risk: 3,
+    sharpeRatio: 1.08,
+    maximumDrawdown: -21.76,
+    averageAnnualReturn: 10.13,
+    standardDeviation: 7.58
+  });
+
+  portfolios.push({
+    id: "4",
+    name: "Bold Stack",
+    description: `
+    Designed for investment goals with a medium-long-term horizon. 
+    It is best suited for investors seeking long-term growth with somewhat less variable returns and above-average volatility.
+    This portfolio is composed primarily of 70% in ETFs containing stocks, 28% in ETFs that replicate bonds, and 2% in cash (EUR)
+    `,
+    imageUrl: "https://images.unsplash.com/photo-1506450041641-40545dddaf90",
+    holdings: random(1, 10),
+    lastUpdated: "one minute ago",
+    totalAmount: 500,
+    yield: 3,
+    risk: 4,
+    sharpeRatio: 0.99,
+    maximumDrawdown: -25.28,
+    averageAnnualReturn: 12.09,
+    standardDeviation: 10.6
+  });
+
+  portfolios.push({
+    id: "5",
+    name: "High growth",
+    description: `
+      This portfolio is designed for investment goals with a long-term horizon. 
+      It is best for investors focusing on high-growth potential with the ability to withstand higher market swings.
+      This portfolio is heavily weighted towards 88% in ETFs containing stocks, 10% in ETFs that replicate bonds, and 2% in cash (EUR), aiming for maximum growth despite high volatility
+    `,
+    imageUrl: "https://images.unsplash.com/photo-1548454934-501d30773413",
+    holdings: random(1, 10),
+    lastUpdated: "one minute ago",
+    totalAmount: 500,
+    yield: 3,
+    risk: 5,
+    sharpeRatio: 1.02,
+    maximumDrawdown: -29.28,
+    averageAnnualReturn: 15.6,
+    standardDeviation: 13.37
+  });
+
+  return portfolios;
 }
+
+export const portfolios = createPortfolios();
 
 const asPercentage = (x: number, y: number) => {
   return Number(((y / x) * 100).toFixed(2));
@@ -32,12 +127,18 @@ export const stocks: Stock[] = [
 
 const mapAllocation = (symbol: string) => {
   switch (symbol) {
-    case "ASML": return 16.5;
-    case "VWRL": return 50;
-    case "DECK": return 10;
-    case "SU": return 25;
-    case "EXPO": return 5;
-    default: return 20;
+    case "ASML":
+      return 16.5;
+    case "VWRL":
+      return 50;
+    case "DECK":
+      return 10;
+    case "SU":
+      return 25;
+    case "EXPO":
+      return 5;
+    default:
+      return 20;
   }
 }
 

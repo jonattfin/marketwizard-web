@@ -18,18 +18,19 @@ export default function PortfolioCard(props: Portfolio) {
       <CardContent>
         <Image src={props.imageUrl} width={500} height={200} alt='A beautiful English Setter'/>
          <Typography variant="h5" component="div">
-           {props.name || "My portfolio"}
+           {props.name}
         </Typography>
         <Typography gutterBottom sx={{ color: 'text.secondary', fontSize: 14 }}>
-          updated {props.lastUpdated || "one minute ago"}
-        </Typography>
-        <Typography sx={{ color: 'text.secondary', mb: 1.5 }}>
-          {props.totalAmount || 0} USD
+          {props.description}
         </Typography>
         <Typography variant="body2">
-          Yield: {props.yield || 0}%
-          <br />
-          Holdings: {props.holdings || 0}
+          <ul>
+            <li>Risk level: {props.risk}</li>
+            <li>Average annual return: {props.averageAnnualReturn}</li>
+            <li>Maximum drawdown: {props.maximumDrawdown}</li>
+            <li>Standard deviation: {props.standardDeviation}</li>
+            <li>Sharpe ratio: {props.sharpeRatio}</li>
+          </ul>
         </Typography>
       </CardContent>
       <CardActions>

@@ -1,3 +1,5 @@
+export type RiskLevel = 1 | 2 | 3 | 4 | 5;
+
 export type Portfolio = {
   id: string;
   name: string;
@@ -7,6 +9,11 @@ export type Portfolio = {
   totalAmount: number;
   yield: number;
   holdings: number;
+  risk: RiskLevel;
+  averageAnnualReturn: number;
+  standardDeviation: number;
+  sharpeRatio: number;
+  maximumDrawdown: number;
 }
 
 export type Stock = {
