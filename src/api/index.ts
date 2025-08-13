@@ -12,7 +12,7 @@ function createPortfolios() {
     It is best suited for investors who prioritize stability and capital preservation over high growth. 
     This portfolio typically includes 98% in ETFs that replicate bonds and 2% in cash (EUR) to ensure capital preservation.
     `,
-    imageUrl: "https://images.unsplash.com/photo-1620365744528-88da1e08ac96",
+    imageUrl: "https://images.unsplash.com/photo-1602536422477-f56ba7493ca6",
     holdings: random(1, 10),
     lastUpdated: "one minute ago",
     totalAmount: 500,
