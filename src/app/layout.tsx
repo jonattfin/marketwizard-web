@@ -11,6 +11,7 @@ import {Analytics} from "@vercel/analytics/next"
 import {SpeedInsights} from "@vercel/speed-insights/next"
 
 import AppMenu from '../components/menus';
+import {useState} from 'react';
 
 // for MUI
 import '@fontsource/roboto/300.css';
@@ -38,6 +39,12 @@ const darkTheme = createTheme({
   },
 });
 
+const lightTheme = createTheme({
+  palette: {
+    mode: 'light',
+  },
+});
+
 const CustomBox = styled(Box)`
     padding: ${({theme}) => theme.spacing(2)};
 `;
@@ -47,6 +54,8 @@ export default function RootLayout({
                                    }: Readonly<{
   children: React.ReactNode;
 }>) {
+  const [theme, setTheme] = useState<string>("dark");
+
   return (
     <html lang="en">
     <head title={"Create Next App"}>
@@ -55,14 +64,14 @@ export default function RootLayout({
         href="https://fonts.googleapis.com/icon?family=Material+Icons"
       />
     </head>
-    <ThemeProvider theme={darkTheme}>
+    <ThemeProvider theme={theme=== "dark"? darkTheme: lightTheme}>
       <CssBaseline/>
       <body className={`${geistSans.variable} ${geistMono.variable}`}>
       <Grid container spacing={0}>
         <Grid size={9}>
           <CustomBox>
             <header>
-              <AppMenu/>
+              <AppMenu {...{theme, setTheme}}/>
             </header>
             <main>
               {children}
@@ -76,7 +85,6 @@ export default function RootLayout({
           <WatchlistMenu/>
         </Grid>
       </Grid>
-
       <Analytics/>
       <SpeedInsights/>
       </body>

@@ -1,7 +1,3 @@
-export default function Home() {
-  return (
-    <div>
-    home
-    </div>
-  );
-}
+import PortfolioPage from './portfolios/page'
+
+export default PortfolioPage;

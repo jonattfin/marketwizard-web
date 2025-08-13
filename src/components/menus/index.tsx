@@ -18,6 +18,9 @@ import MoreIcon from '@mui/icons-material/MoreVert';
 import TemplateMenu from './templateMenu';
 import Link from "next/link";
 import HomeIcon from '@mui/icons-material/Home';
+import LightModeIcon from '@mui/icons-material/LightMode';
+import DarkModeIcon from '@mui/icons-material/DarkMode';
+import {Switch} from "@mui/material";
 
 const Search = styled('div')(({theme}) => ({
   position: 'relative',
@@ -59,7 +62,12 @@ const StyledInputBase = styled(InputBase)(({theme}) => ({
   },
 }));
 
-export default function PrimarySearchAppBar() {
+type PrimarySearchAppBarProps = {
+  theme: string;
+  setTheme: (theme: string) => void;
+}
+
+export default function PrimarySearchAppBar({theme, setTheme}:PrimarySearchAppBarProps) {
   const [anchorEl, setAnchorEl] = React.useState<null | HTMLElement>(null);
   const [mobileMoreAnchorEl, setMobileMoreAnchorEl] =
     React.useState<null | HTMLElement>(null);
@@ -181,6 +189,9 @@ export default function PrimarySearchAppBar() {
           <TemplateMenu name={"More..."}></TemplateMenu>
           <Box sx={{flexGrow: 1}}/>
           <Box sx={{display: {xs: 'none', md: 'flex'}}}>
+            <LightModeIcon ></LightModeIcon>
+            <Switch checked={theme==="dark"} onClick={() => setTheme(theme === "light"? "dark": "light")}></Switch>
+            <DarkModeIcon></DarkModeIcon>
             <IconButton size="large" aria-label="show 4 new mails" color="inherit">
               <Badge badgeContent={4} color="error">
                 <MailIcon/>
