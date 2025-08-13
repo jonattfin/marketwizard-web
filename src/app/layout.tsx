@@ -77,7 +77,6 @@ export default function RootLayout({
             <main>
               {children}
             </main>
-            <hr/>
             <footer>
             </footer>
           </CustomBox>
