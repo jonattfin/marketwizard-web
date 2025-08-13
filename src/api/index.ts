@@ -1,4 +1,4 @@
-import {Stock, Portfolio, News, Indice, Commodity} from './types'
+import {Stock, Portfolio, News, Indice, Commodity, PortfolioStock} from './types'
 
 export const portfolios: Portfolio[] = [];
 for (let i = 0; i < 5; i++) {
@@ -30,6 +30,21 @@ export const stocks: Stock[] = [
   chgAsPercentage: asPercentage(stock.price, stock.chg)
 }));
 
+const mapAllocation = (symbol: string) => {
+  switch (symbol) {
+    case "ASML": return 16.5;
+    case "VWRL": return 50;
+    case "DECK": return 10;
+    case "SU": return 25;
+    case "EXPO": return 5;
+    default: return 20;
+  }
+}
+
+export const portfolioStocks: PortfolioStock[] = stocks.map((stock) => ({
+  stock,
+  allocation: mapAllocation(stock.symbol)
+}))
 
 export const indices: Indice[] = [
   {id: "1", description: 'VIX', symbol: 'VIX', price: 14.54, chg: -1.00, chgAsPercentage: 0},

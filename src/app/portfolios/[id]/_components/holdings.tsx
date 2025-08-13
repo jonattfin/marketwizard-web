@@ -3,9 +3,13 @@
 import * as React from 'react';
 import Box from '@mui/material/Box';
 import {DataGrid, GridColDef} from '@mui/x-data-grid';
-import {Stock} from '@/api/types'
+import {Stock, PortfolioStock} from '@/api/types'
 
-const columns: GridColDef<Stock>[] = [
+type AllocationType = {
+  allocation: number;
+}
+
+const columns: GridColDef<Stock & AllocationType>[] = [
   {field: 'id', headerName: 'ID', width: 90},
   {
     field: 'symbol',
@@ -29,16 +33,21 @@ const columns: GridColDef<Stock>[] = [
 ];
 
 export type DataGridProps = {
-  stocks: Stock[]
+  portfolioStocks: PortfolioStock[]
 };
 
-export default function DataGridDemo({stocks}: DataGridProps) {
+export default function DataGridDemo({portfolioStocks}: DataGridProps) {
+  const rows = portfolioStocks.map(pf => ({
+    ...pf.stock,
+    allocation: pf.allocation,
+  }));
+
   return (
     <>
       <h3>Holdings</h3>
       <Box sx={{height: 500, width: '100%'}}>
         <DataGrid
-          rows={stocks}
+          rows={rows}
           columns={columns}
           initialState={{
             pagination: {

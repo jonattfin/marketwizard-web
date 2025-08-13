@@ -8,17 +8,17 @@ import range from 'lodash/range';
 import random from 'lodash/random';
 
 import {scatterData} from './data';
-import {Stock} from "@/api/types";
+import {PortfolioStock} from "@/api/types";
 
 export type BasicPieChartProps = {
-  stocks: Stock[];
+  portfolioStocks: PortfolioStock[];
 }
 
-export function BasicPieChart({stocks}: BasicPieChartProps) {
-  const data = stocks.map(stock => ({
-    id: stock.id,
-    value: 0, // TODO
-    label: stock.symbol,
+export function BasicPieChart({portfolioStocks}: BasicPieChartProps) {
+  const data = portfolioStocks.map(pf => ({
+    id: pf.stock.id,
+    value: pf.allocation,
+    label: pf.stock.symbol,
   }));
 
   return (

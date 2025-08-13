@@ -18,6 +18,11 @@ export type Stock = {
   description: string
 }
 
+export type PortfolioStock = {
+  stock: Stock;
+  allocation: number;
+}
+
 export type Indice = {
   id: string;
   symbol: string;

@@ -8,7 +8,7 @@ import Box from '@mui/material/Box';
 import {BasicPieChart, BasicLineChart, BasicScatterChart} from './charts';
 import News from './news';
 import Holdings from './holdings';
-import {stocks} from '@/api';
+import {portfolioStocks} from '@/api';
 import {Grid, Slider} from "@mui/material";
 import random from "lodash/random";
 import orderBy from "lodash/orderBy";
@@ -68,9 +68,9 @@ export default function PortfolioTabs() {
   }
 
   const renderPerformance = () => {
-    const stocksWithPerformance = orderBy(stocks.map((stock) => (
+    const stocksWithPerformance = orderBy(portfolioStocks.map((pf) => (
       {
-        symbol: stock.symbol,
+        symbol: pf.stock.symbol,
         performance: random(-5, 20)
       }
     )), ["performance"], ["desc"])
@@ -119,8 +119,8 @@ export default function PortfolioTabs() {
       </CustomTabPanel>
       <CustomTabPanel value={value} index={1}>
         Holdings
-        <BasicPieChart stocks={stocks}/>
-        <Holdings stocks={stocks}/>
+        <BasicPieChart portfolioStocks={portfolioStocks}/>
+        <Holdings portfolioStocks={portfolioStocks}/>
       </CustomTabPanel>
       <CustomTabPanel value={value} index={2}>
         Analysis
