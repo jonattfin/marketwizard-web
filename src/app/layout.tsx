@@ -19,7 +19,8 @@ import '@fontsource/roboto/500.css';
 import '@fontsource/roboto/700.css';
 
 import "./globals.css";
-import Link from "next/link";
+import {Grid} from "@mui/material";
+import WatchlistMenu from "@/components/menus/watchlistMenu";
 
 const geistSans = Geist({
   variable: "--font-geist-sans",
@@ -57,21 +58,25 @@ export default function RootLayout({
     <ThemeProvider theme={darkTheme}>
       <CssBaseline/>
       <body className={`${geistSans.variable} ${geistMono.variable}`}>
-      <CustomBox>
-        <header>
-          <AppMenu/>
-        </header>
-        <main>
-          {children}
-        </main>
-        <hr/>
-        <footer>
-          <ul>
-            <li><Link href={"/"}>Home</Link></li>
-            <li><Link href="/news">News</Link></li>
-          </ul>
-        </footer>
-      </CustomBox>
+      <Grid container spacing={0}>
+        <Grid size={9}>
+          <CustomBox>
+            <header>
+              <AppMenu/>
+            </header>
+            <main>
+              {children}
+            </main>
+            <hr/>
+            <footer>
+            </footer>
+          </CustomBox>
+        </Grid>
+        <Grid size={3}>
+          <WatchlistMenu/>
+        </Grid>
+      </Grid>
+
       <Analytics/>
       <SpeedInsights/>
       </body>

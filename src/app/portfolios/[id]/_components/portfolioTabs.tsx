@@ -123,11 +123,6 @@ export default function PortfolioTabs() {
         <BasicPieChart stocks={stocks}/>
         <Holdings stocks={stocks}/>
       </CustomTabPanel>
-      {/*<CustomTabPanel value={value} index={2}>*/}
-      {/*  Transactions*/}
-      {/*  <BasicBarChart/>*/}
-      {/*  <News/>*/}
-      {/*</CustomTabPanel>*/}
       <CustomTabPanel value={value} index={2}>
         Analysis
         <BasicScatterChart/>

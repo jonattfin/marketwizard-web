@@ -11,8 +11,27 @@ export type Portfolio = {
 
 export type Stock = {
   id: string;
+  price: number;
   symbol: string;
   allocation: number;
+  description: string
+}
+
+export type Indice = {
+  id: string;
+  symbol: string;
+  value: number;
+  chg: number;
+  chgAsPercentage: number
+  description: string
+}
+
+export type Commodity = {
+  id: string;
+  symbol: string;
+  price: number;
+  chg: number;
+  chgAsPercentage: number
   description: string
 }
 
