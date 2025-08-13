@@ -1,14 +1,16 @@
+
 import PortfolioTabs from './_components/portfolioTabs';
 import SummaryPortfolioCard from "./_components/summaryPortfolioCard";
 
 import {portfolios} from "@/api";
 import Box from "@mui/material/Box";
-import {Accordion, CardContent, CardMedia, Grid} from "@mui/material";
+import {Accordion, Breadcrumbs, CardContent, CardMedia, Grid, styled} from "@mui/material";
 import Typography from "@mui/material/Typography";
 import AccordionSummary from "@mui/material/AccordionSummary";
 import ExpandMoreIcon from "@mui/icons-material/ExpandMore";
 import AccordionDetails from "@mui/material/AccordionDetails";
 import Card from "@mui/material/Card";
+import Link from 'next/link'
 
 export default async function Portfolio({params}: {
   params: Promise<{ id: string }>
@@ -21,10 +23,15 @@ export default async function Portfolio({params}: {
       <Card sx={{minWidth: 275}}>
         <CardMedia sx={{height: 400}} image={portfolio?.imageUrl}/>
         <CardContent>
-          <Typography variant="h5" component="div">
-            {portfolio?.name} Portfolio
-          </Typography>
-          <div>&nbsp;</div>
+          <Breadcrumbs aria-label="breadcrumb">
+            <Link href="/portfolios">
+              Portfolios
+            </Link>
+            <div>
+              {portfolio?.name} Portfolio
+            </div>
+          </Breadcrumbs>
+           <h3>{portfolio?.name} Portfolio</h3>
           <Accordion defaultExpanded>
             <AccordionSummary
               expandIcon={<ExpandMoreIcon/>}
