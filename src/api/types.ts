@@ -1,57 +1,49 @@
 export type RiskLevel = 1 | 2 | 3 | 4 | 5;
 
-export type Portfolio = {
-  id: string;
-  name: string;
-  description?: string;
-  imageUrl: string;
-  lastUpdated: string;
-  totalAmount: number;
-  yield: number;
-  holdings: number;
-  risk: RiskLevel;
-  averageAnnualReturn: number;
-  standardDeviation: number;
-  sharpeRatio: number;
-  maximumDrawdown: number;
-}
-
-export type Stock = {
-  id: string;
-  price: number;
-  symbol: string;
-  chg: number,
-  chgAsPercentage?: number;
-  description: string
-}
-
-export type PortfolioStock = {
-  stock: Stock;
+export type PortfolioAsset = Asset & {
+  numberOfShares: number;
+  pricePerShare: number;
+  performance: number;
   allocation: number;
-}
+};
 
-export type Indice = {
-  id: string;
-  symbol: string;
-  price: number;
-  chg: number;
-  chgAsPercentage?: number
-  description: string
-}
-
-export type Commodity = {
-  id: string;
-  symbol: string;
-  price: number;
-  chg: number;
-  chgAsPercentage?: number
-  description: string
-}
-
-export type News = {
+export type PortfolioNews = {
   id: string;
   time: string;
   symbol: string;
   headline: string;
   provider: string;
+}
+
+export type Portfolio = {
+  id: string;
+  name: string;
+  description: string;
+  imageUrl: string;
+  lastUpdated: string;
+  totalAmount: number;
+  risk: RiskLevel;
+  averageAnnualReturn: number;
+  standardDeviation: number;
+  sharpeRatio: number;
+  maximumDrawdown: number;
+  assets: PortfolioAsset[];
+  news: PortfolioNews[];
+}
+
+export enum AssetType {
+  Stock,
+  Commodity,
+  Indice,
+  Etf
+}
+
+export type Asset = {
+  id: string;
+  price: number;
+  symbol: string;
+  chg: number;
+  changeAsPercentage: number;
+  description: string;
+  assetType: AssetType;
 }

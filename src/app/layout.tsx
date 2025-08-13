@@ -22,6 +22,7 @@ import '@fontsource/roboto/700.css';
 import "./globals.css";
 import {Grid} from "@mui/material";
 import WatchlistMenu from "@/components/menus/watchlistMenu";
+import {watchlist} from "@/api";
 
 const geistSans = Geist({
   variable: "--font-geist-sans",
@@ -82,7 +83,7 @@ export default function RootLayout({
           </CustomBox>
         </Grid>
         <Grid size={3}>
-          <WatchlistMenu/>
+          <WatchlistMenu assets={watchlist}/>
         </Grid>
       </Grid>
       <Analytics/>

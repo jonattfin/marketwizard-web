@@ -12,30 +12,34 @@ const CustomLink = styled(Link)`
     color: #555ab9;
 `;
 
-export default function PortfolioCard(props: Portfolio) {
+export type PortfolioCardProps = {
+  portfolio?: Portfolio;
+}
+
+export default function PortfolioCard({portfolio}: PortfolioCardProps) {
   return (
     <Card sx={{ minWidth: 275 }}>
-      <CardMedia sx={{ height: 140 }} image={props.imageUrl}>
+      <CardMedia sx={{ height: 140 }} image={portfolio?.imageUrl}>
       </CardMedia>
       <CardContent>
          <Typography variant="h5" component="div">
-           {props.name}
+           {portfolio?.name}
         </Typography>
         <Typography gutterBottom sx={{ color: 'text.secondary', fontSize: 14 }}>
-          {props.description}
+          {portfolio?.description}
         </Typography>
         <Typography component={"div"}>
           <ul>
-            <li>Risk level: {props.risk}</li>
-            <li>Average annual return: {props.averageAnnualReturn}</li>
-            <li>Maximum drawdown: {props.maximumDrawdown}</li>
-            <li>Standard deviation: {props.standardDeviation}</li>
-            <li>Sharpe ratio: {props.sharpeRatio}</li>
+            <li>Risk level: {portfolio?.risk}</li>
+            <li>Average annual return: {portfolio?.averageAnnualReturn}</li>
+            <li>Maximum drawdown: {portfolio?.maximumDrawdown}</li>
+            <li>Standard deviation: {portfolio?.standardDeviation}</li>
+            <li>Sharpe ratio: {portfolio?.sharpeRatio}</li>
           </ul>
         </Typography>
       </CardContent>
       <CardActions>
-        <CustomLink href={`/portfolios/${props.id}`}>Learn More</CustomLink>
+        <CustomLink href={`/portfolios/${portfolio?.id}`}>Learn More</CustomLink>
       </CardActions>
     </Card>
   );

@@ -35,6 +35,9 @@ importers:
       '@next/bundle-analyzer':
         specifier: ^15.4.6
         version: 15.4.6
+      '@opensrc/short-uuid':
+        specifier: npm:@jsr/opensrc__short-uuid@^1.0.0
+        version: '@jsr/opensrc__short-uuid@1.0.0'
       '@types/lodash':
         specifier: ^4.17.20
         version: 4.17.20
@@ -660,6 +663,9 @@ packages:
 
   '@jridgewell/trace-mapping@0.3.29':
     resolution: {integrity: sha512-uw6guiW/gcAGPDhLmd77/6lW8QLeiV5RUTsAX46Db6oLhGaVj4lhnPwb184s1bkc8kdVg/+h988dro8GRDpmYQ==}
+
+  '@jsr/opensrc__short-uuid@1.0.0':
+    resolution: {integrity: sha512-TBNx1AyIPuWpTSvv5Pa0iiySbwbz2/iWZQAnw8jcOF2XM5YtdCjUdHf19sW8dh3Q5oChDBe/WMEgPocsE+Mfvg==, tarball: https://npm.jsr.io/~/11/@jsr/opensrc__short-uuid/1.0.0.tgz}
 
   '@mdx-js/react@3.1.0':
     resolution: {integrity: sha512-QjHtSaoameoalGnKDT3FoIl4+9RwyTmo9ZJGBdLOks/YOiWHoRDI3PUwEzOE7kEmGcV3AFcp9K6dYu9rEuKLAQ==}
@@ -3876,6 +3882,8 @@ snapshots:
     dependencies:
       '@jridgewell/resolve-uri': 3.1.2
       '@jridgewell/sourcemap-codec': 1.5.4
+
+  '@jsr/opensrc__short-uuid@1.0.0': {}
 
   '@mdx-js/react@3.1.0(@types/react@19.1.9)(react@19.1.0)':
     dependencies:

@@ -96,7 +96,7 @@ export default async function Portfolio({params}: {
       </Card>
       <br/>
       <Box>
-        <PortfolioTabs/>
+        <PortfolioTabs portfolio={portfolio}/>
       </Box>
     </>
   );

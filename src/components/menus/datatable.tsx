@@ -6,11 +6,11 @@ import TableContainer from '@mui/material/TableContainer';
 import TableHead from '@mui/material/TableHead';
 import TableRow from '@mui/material/TableRow';
 import Paper from '@mui/material/Paper';
-import {Indice} from '@/api/types'
+import {Asset} from '@/api/types'
 import Typography from "@mui/material/Typography";
 
 export type BasicTableProps = {
-  rows: Indice[]
+  rows: Asset[]
 }
 
 export default function BasicTable({rows = []}: BasicTableProps) {
@@ -51,7 +51,7 @@ export default function BasicTable({rows = []}: BasicTableProps) {
               </TableCell>
               <TableCell align="right">{row.price.toLocaleString("en-US")}</TableCell>
               <TableCell align="right">{renderText(row.chg)}</TableCell>
-              <TableCell align="right">{renderText(row.chgAsPercentage, "%")}</TableCell>
+              <TableCell align="right">{renderText(row.changeAsPercentage, "%")}</TableCell>
             </TableRow>
           ))}
         </TableBody>

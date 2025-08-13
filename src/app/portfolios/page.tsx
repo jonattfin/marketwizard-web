@@ -11,7 +11,7 @@ export default function Portfolios() {
       <Grid container spacing={2}>
         {portfolios.map((portfolio) => (
           <Grid key={portfolio.id} size={4}>
-            <PortfolioCard {...portfolio}/>
+            <PortfolioCard {...{portfolio}} />
           </Grid>
         ))}
       </Grid>

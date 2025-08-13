@@ -8,10 +8,8 @@ import Box from '@mui/material/Box';
 import {BasicPieChart, BasicLineChart, BasicScatterChart} from './charts';
 import News from './news';
 import Holdings from './holdings';
-import {portfolioStocks} from '@/api';
 import {Grid, Slider} from "@mui/material";
-import random from "lodash/random";
-import orderBy from "lodash/orderBy";
+import {Portfolio} from "@/api/types";
 
 interface TabPanelProps {
   children?: React.ReactNode;
@@ -35,7 +33,11 @@ function CustomTabPanel(props: TabPanelProps) {
   );
 }
 
-export default function PortfolioTabs() {
+export type PortfolioTabsProps = {
+  portfolio?: Portfolio;
+}
+
+export default function PortfolioTabs({portfolio}: PortfolioTabsProps) {
   const [value, setValue] = useState(0);
 
   const handleChange = (event: React.SyntheticEvent, newValue: number) => {
@@ -68,24 +70,17 @@ export default function PortfolioTabs() {
   }
 
   const renderPerformance = () => {
-    const stocksWithPerformance = orderBy(portfolioStocks.map((pf) => (
-      {
-        symbol: pf.stock.symbol,
-        performance: random(-5, 20)
-      }
-    )), ["performance"], ["desc"])
-
     return (
       <>
         <h3>Holdings performance</h3>
         <Grid container spacing={2}>
-          {stocksWithPerformance.map(({symbol, performance}) => (
+          {portfolio?.assets.map(({symbol, performance}) => (
             <>
               <Grid size={1}>
                 {symbol}
               </Grid>
               <Grid size={10}>
-                <Slider defaultValue={Math.abs(performance)} max={20} color={performance > 0 ? "success" : "error"}/>
+                <Slider defaultValue={Math.abs(performance)} max={20} color={performance >= 0 ? "success" : "error"}/>
               </Grid>
               <Grid size={1}>
                 {performance}%
@@ -114,13 +109,13 @@ export default function PortfolioTabs() {
         <>
           Overview
           <BasicLineChart/>
-          <News/>
+          <News news={portfolio?.news || []}/>
         </>
       </CustomTabPanel>
       <CustomTabPanel value={value} index={1}>
         Holdings
-        <BasicPieChart portfolioStocks={portfolioStocks}/>
-        <Holdings portfolioStocks={portfolioStocks}/>
+        <BasicPieChart portfolio={portfolio}/>
+        <Holdings portfolio={portfolio}/>
       </CustomTabPanel>
       <CustomTabPanel value={value} index={2}>
         Analysis

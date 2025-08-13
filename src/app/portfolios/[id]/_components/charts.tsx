@@ -8,18 +8,18 @@ import range from 'lodash/range';
 import random from 'lodash/random';
 
 import {scatterData} from './data';
-import {PortfolioStock} from "@/api/types";
+import {Portfolio} from "@/api/types";
 
 export type BasicPieChartProps = {
-  portfolioStocks: PortfolioStock[];
+  portfolio?: Portfolio;
 }
 
-export function BasicPieChart({portfolioStocks}: BasicPieChartProps) {
-  const data = portfolioStocks.map(pf => ({
-    id: pf.stock.id,
-    value: pf.allocation,
-    label: pf.stock.symbol,
-  }));
+export function BasicPieChart({portfolio}: BasicPieChartProps) {
+  const data = portfolio?.assets.map(({id, symbol, allocation}) => ({
+    id: id,
+    value: allocation,
+    label: symbol,
+  })) ?? [];
 
   return (
     <PieChart

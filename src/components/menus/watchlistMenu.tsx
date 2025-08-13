@@ -7,45 +7,18 @@ import Typography from '@mui/material/Typography';
 import ExpandMoreIcon from '@mui/icons-material/ExpandMore';
 import Box from "@mui/material/Box";
 import DataTable from './datatable'
-import {indices, stocks, commodities} from "@/api";
-import {Indice} from "@/api/types";
 import {styled} from "@mui/material/styles";
+import {Asset, AssetType} from "@/api/types";
 
 const CustomBox = styled(Box)`
   padding: 0 5px;
 `;
 
-export default function AccordionUsage() {
+export type WatchlistMenuProps = {
+  assets: Asset[];
+}
 
-  const renderIndices = () => {
-    return <DataTable rows={indices}/>;
-  };
-
-  const renderStocks = () => {
-    const rows: Indice[] = stocks.map(stock => ({
-      id: stock.id,
-      symbol: stock.symbol,
-      price: stock.price,
-      description: stock.description,
-      chg: stock.chg,
-      chgAsPercentage: stock.chgAsPercentage
-    }))
-
-    return <DataTable rows={rows}/>;
-  };
-
-  const renderCommodities = () => {
-     const rows: Indice[] = commodities.map(commodity => ({
-      id: commodity.id,
-      symbol: commodity.symbol,
-      price: commodity.price,
-      description: commodity.description,
-      chg: commodity.chg,
-      chgAsPercentage: commodity.chgAsPercentage
-    }))
-
-    return <DataTable rows={rows}/>;
-  };
+export default function WatchlistMenu({assets}: WatchlistMenuProps) {
 
   return (
     <CustomBox>
@@ -58,7 +31,7 @@ export default function AccordionUsage() {
           <Typography component="span">Indices</Typography>
         </AccordionSummary>
         <AccordionDetails>
-          {renderIndices()}
+          <DataTable rows={assets.filter(a => a.assetType === AssetType.Indice)}/>
         </AccordionDetails>
       </Accordion>
       <Accordion defaultExpanded>
@@ -70,7 +43,7 @@ export default function AccordionUsage() {
           <Typography component="span">Stocks</Typography>
         </AccordionSummary>
         <AccordionDetails>
-          {renderStocks()}
+          <DataTable rows={assets.filter(a => a.assetType === AssetType.Stock)}/>
         </AccordionDetails>
       </Accordion>
       <Accordion defaultExpanded>
@@ -82,7 +55,7 @@ export default function AccordionUsage() {
           <Typography component="span">Commodities</Typography>
         </AccordionSummary>
         <AccordionDetails>
-          {renderCommodities()}
+          <DataTable rows={assets.filter(a => a.assetType === AssetType.Commodity)}/>
         </AccordionDetails>
         <AccordionActions>
         </AccordionActions>

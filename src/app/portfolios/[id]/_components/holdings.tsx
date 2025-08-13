@@ -1,15 +1,9 @@
-'use client';
-
 import * as React from 'react';
 import Box from '@mui/material/Box';
 import {DataGrid, GridColDef} from '@mui/x-data-grid';
-import {Stock, PortfolioStock} from '@/api/types'
+import {PortfolioAsset, Portfolio} from '@/api/types'
 
-type AllocationType = {
-  allocation: number;
-}
-
-const columns: GridColDef<Stock & AllocationType>[] = [
+const columns: GridColDef<PortfolioAsset>[] = [
   {field: 'id', headerName: 'ID', width: 90},
   {
     field: 'symbol',
@@ -18,8 +12,14 @@ const columns: GridColDef<Stock & AllocationType>[] = [
     editable: false,
   },
   {
-    field: 'allocation',
-    headerName: 'Allocation',
+    field: 'pricePerShare',
+    headerName: 'Price Per Share',
+    width: 150,
+    editable: false,
+  },
+  {
+    field: 'numberOfShares',
+    headerName: 'Number Of Shares',
     width: 150,
     editable: false,
   },
@@ -33,21 +33,16 @@ const columns: GridColDef<Stock & AllocationType>[] = [
 ];
 
 export type DataGridProps = {
-  portfolioStocks: PortfolioStock[]
+  portfolio?: Portfolio;
 };
 
-export default function DataGridDemo({portfolioStocks}: DataGridProps) {
-  const rows = portfolioStocks.map(pf => ({
-    ...pf.stock,
-    allocation: pf.allocation,
-  }));
-
+export default function DataGridDemo({portfolio}: DataGridProps) {
   return (
     <>
       <h3>Holdings</h3>
       <Box sx={{height: 500, width: '100%'}}>
         <DataGrid
-          rows={rows}
+          rows={portfolio?.assets}
           columns={columns}
           initialState={{
             pagination: {

@@ -21,6 +21,7 @@
     "@mui/x-charts": "^8.10.0",
     "@mui/x-data-grid": "^8.10.0",
     "@next/bundle-analyzer": "^15.4.6",
+    "@opensrc/short-uuid": "npm:@jsr/opensrc__short-uuid@^1.0.0",
     "@types/lodash": "^4.17.20",
     "@vercel/analytics": "^1.5.0",
     "@vercel/speed-insights": "^1.2.0",
