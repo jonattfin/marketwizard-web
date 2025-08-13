@@ -51,8 +51,7 @@ export const Page: React.FC = () => {
           . Read more in the{' '}
           <a href="https://storybook.js.org/docs" target="_blank" rel="noopener noreferrer">
             docs
-          </a>
-          .
+          </a>.
         </p>
         <div className="tip-wrapper">
           <span className="tip">Tip</span> Adjust the width of the canvas with the{' '}
