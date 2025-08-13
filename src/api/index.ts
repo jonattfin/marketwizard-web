@@ -1,6 +1,6 @@
 import {Asset, AssetType, Portfolio, PortfolioAsset, PortfolioNews, RiskLevel} from './types'
 import random from "lodash/random";
-import {orderBy} from "lodash";
+import orderBy from "lodash/orderBy";
 
 function createPortfolioAssets(assets: Asset[]) {
   const portfolioAssets: PortfolioAsset[] = [];
