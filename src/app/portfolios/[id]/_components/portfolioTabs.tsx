@@ -108,7 +108,6 @@ export default function PortfolioTabs() {
       >
         <Tab label="Overview"/>
         <Tab label="Holdings"/>
-        {/*<Tab label="Transactions"/>*/}
         <Tab label="Analysis"/>
       </Tabs>
       <CustomTabPanel value={value} index={0}>

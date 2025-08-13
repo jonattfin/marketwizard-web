@@ -9,7 +9,6 @@ import Box from "@mui/material/Box";
 import DataTable from './datatable'
 import {indices, stocks, commodities} from "@/api";
 import {Indice} from "@/api/types";
-import random from "lodash/random";
 import {styled} from "@mui/material/styles";
 
 const CustomBox = styled(Box)`
@@ -26,10 +25,10 @@ export default function AccordionUsage() {
     const rows: Indice[] = stocks.map(stock => ({
       id: stock.id,
       symbol: stock.symbol,
-      value: stock.price,
+      price: stock.price,
       description: stock.description,
-      chg: random(1, 10),
-      chgAsPercentage: 0
+      chg: stock.chg,
+      chgAsPercentage: stock.chgAsPercentage
     }))
 
     return <DataTable rows={rows}/>;
@@ -39,10 +38,10 @@ export default function AccordionUsage() {
      const rows: Indice[] = commodities.map(commodity => ({
       id: commodity.id,
       symbol: commodity.symbol,
-      value: commodity.price,
+      price: commodity.price,
       description: commodity.description,
-      chg: random(1, 10),
-      chgAsPercentage: 0
+      chg: commodity.chg,
+      chgAsPercentage: commodity.chgAsPercentage
     }))
 
     return <DataTable rows={rows}/>;

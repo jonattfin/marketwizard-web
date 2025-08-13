@@ -7,12 +7,28 @@ import TableHead from '@mui/material/TableHead';
 import TableRow from '@mui/material/TableRow';
 import Paper from '@mui/material/Paper';
 import {Indice} from '@/api/types'
+import Typography from "@mui/material/Typography";
 
 export type BasicTableProps = {
   rows: Indice[]
 }
 
 export default function BasicTable({rows = []}: BasicTableProps) {
+
+  const renderText = (value?: number, suffix="") => {
+    if (!value) {
+      return;
+    }
+
+    const color = value > 0 ? "success" : "error";
+
+    return (
+      <Typography color={color}>
+        {value}{suffix}
+      </Typography>
+    )
+  }
+
   return (
     <TableContainer component={Paper}>
       <Table aria-label="simple table">
@@ -33,9 +49,9 @@ export default function BasicTable({rows = []}: BasicTableProps) {
               <TableCell component="th" scope="row">
                 {row.symbol}
               </TableCell>
-              <TableCell align="right">{row.value}</TableCell>
-              <TableCell align="right">{row.chg}</TableCell>
-              <TableCell align="right">{row.chgAsPercentage}</TableCell>
+              <TableCell align="right">{row.price.toLocaleString("en-US")}</TableCell>
+              <TableCell align="right">{renderText(row.chg)}</TableCell>
+              <TableCell align="right">{renderText(row.chgAsPercentage, "%")}</TableCell>
             </TableRow>
           ))}
         </TableBody>

@@ -17,7 +17,7 @@ export type BasicPieChartProps = {
 export function BasicPieChart({stocks}: BasicPieChartProps) {
   const data = stocks.map(stock => ({
     id: stock.id,
-    value: stock.allocation,
+    value: 0, // TODO
     label: stock.symbol,
   }));
 

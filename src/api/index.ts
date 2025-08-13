@@ -14,29 +14,44 @@ for (let i = 0; i < 5; i++) {
   })
 }
 
+const asPercentage = (x: number, y: number) => {
+  return Number(((y / x) * 100).toFixed(2));
+}
+
 export const stocks: Stock[] = [
-  {id: "1", price: 741, description: 'ASML Holding', symbol: 'ASML', allocation: 16},
-  {id: "2", price: 132, description: 'Vanguard FTSE-World', symbol: 'VWRL', allocation: 43},
-  {id: "3", price: 220, description: 'Schneider Electric', symbol: 'SU', allocation: 7},
-  {id: "4", price: 192, description: 'Lululemon Athletica', symbol: 'LULU', allocation: 10},
-  {id: "5", price: 103, description: 'Deckers Outdoor Corporation', symbol: 'DECK', allocation: 14},
-  {id: "6", price: 70, description: 'Exponent Inc', symbol: "EXPO", allocation: 7},
-];
+  {id: "1", price: 741.79, description: 'ASML Holding', symbol: 'ASML', chg: 20.48},
+  {id: "2", price: 133.01, description: 'Vanguard FTSE-World', symbol: 'VWRL', chg: 0.36},
+  {id: "3", price: 220.45, description: 'Schneider Electric', symbol: 'SU', chg: -1.75},
+  {id: "4", price: 192.93, description: 'Lululemon Athletica', symbol: 'LULU', chg: 6.49},
+  {id: "5", price: 103, description: 'Deckers Outdoor Corporation', symbol: 'DECK', chg: 3.27},
+  {id: "6", price: 70, description: 'Exponent Inc', symbol: "EXPO", chg: 1.2},
+].map(stock => ({
+  ...stock,
+  chgAsPercentage: asPercentage(stock.price, stock.chg)
+}));
+
 
 export const indices: Indice[] = [
-  {id: "1", description: 'VIX', symbol: 'VIX', value: 14.54, chg: -0.18, chgAsPercentage: -1.22},
-  {id: "2", description: 'DKY', symbol: 'DKY', value: 97645, chg: -0.408, chgAsPercentage: -0.42},
-  {id: "3", description: 'DAX', symbol: 'DAX', value: 24204, chg: 179, chgAsPercentage: 0.75},
-  {id: "4", description: 'DJI', symbol: 'DJI', value: 44458, chg: 483, chgAsPercentage: 1.1},
-  {id: "5", description: 'SPX', symbol: 'SPX', value: 6445, chg: 72, chgAsPercentage: 1.13},
-  {id: "6", description: 'NDQ', symbol: "NDQ", value: 23839, chg: 312, chgAsPercentage: 1.33},
-];
+  {id: "1", description: 'VIX', symbol: 'VIX', price: 14.54, chg: -1.00, chgAsPercentage: 0},
+  {id: "2", description: 'DKY', symbol: 'DKY', price: 97645, chg: -500, chgAsPercentage: 0},
+  {id: "3", description: 'DAX', symbol: 'DAX', price: 24204, chg: 300, chgAsPercentage: 0},
+  {id: "4", description: 'DJI', symbol: 'DJI', price: 44458, chg: 483, chgAsPercentage: 0},
+  {id: "5", description: 'SPX', symbol: 'SPX', price: 6445, chg: 72, chgAsPercentage: 0},
+  {id: "6", description: 'NDQ', symbol: "NDQ", price: 23839, chg: 312, chgAsPercentage: 0},
+].map(indice => ({
+  ...indice,
+  chgAsPercentage: asPercentage(indice.price, indice.chg)
+}));
 
 export const commodities: Commodity[] = [
-  {id: "1", price: 741, description: 'GOLD', symbol: 'GLD', chg: -0.18, chgAsPercentage: -1.22},
-  {id: "2", price: 741, description: 'SILVER', symbol: 'SIL', chg: -0.408, chgAsPercentage: -0.42},
-  {id: "3", price: 741, description: 'COPPER', symbol: 'COP', chg: 179, chgAsPercentage: 0.75},
-];
+  {id: "1", price: 3416.10, description: 'GOLD', symbol: 'GLD', chg: -100, chgAsPercentage: 0},
+  {id: "2", price: 38.65, description: 'SILVER', symbol: 'SIL', chg: -0.408, chgAsPercentage: 0},
+  {id: "3", price: 4.52, description: 'COPPER', symbol: 'COP', chg: 0.3, chgAsPercentage: 0},
+]
+  .map(commodity => ({
+    ...commodity,
+    chgAsPercentage: asPercentage(commodity.price, commodity.chg)
+  }));
 
 export const news: News[] = [
   {id: "1", time: "today", symbol: 'ASML', headline: 'Applied Materials before Q3 Earnings', provider: "Zacks"},
