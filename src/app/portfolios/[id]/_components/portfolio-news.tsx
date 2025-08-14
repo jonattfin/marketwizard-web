@@ -3,7 +3,7 @@
 import * as React from 'react';
 import Box from '@mui/material/Box';
 import {DataGrid, GridColDef} from '@mui/x-data-grid';
-import {PortfolioNews} from '@/api/types'
+import {type PortfolioNews} from '@/api/types'
 
 const columns: GridColDef<PortfolioNews>[] = [
   {field: 'time', headerName: 'Time', width: 90},
@@ -27,11 +27,11 @@ const columns: GridColDef<PortfolioNews>[] = [
   },
 ];
 
-export type DataGridProps = {
-  readonly news: PortfolioNews[];
+export type PortfolioNewsComponentProps = {
+  news: PortfolioNews[];
 }
 
-export default function DataGridDemoP({news = []}: DataGridProps) {
+export default function PortfolioNewsComponent({news = []}: PortfolioNewsComponentProps) {
   return (
     <>
       <h3>News</h3>

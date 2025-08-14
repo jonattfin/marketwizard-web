@@ -5,13 +5,13 @@ import Card from '@mui/material/Card';
 import CardContent from '@mui/material/CardContent';
 import Typography from '@mui/material/Typography';
 
-export type SummaryPortfolioCardProps = {
+export type PortfolioSummaryComponentProps = {
   title: string;
   subtitle: string;
   note?: string;
 }
 
-export default function SummaryPortfolioCard({title, subtitle, note}: SummaryPortfolioCardProps) {
+export default function PortfolioSummaryComponent({title, subtitle, note}: PortfolioSummaryComponentProps) {
   return (
     <Card sx={{ minWidth: 275 }}>
       <CardContent>

@@ -9,7 +9,7 @@ import Box from '@mui/material/Box';
 import {Analytics} from "@vercel/analytics/next"
 import {SpeedInsights} from "@vercel/speed-insights/next"
 
-import AppMenu from '../components/menus';
+import AppMenu from '../shared/app-menu';
 import {useEffect, useState} from 'react';
 
 // for MUI
@@ -20,7 +20,7 @@ import '@fontsource/roboto/700.css';
 
 import "./globals.css";
 import {Grid} from "@mui/material";
-import WatchlistMenu from "@/components/menus/watchlistMenu";
+import WatchlistMenu from "@/shared/watchlist-menu";
 import api from "@/api";
 import {DarkTheme, LightTheme} from "@/app/constants";
 import {type Asset} from "@/api/types";

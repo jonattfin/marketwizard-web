@@ -15,7 +15,7 @@ import AccountCircle from '@mui/icons-material/AccountCircle';
 import MailIcon from '@mui/icons-material/Mail';
 import NotificationsIcon from '@mui/icons-material/Notifications';
 import MoreIcon from '@mui/icons-material/MoreVert';
-import TemplateMenu from './templateMenu';
+import TemplateMenu from './template-menu';
 import Link from "next/link";
 import HomeIcon from '@mui/icons-material/Home';
 import LightModeIcon from '@mui/icons-material/LightMode';
@@ -170,7 +170,7 @@ export default function PrimarySearchAppBar({appTheme, setAppTheme}:PrimarySearc
     <Box sx={{flexGrow: 1}}>
       <AppBar position="static">
         <Toolbar>
-          <Link href={'/'}>
+          <Link href={'/public'}>
             <HomeIcon color="primary" />
           </Link>
           <Search>

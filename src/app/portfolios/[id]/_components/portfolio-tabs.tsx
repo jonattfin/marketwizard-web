@@ -5,9 +5,9 @@ import Tabs from '@mui/material/Tabs';
 import Tab from '@mui/material/Tab';
 import Box from '@mui/material/Box';
 
-import {BasicPieChart, BasicLineChart, BasicScatterChart} from './charts';
-import News from './news';
-import Holdings from './holdings';
+import {BasicPieChart, BasicLineChart, BasicScatterChart} from './portfolio-charts';
+import News from './portfolio-news';
+import Holdings from './portfolio-holdings';
 import {Grid, Slider} from "@mui/material";
 import {type Portfolio} from "@/api/types";
 
@@ -33,11 +33,11 @@ function CustomTabPanel(props: TabPanelProps) {
   );
 }
 
-export type PortfolioTabsProps = {
+export type PortfolioTabsComponentProps = {
   readonly portfolio?: Portfolio;
 }
 
-export default function PortfolioTabs({portfolio}: PortfolioTabsProps) {
+export default function PortfolioTabsComponent({portfolio}: PortfolioTabsComponentProps) {
   const [value, setValue] = useState(0);
 
   const handleChange = (event: React.SyntheticEvent, newValue: number) => {
