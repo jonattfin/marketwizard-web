@@ -1,4 +1,4 @@
-import {randomInt, orderBy, range} from "@es-toolkit/es-toolkit";
+import {randomInt, orderBy, range, delay} from "@es-toolkit/es-toolkit";
 
 import {
   Asset,
@@ -276,13 +276,21 @@ function asPercentage(x: number, y: number) {
   return Number(((y / x) * 100).toFixed(2));
 }
 
+async function withDelay<T>(data: T, delayTime: number = 0): Promise<T> {
+  if (delayTime > 0) {
+    await delay(delayTime);
+  }
+
+  return data;
+}
+
 const watchlist: Asset[] = createWatchlist();
 const portfolios = createPortfolios(createPortfolioAssets(watchlist));
 
 const api = {
-  fetchWatchlist: () => Promise.resolve(watchlist),
-  fetchPortfolios: () => Promise.resolve(portfolios),
-  fetchPortfolioById: (id: string) => Promise.resolve(portfolios.find(portfolio => portfolio.id === id)),
+  fetchWatchlist: () => withDelay(watchlist),
+  fetchPortfolios: () => withDelay(portfolios),
+  fetchPortfolioById: (id: string) => withDelay(portfolios.find(portfolio => portfolio.id === id)),
 }
 
 export default api;

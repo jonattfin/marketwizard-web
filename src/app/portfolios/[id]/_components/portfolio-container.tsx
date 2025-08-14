@@ -22,5 +22,5 @@ export default function PortfolioContainer({id}: Readonly<PortfolioContainerProp
     fetchPortfolio().catch(console.error)
   }, [id])
 
-  return <PortfolioComponent portfolio={portfolio}/>
+  return <PortfolioComponent portfolio={portfolio}/>;
 }
