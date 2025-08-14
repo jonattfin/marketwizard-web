@@ -108,9 +108,9 @@ function createPortfolios(assets: PortfolioAsset[]) {
     -10.28,
     2.09,
     6.03,
+    createPortfolioPerformance(assets),
     assets,
     createPortfolioNews(),
-    createPortfolioPerformance(assets)
   ));
 
   portfolios.push(createPortfolio(
@@ -129,9 +129,9 @@ function createPortfolios(assets: PortfolioAsset[]) {
     -16.05,
     5.55,
     4.85,
+    createPortfolioPerformance(assets),
     assets,
     createPortfolioNews(),
-    createPortfolioPerformance(assets)
   ));
 
   portfolios.push(createPortfolio(
@@ -150,9 +150,9 @@ function createPortfolios(assets: PortfolioAsset[]) {
     -21.76,
     10.13,
     7.58,
+    createPortfolioPerformance(assets),
     assets,
     createPortfolioNews(),
-    createPortfolioPerformance(assets)
   ));
 
   portfolios.push(createPortfolio(
@@ -171,9 +171,9 @@ function createPortfolios(assets: PortfolioAsset[]) {
     -25.28,
     12.09,
     10.6,
+    createPortfolioPerformance(assets),
     assets,
     createPortfolioNews(),
-    createPortfolioPerformance(assets)
   ));
 
   portfolios.push(createPortfolio(
@@ -192,9 +192,9 @@ function createPortfolios(assets: PortfolioAsset[]) {
     -29.28,
     15.6,
     13.37,
+    createPortfolioPerformance(assets),
     assets,
     createPortfolioNews(),
-    createPortfolioPerformance(assets)
   ));
 
   return portfolios;
@@ -240,7 +240,7 @@ function createWatchlist() {
 function createPortfolio(
   id: string, name: string, description: string, imageUrl: string, lastUpdated: string, totalAmount: number, risk: RiskLevel,
   averageAnnualReturn: number, standardDeviation: number, sharpeRatio: number, maximumDrawdown: number,
-  assets: PortfolioAsset[] = [], news: PortfolioNews[] = [], performance: PortfolioPerformance
+  performance: PortfolioPerformance, assets: PortfolioAsset[] = [], news: PortfolioNews[] = []
 ) {
   return {
     id,

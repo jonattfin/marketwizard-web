@@ -12,6 +12,7 @@ export type PortfolioSummaryComponentProps = {
 }
 
 export default function PortfolioSummaryComponent({title, subtitle, note}: PortfolioSummaryComponentProps) {
+
   return (
     <Card sx={{ minWidth: 275 }}>
       <CardContent>

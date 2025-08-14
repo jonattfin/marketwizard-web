@@ -7,7 +7,7 @@ type PortfolioVsSpxLineChartProps = {
   portfolio?: Portfolio;
 }
 
-export default function PortfolioVsSpxLineChart({portfolio}: PortfolioVsSpxLineChartProps) {
+export default function PortfolioVsSpxLineChart({portfolio}: Readonly<PortfolioVsSpxLineChartProps>) {
   if (!portfolio) {
     return null;
   }

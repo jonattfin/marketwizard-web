@@ -7,7 +7,7 @@ type PortfolioHoldingsLineChartProps = {
   portfolio?: Portfolio;
 }
 
-export default function PortfolioHoldingsLineChart({portfolio}: PortfolioHoldingsLineChartProps) {
+export default function PortfolioHoldingsLineChart({portfolio}: Readonly<PortfolioHoldingsLineChartProps>) {
   if (!portfolio) {
     return null;
   }

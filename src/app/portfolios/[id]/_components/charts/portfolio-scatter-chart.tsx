@@ -9,7 +9,7 @@ export type PortfolioScatterChartProps = {
   portfolio?: Portfolio;
 }
 
-export default function PortfolioScatterChart({portfolio}: PortfolioScatterChartProps) {
+export default function PortfolioScatterChart({portfolio}: Readonly<PortfolioScatterChartProps>) {
   if (!portfolio) {
     return;
   }

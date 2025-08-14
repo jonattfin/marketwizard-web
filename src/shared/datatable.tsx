@@ -13,7 +13,7 @@ export type BasicTableProps = {
   rows: Asset[]
 }
 
-export default function BasicTable({rows = []}: BasicTableProps) {
+export default function BasicTable({rows = []}: Readonly<BasicTableProps>) {
 
   const renderText = (value?: number, suffix="") => {
     if (!value) {
