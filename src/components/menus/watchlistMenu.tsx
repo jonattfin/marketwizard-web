@@ -8,7 +8,7 @@ import ExpandMoreIcon from '@mui/icons-material/ExpandMore';
 import Box from "@mui/material/Box";
 import DataTable from './datatable'
 import {styled} from "@mui/material/styles";
-import {Asset, AssetType} from "@/api/types";
+import {type Asset, AssetType} from "@/api/types";
 
 const CustomBox = styled(Box)`
   padding: 0 5px;

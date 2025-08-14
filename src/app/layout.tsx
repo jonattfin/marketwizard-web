@@ -23,7 +23,7 @@ import {Grid} from "@mui/material";
 import WatchlistMenu from "@/components/menus/watchlistMenu";
 import api from "@/api";
 import {DarkTheme, LightTheme} from "@/app/constants";
-import {Asset} from "@/api/types";
+import {type Asset} from "@/api/types";
 
 const geistSans = Geist({
   variable: "--font-geist-sans",

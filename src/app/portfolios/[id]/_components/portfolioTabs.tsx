@@ -9,7 +9,7 @@ import {BasicPieChart, BasicLineChart, BasicScatterChart} from './charts';
 import News from './news';
 import Holdings from './holdings';
 import {Grid, Slider} from "@mui/material";
-import {Portfolio} from "@/api/types";
+import {type Portfolio} from "@/api/types";
 
 interface TabPanelProps {
   children?: React.ReactNode;

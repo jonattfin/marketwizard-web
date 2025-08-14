@@ -4,7 +4,7 @@ import CardActions from '@mui/material/CardActions';
 import CardContent from '@mui/material/CardContent';
 import Link from 'next/link';
 import Typography from '@mui/material/Typography';
-import {Portfolio} from "@/api/types";
+import {type Portfolio} from "@/api/types";
 import {styled} from "@mui/material/styles";
 import {CardMedia} from "@mui/material";
 

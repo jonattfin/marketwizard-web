@@ -8,10 +8,10 @@ import range from 'lodash/range';
 import random from 'lodash/random';
 
 import {scatterData} from './data';
-import {Portfolio} from "@/api/types";
+import {type Portfolio} from "@/api/types";
 
 export type BasicPieChartProps = {
-  portfolio?: Portfolio;
+  readonly portfolio?: Portfolio;
 }
 
 export function BasicPieChart({portfolio}: BasicPieChartProps) {
