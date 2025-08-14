@@ -1,6 +1,6 @@
 import {Asset, AssetType, Portfolio, PortfolioAsset, PortfolioNews, RiskLevel} from './types'
-import random from "lodash/random";
-import orderBy from "lodash/orderBy";
+
+import {random, orderBy} from "@es-toolkit/es-toolkit";
 
 function createPortfolioAssets(assets: Asset[]) {
   const portfolioAssets: PortfolioAsset[] = [];
@@ -113,7 +113,6 @@ function createPortfolios(assets: PortfolioAsset[]) {
     4.85,
     assets,
     createPortfolioNews()
-
   ));
 
   portfolios.push(createPortfolio(
@@ -183,22 +182,22 @@ function createWatchlist() {
   const createStocks = (): Asset[] => {
     const assets: Asset[] = [];
 
-    assets.push(createAsset("1",741.79, 'ASML', 20.48, "ASML Holding", AssetType.Stock));
-    assets.push(createAsset("2",133.01, 'VWRL', 0.36, "Vanguard FTSE-World", AssetType.Etf));
-    assets.push(createAsset("3",220.79, 'SU', -1.75, "Schneider Electric", AssetType.Stock));
-    assets.push(createAsset("4",192.79, 'LULU', 6.49, "Lululemon Athletica", AssetType.Stock));
-    assets.push(createAsset("5",103.79, 'DECK', 3.27, "Deckers Outdoor Corporation", AssetType.Stock));
-    assets.push(createAsset("6",70.79, 'EXPO', 1.2, "Exponent Inc", AssetType.Stock));
+    assets.push(createAsset("1", 741.79, 'ASML', 20.48, "ASML Holding", AssetType.Stock));
+    assets.push(createAsset("2", 133.01, 'VWRL', 0.36, "Vanguard FTSE-World", AssetType.Etf));
+    assets.push(createAsset("3", 220.79, 'SU', -1.75, "Schneider Electric", AssetType.Stock));
+    assets.push(createAsset("4", 192.79, 'LULU', 6.49, "Lululemon Athletica", AssetType.Stock));
+    assets.push(createAsset("5", 103.79, 'DECK', 3.27, "Deckers Outdoor Corporation", AssetType.Stock));
+    assets.push(createAsset("6", 70.79, 'EXPO', 1.2, "Exponent Inc", AssetType.Stock));
 
     return assets;
   }
   const createIndices = () => {
     const assets: Asset[] = [];
 
-    assets.push(createAsset("7",14.54, 'VIX', -1, "VIX", AssetType.Indice));
-    assets.push(createAsset("8",24204, 'DAX', 300, "DAX", AssetType.Indice));
-    assets.push(createAsset("9",6445, 'SPX', 72, "SPX", AssetType.Indice));
-    assets.push(createAsset("10",23839, 'NDQ', 312, "NDQ", AssetType.Indice));
+    assets.push(createAsset("7", 14.54, 'VIX', -1, "VIX", AssetType.Indice));
+    assets.push(createAsset("8", 24204, 'DAX', 300, "DAX", AssetType.Indice));
+    assets.push(createAsset("9", 6445, 'SPX', 72, "SPX", AssetType.Indice));
+    assets.push(createAsset("10", 23839, 'NDQ', 312, "NDQ", AssetType.Indice));
 
     return assets;
   };
@@ -206,9 +205,9 @@ function createWatchlist() {
 
     const assets: Asset[] = [];
 
-    assets.push(createAsset("11",3416, 'GLD', -100, "GLD", AssetType.Commodity));
-    assets.push(createAsset("12",38, 'SLD', -1, "SILVER", AssetType.Commodity));
-    assets.push(createAsset("13",4.5, 'CPR', 0.3, "COPPER", AssetType.Commodity));
+    assets.push(createAsset("11", 3416, 'GLD', -100, "GLD", AssetType.Commodity));
+    assets.push(createAsset("12", 38, 'SLD', -1, "SILVER", AssetType.Commodity));
+    assets.push(createAsset("13", 4.5, 'CPR', 0.3, "COPPER", AssetType.Commodity));
 
     return assets;
   };
@@ -260,7 +259,7 @@ const portfolios = createPortfolios(createPortfolioAssets(watchlist));
 const api = {
   fetchWatchlist: () => Promise.resolve(watchlist),
   fetchPortfolios: () => Promise.resolve(portfolios),
-  fetchPortfolioById : (id: string) => Promise.resolve(portfolios.find(portfolio => portfolio.id === id)),
+  fetchPortfolioById: (id: string) => Promise.resolve(portfolios.find(portfolio => portfolio.id === id)),
 }
 
 export default api;

@@ -1,7 +1,6 @@
-import range from 'lodash/range';
-import random from 'lodash/random'
+import {range, random} from '@es-toolkit/es-toolkit';
 
-export const scatterData = range(1,240).map(i => {
+export const scatterData = range(1, 240).map(i => {
   return {
     id: `data-${i}`,
     x1: i,

@@ -4,8 +4,8 @@ import * as React from 'react';
 import { PieChart } from '@mui/x-charts/PieChart';
 import { LineChart } from '@mui/x-charts/LineChart';
 import { ScatterChart } from '@mui/x-charts/ScatterChart';
-import range from 'lodash/range';
-import random from 'lodash/random';
+
+import {range, random} from "@es-toolkit/es-toolkit";
 
 import {scatterData} from './data';
 import {type Portfolio} from "@/api/types";
