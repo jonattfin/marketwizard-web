@@ -22,11 +22,11 @@ export enum PerformanceType {
 
 export type PortfolioPerformance = {
   [PerformanceType.Portfolio]: {
-    days: number[],
+    weeks: number[],
     months: number[]
   },
   [PerformanceType.Spx]: {
-    days: number[],
+    weeks: number[],
     months: number[]
   },
   ratios? : {

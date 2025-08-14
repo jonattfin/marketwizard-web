@@ -1,6 +1,6 @@
 'use client';
 
-import {useState} from "react";
+import {Suspense, useState} from "react";
 import Tabs from '@mui/material/Tabs';
 import Tab from '@mui/material/Tab';
 import Box from '@mui/material/Box';
@@ -11,6 +11,7 @@ import Holdings from './portfolio-holdings';
 import {Grid, Slider} from "@mui/material";
 import {type Portfolio} from "@/api/types";
 import {PortfolioVsSpxLineChart, PortfolioHoldingsPieChart, PortfolioScatterChart} from "./charts";
+import Loading from "@/shared/loading";
 
 interface TabPanelProps {
   children?: React.ReactNode;
@@ -118,18 +119,24 @@ export default function PortfolioTabsComponent({portfolio}: PortfolioTabsCompone
       <CustomTabPanel value={value} index={0}>
         <>
           Overview
-          <PortfolioVsSpxLineChart portfolio={portfolio}/>
+          <Suspense fallback={<Loading/>}>
+            <PortfolioVsSpxLineChart portfolio={portfolio}/>
+          </Suspense>
           <News news={portfolio?.news || []}/>
         </>
       </CustomTabPanel>
       <CustomTabPanel value={value} index={1}>
         Holdings
-        <PortfolioHoldingsPieChart portfolio={portfolio}/>
+        <Suspense fallback={<Loading/>}>
+          <PortfolioHoldingsPieChart portfolio={portfolio}/>
+        </Suspense>
         <Holdings portfolio={portfolio}/>
       </CustomTabPanel>
       <CustomTabPanel value={value} index={2}>
         Analysis
-        <PortfolioScatterChart portfolio={portfolio}/>
+        <Suspense fallback={<Loading/>}>
+          <PortfolioScatterChart portfolio={portfolio}/>
+        </Suspense>
         {renderRisks()}
         <div>&nbsp;</div>
         {renderPerformance()}

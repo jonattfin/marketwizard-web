@@ -14,8 +14,8 @@ export default function PortfolioScatterChart({portfolio}: PortfolioScatterChart
     return;
   }
 
-  const portfolioData = portfolio?.performance[PerformanceType.Portfolio].days;
-  const spxData = portfolio?.performance[PerformanceType.Spx].days;
+  const portfolioData = portfolio?.performance[PerformanceType.Portfolio].weeks;
+  const spxData = portfolio?.performance[PerformanceType.Spx].weeks;
 
   return (
     <ScatterChart

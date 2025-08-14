@@ -15,38 +15,19 @@ import {
 function createPortfolioAssets(assets: Asset[]) {
   const portfolioAssets: PortfolioAsset[] = [];
 
-  const asmlAsset = assets.find(a => a.symbol === "ASML");
-  if (asmlAsset) {
-    portfolioAssets.push({
-      ...asmlAsset,
-      numberOfShares: 10,
-      pricePerShare: 700,
-      performance: random(-10, 10),
-      allocation: random(10, 90)
-    },)
-  }
+  ["ASML", "VWRL", "EXPO", "DECK", "LULU"].forEach(symbol => {
+    const asset = assets.find(a => a.symbol === symbol);
 
-  const vwrlAsset = assets.find(a => a.symbol === "VWRL");
-  if (vwrlAsset) {
-    portfolioAssets.push({
-      ...vwrlAsset,
-      numberOfShares: 10,
-      pricePerShare: 130,
-      performance: random(-10, 10),
-      allocation: random(10, 90)
-    },)
-  }
-
-  const suAsset = assets.find(a => a.symbol === "SU");
-  if (suAsset) {
-    portfolioAssets.push({
-      ...suAsset,
-      numberOfShares: 10,
-      pricePerShare: 200,
-      performance: random(-10, 10),
-      allocation: random(10, 90)
-    },)
-  }
+    if (asset) {
+      portfolioAssets.push({
+        ...asset,
+        numberOfShares: randomInt(10, 50),
+        pricePerShare: randomInt(10, 100),
+        performance: randomInt(-10, 20),
+        allocation: randomInt(10, 30)
+      })
+    }
+  })
 
   return orderBy(portfolioAssets, ['performance'], ['desc']);
 }
@@ -82,20 +63,20 @@ function createPortfolioNews() {
 }
 
 function createPortfolioPerformance() : PortfolioPerformance {
-  const currentMonth = 9;
-  const currentDay = 240;
+  const currentMonth = 8;
+  const currentWeek = 33;
 
-  const buildScatterData = () => range(1, currentDay).map(i => {
-    return random(5, 15)
+  const buildScatterData = () => range(1, currentWeek).map(() => {
+    return randomInt(5, 15)
   });
 
   const obj: PortfolioPerformance = {
     [PerformanceType.Spx]: {
-      days: [],
+      weeks: [],
       months: []
     },
     [PerformanceType.Portfolio]: {
-      days: [],
+      weeks: [],
       months: []
     },
     ratios: {
@@ -106,11 +87,11 @@ function createPortfolioPerformance() : PortfolioPerformance {
   };
 
   [PerformanceType.Portfolio, PerformanceType.Spx].forEach(pType => {
-    const data = range(0, currentMonth).map(() => random(1, 20));
+    const data = range(0, currentMonth + 1).map(() => random(1, 20));
 
     obj[pType] = {
       months: data,
-      days: buildScatterData(),
+      weeks: buildScatterData(),
     }
   })
 

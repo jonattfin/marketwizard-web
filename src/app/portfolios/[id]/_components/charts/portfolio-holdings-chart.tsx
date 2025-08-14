@@ -5,7 +5,7 @@ export type PortfolioHoldingsPieChartProps = {
   readonly portfolio?: Portfolio;
 }
 
-export default function PortfolioHoldingsPieChart({portfolio}: PortfolioHoldingsPieChartProps) {
+export default function PortfolioHoldingsPieChart({portfolio}: Readonly<PortfolioHoldingsPieChartProps>) {
   const data = portfolio?.assets.map(({id, symbol, allocation}) => ({
     id: id,
     value: allocation,

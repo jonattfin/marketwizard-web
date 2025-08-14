@@ -63,27 +63,28 @@ export default function PortfolioComponent({portfolio}: Readonly<PortfolioCompon
                   <PortfolioSummary {...{
                     title: "Portfolio value",
                     subtitle: "39.59 USD",
-                    note: "Cash -100000"
+                    note: "-"
                   }}/>
                 </Grid>
                 <Grid size={3}>
                   <PortfolioSummary {...{
                     title: "Unrealized gain",
                     subtitle: "+40.59 USD",
-                    note: "Last day -50 -0.33%"
+                    note: "-"
                   }}/>
                 </Grid>
                 <Grid size={3}>
                   <PortfolioSummary {...{
                     title: "Total gain",
                     subtitle: "+40.59 USD",
-                    note: "Realized gain 0.0"
+                    note: "-"
                   }}/>
                 </Grid>
                 <Grid size={3}>
                   <PortfolioSummary {...{
                     title: "Annualized yield",
                     subtitle: "23.17%",
+                    note: "_"
                   }}/>
                 </Grid>
               </Grid>
