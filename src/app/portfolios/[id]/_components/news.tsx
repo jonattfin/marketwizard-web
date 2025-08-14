@@ -28,7 +28,7 @@ const columns: GridColDef<PortfolioNews>[] = [
 ];
 
 export type DataGridProps = {
-  news: PortfolioNews[];
+  readonly news: PortfolioNews[];
 }
 
 export default function DataGridDemoP({news = []}: DataGridProps) {

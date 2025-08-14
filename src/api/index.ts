@@ -71,8 +71,6 @@ function createPortfolioNews() {
   return news;
 }
 
-export const watchlist: Asset[] = createWatchlist();
-
 function createPortfolios(assets: PortfolioAsset[]) {
 
   const portfolios: Portfolio[] = [];
@@ -181,8 +179,6 @@ function createPortfolios(assets: PortfolioAsset[]) {
   return portfolios;
 }
 
-export const portfolios = createPortfolios(createPortfolioAssets(watchlist));
-
 function createWatchlist() {
   const createStocks = (): Asset[] => {
     const assets: Asset[] = [];
@@ -257,3 +253,14 @@ function createAsset(id: string, price: number, symbol: string, chg: number, des
 function asPercentage(x: number, y: number) {
   return Number(((y / x) * 100).toFixed(2));
 }
+
+const watchlist: Asset[] = createWatchlist();
+const portfolios = createPortfolios(createPortfolioAssets(watchlist));
+
+const api = {
+  fetchWatchlist: () => Promise.resolve(watchlist),
+  fetchPortfolios: () => Promise.resolve(portfolios),
+  fetchPortfolioById : (id: string) => Promise.resolve(portfolios.find(portfolio => portfolio.id === id)),
+}
+
+export default api;

@@ -15,11 +15,10 @@ const CustomBox = styled(Box)`
 `;
 
 export type WatchlistMenuProps = {
-  assets: Asset[];
+  readonly assets: Asset[];
 }
 
 export default function WatchlistMenu({assets}: WatchlistMenuProps) {
-
   return (
     <CustomBox>
       <Accordion defaultExpanded>

@@ -13,7 +13,7 @@ const CustomLink = styled(Link)`
 `;
 
 export type PortfolioCardProps = {
-  portfolio?: Portfolio;
+  readonly portfolio?: Portfolio;
 }
 
 export default function PortfolioCard({portfolio}: PortfolioCardProps) {

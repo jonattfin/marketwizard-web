@@ -1,8 +1,10 @@
 
+'use client';
+
 import PortfolioTabs from './_components/portfolioTabs';
 import SummaryPortfolioCard from "./_components/summaryPortfolioCard";
 
-import {portfolios} from "@/api";
+import api from "@/api";
 import Box from "@mui/material/Box";
 import {Accordion, Breadcrumbs, CardContent, CardMedia, Grid} from "@mui/material";
 import Typography from "@mui/material/Typography";
@@ -11,12 +13,19 @@ import ExpandMoreIcon from "@mui/icons-material/ExpandMore";
 import AccordionDetails from "@mui/material/AccordionDetails";
 import Card from "@mui/material/Card";
 import Link from 'next/link'
+import {useEffect, useState} from "react";
+import {type Portfolio} from "@/api/types";
 
-export default async function Portfolio({params}: {
-  params: Promise<{ id: string }>
-}) {
-  const {id} = await params;
-  const portfolio = portfolios.find((portfolio) => portfolio.id === id);
+export default function Portfolio() {
+  const [portfolio, setPortfolio] = useState<Portfolio | undefined>();
+
+  useEffect(() => {
+    async function fetchPortfolio() {
+      const portfolio = await api.fetchPortfolioById("11");
+      setPortfolio(portfolio)
+    }
+    fetchPortfolio().catch(console.error)
+  }, []);
 
   return (
     <>

@@ -20,7 +20,7 @@ import Link from "next/link";
 import HomeIcon from '@mui/icons-material/Home';
 import LightModeIcon from '@mui/icons-material/LightMode';
 import DarkModeIcon from '@mui/icons-material/DarkMode';
-import {Switch} from "@mui/material";
+import {DarkTheme, LightTheme} from "@/app/constants";
 
 const Search = styled('div')(({theme}) => ({
   position: 'relative',
@@ -63,11 +63,11 @@ const StyledInputBase = styled(InputBase)(({theme}) => ({
 }));
 
 type PrimarySearchAppBarProps = {
-  theme: string;
-  setThemeAction: (theme: string) => void;
+  readonly appTheme: string;
+  readonly setAppTheme: (theme: string) => void;
 }
 
-export default function PrimarySearchAppBar({theme, setThemeAction}:PrimarySearchAppBarProps) {
+export default function PrimarySearchAppBar({appTheme, setAppTheme}:PrimarySearchAppBarProps) {
   const [anchorEl, setAnchorEl] = React.useState<null | HTMLElement>(null);
   const [mobileMoreAnchorEl, setMobileMoreAnchorEl] =
     React.useState<null | HTMLElement>(null);
@@ -189,9 +189,14 @@ export default function PrimarySearchAppBar({theme, setThemeAction}:PrimarySearc
           <TemplateMenu name={"More..."}></TemplateMenu>
           <Box sx={{flexGrow: 1}}/>
           <Box sx={{display: {xs: 'none', md: 'flex'}}}>
-            <LightModeIcon ></LightModeIcon>
-            <Switch checked={theme==="dark"} onClick={() => setThemeAction(theme === "light"? "dark": "light")}></Switch>
-            <DarkModeIcon></DarkModeIcon>
+            {appTheme === DarkTheme && (
+              <LightModeIcon onClick={() => setAppTheme(LightTheme)}></LightModeIcon>
+            )}
+
+            {appTheme === LightTheme && (
+              <DarkModeIcon onClick ={() => setAppTheme(DarkTheme)}></DarkModeIcon>
+            )}
+
             <IconButton size="large" aria-label="show 4 new mails" color="inherit">
               <Badge badgeContent={4} color="error">
                 <MailIcon/>

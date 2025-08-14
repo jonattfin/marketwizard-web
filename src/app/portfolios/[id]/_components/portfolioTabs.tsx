@@ -34,7 +34,7 @@ function CustomTabPanel(props: TabPanelProps) {
 }
 
 export type PortfolioTabsProps = {
-  portfolio?: Portfolio;
+  readonly portfolio?: Portfolio;
 }
 
 export default function PortfolioTabs({portfolio}: PortfolioTabsProps) {

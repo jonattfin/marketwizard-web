@@ -2,16 +2,15 @@
 
 import {Geist, Geist_Mono} from "next/font/google";
 
-import {ThemeProvider, createTheme} from '@mui/material/styles';
+import {ThemeProvider, createTheme, styled} from '@mui/material/styles';
 import CssBaseline from '@mui/material/CssBaseline';
 import Box from '@mui/material/Box';
-import {styled} from "@mui/material/styles";
 
 import {Analytics} from "@vercel/analytics/next"
 import {SpeedInsights} from "@vercel/speed-insights/next"
 
 import AppMenu from '../components/menus';
-import {useState} from 'react';
+import {useEffect, useState} from 'react';
 
 // for MUI
 import '@fontsource/roboto/300.css';
@@ -22,7 +21,9 @@ import '@fontsource/roboto/700.css';
 import "./globals.css";
 import {Grid} from "@mui/material";
 import WatchlistMenu from "@/components/menus/watchlistMenu";
-import {watchlist} from "@/api";
+import api from "@/api";
+import {DarkTheme, LightTheme} from "@/app/constants";
+import {Asset} from "@/api/types";
 
 const geistSans = Geist({
   variable: "--font-geist-sans",
@@ -36,13 +37,13 @@ const geistMono = Geist_Mono({
 
 const darkTheme = createTheme({
   palette: {
-    mode: 'dark',
+    mode: DarkTheme
   },
 });
 
 const lightTheme = createTheme({
   palette: {
-    mode: 'light',
+    mode: LightTheme,
   },
 });
 
@@ -55,7 +56,16 @@ export default function RootLayout({
                                    }: Readonly<{
   children: React.ReactNode;
 }>) {
-  const [theme, setThemeAction] = useState<string>("dark");
+  const [appTheme, setAppTheme] = useState<string>(DarkTheme);
+  const [watchlist, setWatchlist] = useState<Asset[]>([]);
+
+  useEffect(() => {
+    async function fetchWatchlist() {
+      const watchlist = await api.fetchWatchlist();
+      setWatchlist(watchlist);
+    }
+    fetchWatchlist().catch(console.error);
+  }, []);
 
   return (
     <html lang="en">
@@ -65,14 +75,14 @@ export default function RootLayout({
         href="https://fonts.googleapis.com/icon?family=Material+Icons"
       />
     </head>
-    <ThemeProvider theme={theme=== "dark"? darkTheme: lightTheme}>
+    <ThemeProvider theme={appTheme === "dark"? darkTheme: lightTheme}>
       <CssBaseline/>
       <body className={`${geistSans.variable} ${geistMono.variable}`}>
       <Grid container spacing={0}>
         <Grid size={9}>
           <CustomBox>
             <header>
-              <AppMenu {...{theme, setThemeAction}}/>
+              <AppMenu {...{appTheme, setAppTheme}}/>
             </header>
             <main>
               {children}

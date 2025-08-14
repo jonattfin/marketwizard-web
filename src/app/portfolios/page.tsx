@@ -2,9 +2,21 @@
 
 import {Grid} from "@mui/material";
 import PortfolioCard from "./_components/portfolioCard"
-import {portfolios} from "@/api";
+import api from "@/api";
+import {useEffect, useState} from "react";
+import {Portfolio} from "@/api/types";
 
 export default function Portfolios() {
+  const [portfolios, setPortfolios] = useState<Portfolio[]>([]);
+
+  useEffect(() => {
+    async function fetchPortfolios() {
+      const portfolios = await api.fetchPortfolios();
+      setPortfolios(portfolios);
+    }
+    fetchPortfolios().catch(console.error);
+  }, []);
+
   return (
     <div>
       <h2>Portfolios</h2>
