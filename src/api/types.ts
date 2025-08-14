@@ -15,20 +15,15 @@ export type PortfolioNews = {
   provider: string;
 }
 
-export enum PerformanceType {
-  Portfolio,
-  Spx
+export type AssetInsights = {
+  weeks: number[],
+  months: number[],
 }
 
 export type PortfolioPerformance = {
-  [PerformanceType.Portfolio]: {
-    weeks: number[],
-    months: number[]
-  },
-  [PerformanceType.Spx]: {
-    weeks: number[],
-    months: number[]
-  },
+  insights: {
+    [key: string]: AssetInsights,
+  }
   ratios? : {
     beta: number,
     sharpe: number,

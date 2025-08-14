@@ -10,7 +10,11 @@ import News from './portfolio-news';
 import Holdings from './portfolio-holdings';
 import {Grid, Slider} from "@mui/material";
 import {type Portfolio} from "@/api/types";
-import {PortfolioVsSpxLineChart, PortfolioHoldingsPieChart, PortfolioScatterChart} from "./charts";
+import {
+  PortfolioVsSpxLineChart,
+  PortfolioScatterChart,
+  PortfolioHoldingsLineChart
+} from "./charts";
 import Loading from "@/shared/loading";
 
 interface TabPanelProps {
@@ -128,7 +132,7 @@ export default function PortfolioTabsComponent({portfolio}: PortfolioTabsCompone
       <CustomTabPanel value={value} index={1}>
         Holdings
         <Suspense fallback={<Loading/>}>
-          <PortfolioHoldingsPieChart portfolio={portfolio}/>
+          <PortfolioHoldingsLineChart portfolio={portfolio}/>
         </Suspense>
         <Holdings portfolio={portfolio}/>
       </CustomTabPanel>

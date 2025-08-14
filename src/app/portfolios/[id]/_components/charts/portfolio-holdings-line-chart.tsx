@@ -3,11 +3,11 @@ import {LineChart} from "@mui/x-charts/LineChart";
 import {Portfolio} from "@/api/types";
 import {getMonthName} from "@/app/constants";
 
-type PortfolioVsSpxLineChartProps = {
+type PortfolioHoldingsLineChartProps = {
   portfolio?: Portfolio;
 }
 
-export default function PortfolioVsSpxLineChart({portfolio}: PortfolioVsSpxLineChartProps) {
+export default function PortfolioHoldingsLineChart({portfolio}: PortfolioHoldingsLineChartProps) {
   if (!portfolio) {
     return null;
   }
@@ -15,13 +15,14 @@ export default function PortfolioVsSpxLineChart({portfolio}: PortfolioVsSpxLineC
   const series = [];
   let numberOfMonths = 0;
   for (const performanceKey in portfolio?.performance.insights) {
-    if (performanceKey !== 'SPX' && performanceKey !== 'Portfolio') {
+    if (performanceKey === 'SPX' || performanceKey === 'Portfolio') {
       continue;
     }
 
     series.push({
       data: portfolio?.performance?.insights[performanceKey]?.months,
-      label: performanceKey
+      label: performanceKey,
+      showMark: false
     })
 
     numberOfMonths = portfolio?.performance?.insights[performanceKey]?.months?.length;

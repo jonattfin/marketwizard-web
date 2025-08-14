@@ -1,9 +1,9 @@
 'use client';
 
 import * as React from 'react';
-import { ScatterChart } from '@mui/x-charts/ScatterChart';
+import {ScatterChart} from '@mui/x-charts/ScatterChart';
 
-import {PerformanceType, Portfolio} from "@/api/types";
+import {Portfolio} from "@/api/types";
 
 export type PortfolioScatterChartProps = {
   portfolio?: Portfolio;
@@ -14,22 +14,24 @@ export default function PortfolioScatterChart({portfolio}: PortfolioScatterChart
     return;
   }
 
-  const portfolioData = portfolio?.performance[PerformanceType.Portfolio].weeks;
-  const spxData = portfolio?.performance[PerformanceType.Spx].weeks;
+  const series = [];
+  for (const performanceKey in portfolio?.performance.insights) {
+    if (performanceKey === 'SPX' || performanceKey === 'Portfolio') {
+      continue;
+    }
+
+    series.push({
+      data: portfolio?.performance?.insights[performanceKey]?.weeks.map((value, index) => {
+        return ({x: index, y: value, id: `data-${index}`})
+      }),
+      label: performanceKey
+    })
+  }
 
   return (
     <ScatterChart
       height={300}
-      series={[
-        {
-          label: 'Portfolio',
-          data: portfolioData.map((value, indice) => ({ x: indice, y: value, id: `data-${indice}` })),
-        },
-        {
-          label: 'SPX',
-          data: spxData.map((value, indice) => ({ x: indice, y: value, id: `data-${indice}` })),
-        },
-      ]}
+      series={series}
     />
   );
 }
