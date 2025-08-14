@@ -15,6 +15,27 @@ export type PortfolioNews = {
   provider: string;
 }
 
+export enum PerformanceType {
+  Portfolio,
+  Spx
+}
+
+export type PortfolioPerformance = {
+  [PerformanceType.Portfolio]: {
+    days: number[],
+    months: number[]
+  },
+  [PerformanceType.Spx]: {
+    days: number[],
+    months: number[]
+  },
+  ratios? : {
+    beta: number,
+    sharpe: number,
+    sortino: number,
+  }
+}
+
 export type Portfolio = {
   id: string;
   name: string;
@@ -29,6 +50,7 @@ export type Portfolio = {
   maximumDrawdown: number;
   assets: PortfolioAsset[];
   news: PortfolioNews[];
+  performance: PortfolioPerformance;
 }
 
 export enum AssetType {

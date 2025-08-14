@@ -4,12 +4,13 @@ import {useState} from "react";
 import Tabs from '@mui/material/Tabs';
 import Tab from '@mui/material/Tab';
 import Box from '@mui/material/Box';
+import {range} from "@es-toolkit/es-toolkit";
 
-import {BasicPieChart, BasicLineChart, BasicScatterChart} from './portfolio-charts';
 import News from './portfolio-news';
 import Holdings from './portfolio-holdings';
 import {Grid, Slider} from "@mui/material";
 import {type Portfolio} from "@/api/types";
+import {PortfolioVsSpxLineChart, PortfolioHoldingsPieChart, PortfolioScatterChart} from "./charts";
 
 interface TabPanelProps {
   children?: React.ReactNode;
@@ -44,6 +45,15 @@ export default function PortfolioTabsComponent({portfolio}: PortfolioTabsCompone
     setValue(newValue);
   };
 
+  const buildMarks = (maxValue = 0) => {
+    return range(maxValue + 1).map((_, i) => (
+      {
+        value: i,
+        label: i
+      }
+    ));
+  }
+
   const renderRisks = () => {
     return (
       <>
@@ -52,17 +62,17 @@ export default function PortfolioTabsComponent({portfolio}: PortfolioTabsCompone
           <Grid size={4}>
             <h4>Beta</h4>
             Should have enough data to analyze by Sep 1 2025
-            <Slider defaultValue={1} max={2} color={"error"}/>
+            <Slider defaultValue={portfolio?.performance?.ratios?.beta} max={2} color={"error"} marks={buildMarks(2)}/>
           </Grid>
           <Grid size={4}>
             <h4>Sharpe ratio</h4>
             Should have enough data to analyze by Sep 1 2025
-            <Slider defaultValue={1} max={3} color="success"/>
+            <Slider defaultValue={portfolio?.performance?.ratios?.sharpe} max={3} color="success" marks={buildMarks(3)}/>
           </Grid>
           <Grid size={4}>
             <h4>Sortino ratio</h4>
             Should have enough data to analyze by Sep 1 2025
-            <Slider defaultValue={2} max={5} color="warning"/>
+            <Slider defaultValue={portfolio?.performance?.ratios?.sortino} max={5} color="warning" marks={buildMarks(5)}/>
           </Grid>
         </Grid>
       </>
@@ -83,7 +93,7 @@ export default function PortfolioTabsComponent({portfolio}: PortfolioTabsCompone
                 <Slider defaultValue={Math.abs(performance)} max={20} color={performance >= 0 ? "success" : "error"}/>
               </Grid>
               <Grid size={1}>
-                {performance}%
+                {performance.toPrecision(3)}%
               </Grid>
             </>
           ))}
@@ -108,18 +118,18 @@ export default function PortfolioTabsComponent({portfolio}: PortfolioTabsCompone
       <CustomTabPanel value={value} index={0}>
         <>
           Overview
-          <BasicLineChart/>
+          <PortfolioVsSpxLineChart portfolio={portfolio}/>
           <News news={portfolio?.news || []}/>
         </>
       </CustomTabPanel>
       <CustomTabPanel value={value} index={1}>
         Holdings
-        <BasicPieChart portfolio={portfolio}/>
+        <PortfolioHoldingsPieChart portfolio={portfolio}/>
         <Holdings portfolio={portfolio}/>
       </CustomTabPanel>
       <CustomTabPanel value={value} index={2}>
         Analysis
-        <BasicScatterChart/>
+        <PortfolioScatterChart portfolio={portfolio}/>
         {renderRisks()}
         <div>&nbsp;</div>
         {renderPerformance()}

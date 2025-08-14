@@ -1,6 +1,16 @@
-import {Asset, AssetType, Portfolio, PortfolioAsset, PortfolioNews, RiskLevel} from './types'
+import {random, randomInt, orderBy, range} from "@es-toolkit/es-toolkit";
 
-import {random, orderBy} from "@es-toolkit/es-toolkit";
+import {
+  Asset,
+  AssetType,
+  PerformanceType,
+  Portfolio,
+  PortfolioAsset,
+  PortfolioNews,
+  PortfolioPerformance,
+  RiskLevel
+} from './types'
+
 
 function createPortfolioAssets(assets: Asset[]) {
   const portfolioAssets: PortfolioAsset[] = [];
@@ -71,6 +81,42 @@ function createPortfolioNews() {
   return news;
 }
 
+function createPortfolioPerformance() : PortfolioPerformance {
+  const currentMonth = 9;
+  const currentDay = 240;
+
+  const buildScatterData = () => range(1, currentDay).map(i => {
+    return random(5, 15)
+  });
+
+  const obj: PortfolioPerformance = {
+    [PerformanceType.Spx]: {
+      days: [],
+      months: []
+    },
+    [PerformanceType.Portfolio]: {
+      days: [],
+      months: []
+    },
+    ratios: {
+      beta: randomInt(1,2),
+      sharpe: randomInt(1, 3),
+      sortino: randomInt(1, 5)
+    }
+  };
+
+  [PerformanceType.Portfolio, PerformanceType.Spx].forEach(pType => {
+    const data = range(0, currentMonth).map(() => random(1, 20));
+
+    obj[pType] = {
+      months: data,
+      days: buildScatterData(),
+    }
+  })
+
+  return obj;
+}
+
 function createPortfolios(assets: PortfolioAsset[]) {
 
   const portfolios: Portfolio[] = [];
@@ -92,7 +138,8 @@ function createPortfolios(assets: PortfolioAsset[]) {
     2.09,
     6.03,
     assets,
-    createPortfolioNews()
+    createPortfolioNews(),
+    createPortfolioPerformance()
   ));
 
   portfolios.push(createPortfolio(
@@ -112,7 +159,8 @@ function createPortfolios(assets: PortfolioAsset[]) {
     5.55,
     4.85,
     assets,
-    createPortfolioNews()
+    createPortfolioNews(),
+    createPortfolioPerformance()
   ));
 
   portfolios.push(createPortfolio(
@@ -132,7 +180,8 @@ function createPortfolios(assets: PortfolioAsset[]) {
     10.13,
     7.58,
     assets,
-    createPortfolioNews()
+    createPortfolioNews(),
+    createPortfolioPerformance()
   ));
 
   portfolios.push(createPortfolio(
@@ -152,7 +201,8 @@ function createPortfolios(assets: PortfolioAsset[]) {
     12.09,
     10.6,
     assets,
-    createPortfolioNews()
+    createPortfolioNews(),
+    createPortfolioPerformance()
   ));
 
   portfolios.push(createPortfolio(
@@ -172,7 +222,8 @@ function createPortfolios(assets: PortfolioAsset[]) {
     15.6,
     13.37,
     assets,
-    createPortfolioNews()
+    createPortfolioNews(),
+    createPortfolioPerformance()
   ));
 
   return portfolios;
@@ -218,7 +269,7 @@ function createWatchlist() {
 function createPortfolio(
   id: string, name: string, description: string, imageUrl: string, lastUpdated: string, totalAmount: number, risk: RiskLevel,
   averageAnnualReturn: number, standardDeviation: number, sharpeRatio: number, maximumDrawdown: number,
-  assets: PortfolioAsset[] = [], news: PortfolioNews[] = []
+  assets: PortfolioAsset[] = [], news: PortfolioNews[] = [], performance: PortfolioPerformance
 ) {
   return {
     id,
@@ -234,6 +285,7 @@ function createPortfolio(
     maximumDrawdown,
     assets,
     news,
+    performance
   }
 }
 

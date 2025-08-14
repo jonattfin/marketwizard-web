@@ -190,11 +190,15 @@ export default function PrimarySearchAppBar({appTheme, setAppTheme}:PrimarySearc
           <Box sx={{flexGrow: 1}}/>
           <Box sx={{display: {xs: 'none', md: 'flex'}}}>
             {appTheme === DarkTheme && (
-              <LightModeIcon onClick={() => setAppTheme(LightTheme)}></LightModeIcon>
+              <IconButton>
+                <LightModeIcon onClick={() => setAppTheme(LightTheme)}></LightModeIcon>
+              </IconButton>
             )}
 
             {appTheme === LightTheme && (
-              <DarkModeIcon onClick ={() => setAppTheme(DarkTheme)}></DarkModeIcon>
+              <IconButton>
+                <DarkModeIcon onClick ={() => setAppTheme(DarkTheme)}></DarkModeIcon>
+              </IconButton>
             )}
 
             <IconButton size="large" aria-label="show 4 new mails" color="inherit">
