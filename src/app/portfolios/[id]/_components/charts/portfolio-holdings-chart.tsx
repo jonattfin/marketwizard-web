@@ -1,12 +1,12 @@
 import { PieChart } from "@mui/x-charts";
-import {Portfolio} from "@/api/types";
+import {PortfolioAsset} from "@/api/types";
 
 export type PortfolioHoldingsPieChartProps = {
-  readonly portfolio?: Portfolio;
+  readonly assets: PortfolioAsset[];
 }
 
-export default function PortfolioHoldingsPieChart({portfolio}: Readonly<PortfolioHoldingsPieChartProps>) {
-  const data = portfolio?.assets.map(({id, symbol, allocation}) => ({
+export default function PortfolioHoldingsPieChart({assets}: Readonly<PortfolioHoldingsPieChartProps>) {
+  const data = assets.map(({id, symbol, allocation}) => ({
     id: id,
     value: allocation,
     label: symbol,

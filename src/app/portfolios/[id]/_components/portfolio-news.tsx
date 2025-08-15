@@ -28,7 +28,7 @@ const columns: GridColDef<PortfolioNews>[] = [
 ];
 
 export type PortfolioNewsComponentProps = {
-  news: PortfolioNews[];
+  news?: PortfolioNews[];
 }
 
 export default function PortfolioNewsComponent({news = []}: PortfolioNewsComponentProps) {

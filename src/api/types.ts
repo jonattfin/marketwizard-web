@@ -43,9 +43,6 @@ export type Portfolio = {
   standardDeviation: number;
   sharpeRatio: number;
   maximumDrawdown: number;
-  assets: PortfolioAsset[];
-  news: PortfolioNews[];
-  performance: PortfolioPerformance;
 }
 
 export enum AssetType {

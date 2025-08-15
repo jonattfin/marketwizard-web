@@ -88,7 +88,7 @@ function createPortfolioPerformance(assets: PortfolioAsset[]): PortfolioPerforma
   return obj;
 }
 
-function createPortfolios(assets: PortfolioAsset[]) {
+function createPortfolios() {
 
   const portfolios: Portfolio[] = [];
 
@@ -108,9 +108,6 @@ function createPortfolios(assets: PortfolioAsset[]) {
     -10.28,
     2.09,
     6.03,
-    createPortfolioPerformance(assets),
-    assets,
-    createPortfolioNews(),
   ));
 
   portfolios.push(createPortfolio(
@@ -129,9 +126,6 @@ function createPortfolios(assets: PortfolioAsset[]) {
     -16.05,
     5.55,
     4.85,
-    createPortfolioPerformance(assets),
-    assets,
-    createPortfolioNews(),
   ));
 
   portfolios.push(createPortfolio(
@@ -150,9 +144,6 @@ function createPortfolios(assets: PortfolioAsset[]) {
     -21.76,
     10.13,
     7.58,
-    createPortfolioPerformance(assets),
-    assets,
-    createPortfolioNews(),
   ));
 
   portfolios.push(createPortfolio(
@@ -171,9 +162,6 @@ function createPortfolios(assets: PortfolioAsset[]) {
     -25.28,
     12.09,
     10.6,
-    createPortfolioPerformance(assets),
-    assets,
-    createPortfolioNews(),
   ));
 
   portfolios.push(createPortfolio(
@@ -192,9 +180,6 @@ function createPortfolios(assets: PortfolioAsset[]) {
     -29.28,
     15.6,
     13.37,
-    createPortfolioPerformance(assets),
-    assets,
-    createPortfolioNews(),
   ));
 
   return portfolios;
@@ -239,8 +224,7 @@ function createWatchlist() {
 
 function createPortfolio(
   id: string, name: string, description: string, imageUrl: string, lastUpdated: string, totalAmount: number, risk: RiskLevel,
-  averageAnnualReturn: number, standardDeviation: number, sharpeRatio: number, maximumDrawdown: number,
-  performance: PortfolioPerformance, assets: PortfolioAsset[] = [], news: PortfolioNews[] = []
+  averageAnnualReturn: number, standardDeviation: number, sharpeRatio: number, maximumDrawdown: number
 ) {
   return {
     id,
@@ -254,9 +238,6 @@ function createPortfolio(
     standardDeviation,
     sharpeRatio,
     maximumDrawdown,
-    assets,
-    news,
-    performance
   }
 }
 
@@ -285,12 +266,18 @@ async function withDelay<T>(data: T, delayTime: number = 0): Promise<T> {
 }
 
 const watchlist: Asset[] = createWatchlist();
-const portfolios = createPortfolios(createPortfolioAssets(watchlist));
+const portfolios = createPortfolios();
+const news = createPortfolioNews();
+const assets = createPortfolioAssets(watchlist);
+const performance = createPortfolioPerformance(assets);
 
 const api = {
   fetchWatchlist: () => withDelay(watchlist),
   fetchPortfolios: () => withDelay(portfolios),
-  fetchPortfolioById: (id: string) => withDelay(portfolios.find(portfolio => portfolio.id === id)),
+  fetchPortfolioById: (id?: string) => withDelay(portfolios.find(portfolio => portfolio.id === id)),
+  fetchPortfolioNewsById: (id?: string) => withDelay(news),
+  fetchPortfolioAssetsById: (id?: string) => withDelay(assets),
+  fetchPortfolioPerformanceById: (id?: string) => withDelay(performance)
 }
 
 export default api;

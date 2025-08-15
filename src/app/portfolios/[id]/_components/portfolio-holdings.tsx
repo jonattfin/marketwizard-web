@@ -1,7 +1,7 @@
 import * as React from 'react';
 import Box from '@mui/material/Box';
 import {DataGrid, GridColDef} from '@mui/x-data-grid';
-import {type PortfolioAsset, type Portfolio} from '@/api/types'
+import {type PortfolioAsset} from '@/api/types'
 
 const columns: GridColDef<PortfolioAsset>[] = [
   {field: 'id', headerName: 'ID', width: 90},
@@ -33,16 +33,16 @@ const columns: GridColDef<PortfolioAsset>[] = [
 ];
 
 export type PortfolioHoldingsComponentProps = {
-  portfolio?: Portfolio;
+  assets: PortfolioAsset[];
 };
 
-export default function PortfolioHoldingsComponent({portfolio}: PortfolioHoldingsComponentProps) {
+export default function PortfolioHoldingsComponent({assets = []}: PortfolioHoldingsComponentProps) {
   return (
     <>
       <h3>Holdings</h3>
       <Box sx={{height: 500, width: '100%'}}>
         <DataGrid
-          rows={portfolio?.assets}
+          rows={assets}
           columns={columns}
           initialState={{
             pagination: {

@@ -95,7 +95,7 @@ export default function PortfolioComponent({portfolio}: Readonly<PortfolioCompon
       </Card>
       <br/>
       <Box>
-        <PortfolioTabs portfolio={portfolio}/>
+        <PortfolioTabs portfolioId={portfolio?.id}/>
       </Box>
     </>
   );

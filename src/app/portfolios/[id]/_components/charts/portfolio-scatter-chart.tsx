@@ -3,25 +3,25 @@
 import * as React from 'react';
 import {ScatterChart} from '@mui/x-charts/ScatterChart';
 
-import {Portfolio} from "@/api/types";
+import {PortfolioPerformance} from "@/api/types";
 
 export type PortfolioScatterChartProps = {
-  portfolio?: Portfolio;
+  performance?: PortfolioPerformance;
 }
 
-export default function PortfolioScatterChart({portfolio}: Readonly<PortfolioScatterChartProps>) {
-  if (!portfolio) {
+export default function PortfolioScatterChart({performance}: Readonly<PortfolioScatterChartProps>) {
+  if (!performance) {
     return;
   }
 
   const series = [];
-  for (const performanceKey in portfolio?.performance.insights) {
+  for (const performanceKey in performance?.insights) {
     if (performanceKey === 'SPX' || performanceKey === 'Portfolio') {
       continue;
     }
 
     series.push({
-      data: portfolio?.performance?.insights[performanceKey]?.weeks.map((value, index) => {
+      data: performance?.insights[performanceKey]?.weeks.map((value, index) => {
         return ({x: index, y: value, id: `data-${index}`})
       }),
       label: performanceKey

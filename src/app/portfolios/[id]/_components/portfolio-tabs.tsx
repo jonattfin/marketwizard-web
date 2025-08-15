@@ -1,6 +1,6 @@
 'use client';
 
-import {Suspense, useState} from "react";
+import {Suspense, useEffect, useState} from "react";
 import Tabs from '@mui/material/Tabs';
 import Tab from '@mui/material/Tab';
 import Box from '@mui/material/Box';
@@ -9,13 +9,13 @@ import {range} from "@es-toolkit/es-toolkit";
 import News from './portfolio-news';
 import Holdings from './portfolio-holdings';
 import {Grid, Slider} from "@mui/material";
-import {type Portfolio} from "@/api/types";
+import {PortfolioAsset, PortfolioNews, PortfolioPerformance} from "@/api/types";
 import {
   PortfolioVsSpxLineChart,
   PortfolioScatterChart,
-  PortfolioHoldingsLineChart
 } from "./charts";
 import Loading from "@/shared/loading";
+import api from "@/api";
 
 interface TabPanelProps {
   children?: React.ReactNode;
@@ -40,11 +40,36 @@ function CustomTabPanel(props: TabPanelProps) {
 }
 
 export type PortfolioTabsComponentProps = {
-  readonly portfolio?: Portfolio;
+  readonly portfolioId?: string;
 }
 
-export default function PortfolioTabsComponent({portfolio}: PortfolioTabsComponentProps) {
+export default function PortfolioTabsComponent({portfolioId}: PortfolioTabsComponentProps) {
   const [value, setValue] = useState(0);
+  const [performance, setPerformance] = useState<PortfolioPerformance>();
+  const [assets, setAssets] = useState<PortfolioAsset[]>([]);
+  const [news, setNews] = useState<PortfolioNews[]>([])
+
+  useEffect(() => {
+    async function fetchPerformance() {
+      const performance = await api.fetchPortfolioPerformanceById(portfolioId);
+      setPerformance(performance);
+    }
+
+    async function fetchAssets() {
+      const assets = await api.fetchPortfolioAssetsById(portfolioId);
+      setAssets(assets);
+    }
+
+    async function fetchNews() {
+      const news = await api.fetchPortfolioNewsById(portfolioId);
+      setNews(news);
+    }
+
+    fetchPerformance().catch(console.error);
+    fetchAssets().finally(console.error);
+    fetchNews().finally(console.error);
+
+  }, [portfolioId])
 
   const handleChange = (event: React.SyntheticEvent, newValue: number) => {
     setValue(newValue);
@@ -67,17 +92,17 @@ export default function PortfolioTabsComponent({portfolio}: PortfolioTabsCompone
           <Grid size={4}>
             <h4>Beta</h4>
             Should have enough data to analyze by Sep 1 2025
-            <Slider defaultValue={portfolio?.performance?.ratios?.beta} max={2} color={"error"} marks={buildMarks(2)}/>
+            <Slider defaultValue={performance?.ratios?.beta} max={2} color={"error"} marks={buildMarks(2)}/>
           </Grid>
           <Grid size={4}>
             <h4>Sharpe ratio</h4>
             Should have enough data to analyze by Sep 1 2025
-            <Slider defaultValue={portfolio?.performance?.ratios?.sharpe} max={3} color="success" marks={buildMarks(3)}/>
+            <Slider defaultValue={performance?.ratios?.sharpe} max={3} color="success" marks={buildMarks(3)}/>
           </Grid>
           <Grid size={4}>
             <h4>Sortino ratio</h4>
             Should have enough data to analyze by Sep 1 2025
-            <Slider defaultValue={portfolio?.performance?.ratios?.sortino} max={5} color="warning" marks={buildMarks(5)}/>
+            <Slider defaultValue={performance?.ratios?.sortino} max={5} color="warning" marks={buildMarks(5)}/>
           </Grid>
         </Grid>
       </>
@@ -89,7 +114,7 @@ export default function PortfolioTabsComponent({portfolio}: PortfolioTabsCompone
       <>
         <h3>Holdings performance</h3>
         <Grid container spacing={2}>
-          {portfolio?.assets.map(({symbol, performance}) => (
+          {assets.map(({symbol, performance}) => (
             <>
               <Grid size={1}>
                 {symbol}
@@ -124,26 +149,26 @@ export default function PortfolioTabsComponent({portfolio}: PortfolioTabsCompone
         <>
           Overview
           <Suspense fallback={<Loading/>}>
-            <PortfolioVsSpxLineChart portfolio={portfolio}/>
+            <PortfolioVsSpxLineChart performance={performance}/>
+            <News news={news}/>
           </Suspense>
-          <News news={portfolio?.news || []}/>
         </>
       </CustomTabPanel>
       <CustomTabPanel value={value} index={1}>
         Holdings
         <Suspense fallback={<Loading/>}>
-          <PortfolioHoldingsLineChart portfolio={portfolio}/>
+          {/*<PortfolioHoldingsLineChart performance={performance}/>*/}
+          <Holdings assets={assets}/>
         </Suspense>
-        <Holdings portfolio={portfolio}/>
       </CustomTabPanel>
       <CustomTabPanel value={value} index={2}>
         Analysis
         <Suspense fallback={<Loading/>}>
-          <PortfolioScatterChart portfolio={portfolio}/>
+          <PortfolioScatterChart performance={performance}/>
+          {renderRisks()}
+          <div>&nbsp;</div>
+          {renderPerformance()}
         </Suspense>
-        {renderRisks()}
-        <div>&nbsp;</div>
-        {renderPerformance()}
       </CustomTabPanel>
     </Box>
   );
