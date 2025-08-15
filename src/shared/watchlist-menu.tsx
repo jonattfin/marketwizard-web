@@ -8,57 +8,81 @@ import ExpandMoreIcon from '@mui/icons-material/ExpandMore';
 import Box from "@mui/material/Box";
 import DataTable from './datatable'
 import {styled} from "@mui/material/styles";
-import {type Asset, AssetType} from "@/api/types";
+import {type Asset} from "@/api/types";
+import {Suspense} from "react";
+import {gql, TypedDocumentNode, useSuspenseQuery} from "@apollo/client";
+import Loading from "@/shared/loading";
 
 const CustomBox = styled(Box)`
-  padding: 0 5px;
+    padding: 0 5px;
 `;
 
-export type WatchlistMenuProps = {
-  readonly assets: Asset[];
+interface Data {
+  watchlistAssets: {
+    nodes: Asset[];
+  }
 }
 
-export default function WatchlistMenu({assets}: WatchlistMenuProps) {
+const GET_WATCHLIST_ASSETS: TypedDocumentNode<Data> = gql`
+  query GetWatchlistAssets {
+     watchlistAssets {
+      nodes {
+        id
+        price
+        symbol
+        chg
+        description
+        assetType
+      }
+    }
+  }
+`;
+
+export default function WatchlistMenu() {
+  const {data: {watchlistAssets: {nodes: assets = []}}} = useSuspenseQuery(GET_WATCHLIST_ASSETS);
+
   return (
-    <CustomBox>
-      <Accordion defaultExpanded>
-        <AccordionSummary
-          expandIcon={<ExpandMoreIcon/>}
-          aria-controls="panel1-content"
-          id="panel1-header"
-        >
-          <Typography component="span">Indices</Typography>
-        </AccordionSummary>
-        <AccordionDetails>
-          <DataTable rows={assets.filter(a => a.assetType === AssetType.Indice)}/>
-        </AccordionDetails>
-      </Accordion>
-      <Accordion defaultExpanded>
-        <AccordionSummary
-          expandIcon={<ExpandMoreIcon/>}
-          aria-controls="panel2-content"
-          id="panel2-header"
-        >
-          <Typography component="span">Stocks</Typography>
-        </AccordionSummary>
-        <AccordionDetails>
-          <DataTable rows={assets.filter(a => a.assetType === AssetType.Stock)}/>
-        </AccordionDetails>
-      </Accordion>
-      <Accordion defaultExpanded>
-        <AccordionSummary
-          expandIcon={<ExpandMoreIcon/>}
-          aria-controls="panel3-content"
-          id="panel3-header"
-        >
-          <Typography component="span">Commodities</Typography>
-        </AccordionSummary>
-        <AccordionDetails>
-          <DataTable rows={assets.filter(a => a.assetType === AssetType.Commodity)}/>
-        </AccordionDetails>
-        <AccordionActions>
-        </AccordionActions>
-      </Accordion>
-    </CustomBox>
+    <Suspense fallback={<Loading/>}>
+      <CustomBox>
+        <Accordion defaultExpanded>
+          <AccordionSummary
+            expandIcon={<ExpandMoreIcon/>}
+            aria-controls="panel1-content"
+            id="panel1-header"
+          >
+            <Typography component="span">Indices</Typography>
+          </AccordionSummary>
+          <AccordionDetails>
+            <DataTable rows={assets.filter(a => a.assetType === "INDEX")}/>
+          </AccordionDetails>
+        </Accordion>
+        <Accordion defaultExpanded>
+          <AccordionSummary
+            expandIcon={<ExpandMoreIcon/>}
+            aria-controls="panel2-content"
+            id="panel2-header"
+          >
+            <Typography component="span">Stocks</Typography>
+          </AccordionSummary>
+          <AccordionDetails>
+            <DataTable rows={assets.filter(a => a.assetType === "STOCK")}/>
+          </AccordionDetails>
+        </Accordion>
+        <Accordion defaultExpanded>
+          <AccordionSummary
+            expandIcon={<ExpandMoreIcon/>}
+            aria-controls="panel3-content"
+            id="panel3-header"
+          >
+            <Typography component="span">Commodities</Typography>
+          </AccordionSummary>
+          <AccordionDetails>
+            <DataTable rows={assets.filter(a => a.assetType === "STOCK")}/>
+          </AccordionDetails>
+          <AccordionActions>
+          </AccordionActions>
+        </Accordion>
+      </CustomBox>
+    </Suspense>
   );
 }

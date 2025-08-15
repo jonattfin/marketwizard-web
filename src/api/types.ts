@@ -45,13 +45,6 @@ export type Portfolio = {
   maximumDrawdown: number;
 }
 
-export enum AssetType {
-  Stock,
-  Commodity,
-  Indice,
-  Etf
-}
-
 export type Asset = {
   id: string;
   price: number;
@@ -59,5 +52,5 @@ export type Asset = {
   chg: number;
   changeAsPercentage: number;
   description: string;
-  assetType: AssetType;
+  assetType: string;
 }

@@ -9,7 +9,7 @@ import {range} from "@es-toolkit/es-toolkit";
 import News from './portfolio-news';
 import Holdings from './portfolio-holdings';
 import {Grid, Slider} from "@mui/material";
-import {PortfolioAsset, PortfolioNews, PortfolioPerformance} from "@/api/types";
+import {PortfolioAsset, PortfolioPerformance} from "@/api/types";
 import {
   PortfolioVsSpxLineChart,
   PortfolioScatterChart,
@@ -40,34 +40,29 @@ function CustomTabPanel(props: TabPanelProps) {
 }
 
 export type PortfolioTabsComponentProps = {
-  readonly portfolioId?: string;
+  readonly portfolioId: string;
 }
 
 export default function PortfolioTabsComponent({portfolioId}: PortfolioTabsComponentProps) {
   const [value, setValue] = useState(0);
   const [performance, setPerformance] = useState<PortfolioPerformance>();
   const [assets, setAssets] = useState<PortfolioAsset[]>([]);
-  const [news, setNews] = useState<PortfolioNews[]>([])
+
 
   useEffect(() => {
     async function fetchPerformance() {
-      const performance = await api.fetchPortfolioPerformanceById(portfolioId);
+      const performance = await api.fetchPortfolioPerformanceById();
       setPerformance(performance);
     }
 
     async function fetchAssets() {
-      const assets = await api.fetchPortfolioAssetsById(portfolioId);
+      const assets = await api.fetchPortfolioAssetsById();
       setAssets(assets);
-    }
-
-    async function fetchNews() {
-      const news = await api.fetchPortfolioNewsById(portfolioId);
-      setNews(news);
     }
 
     fetchPerformance().catch(console.error);
     fetchAssets().finally(console.error);
-    fetchNews().finally(console.error);
+
 
   }, [portfolioId])
 
@@ -150,7 +145,7 @@ export default function PortfolioTabsComponent({portfolioId}: PortfolioTabsCompo
           Overview
           <Suspense fallback={<Loading/>}>
             <PortfolioVsSpxLineChart performance={performance}/>
-            <News news={news}/>
+            <News portfolioId={portfolioId}/>
           </Suspense>
         </>
       </CustomTabPanel>

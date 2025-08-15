@@ -12,10 +12,14 @@ import PortfolioTabs from './portfolio-tabs';
 import PortfolioSummary from "./portfolio-summary";
 
 export type PortfolioComponentProps = {
-  portfolio?: Portfolio
+  portfolio: Portfolio
 }
 
 export default function PortfolioComponent({portfolio}: Readonly<PortfolioComponentProps>) {
+  if (!portfolio) {
+    return;
+  }
+
   return (
     <>
       <Card sx={{minWidth: 275}}>
@@ -95,7 +99,7 @@ export default function PortfolioComponent({portfolio}: Readonly<PortfolioCompon
       </Card>
       <br/>
       <Box>
-        <PortfolioTabs portfolioId={portfolio?.id}/>
+        <PortfolioTabs portfolioId={portfolio.id}/>
       </Box>
     </>
   );

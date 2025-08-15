@@ -1,26 +1,45 @@
 'use client';
 
-import {useState, useEffect} from 'react';
-
-import {type Portfolio} from "@/api/types";
-import api from "@/api"
 import PortfolioComponent from "./portfolio-component";
+import {gql, TypedDocumentNode, useSuspenseQuery} from "@apollo/client";
+import {Portfolio} from "@/api/types";
+import {Suspense} from "react";
+import Loading from "@/shared/loading";
+
+interface Data {
+  portfolioById: Portfolio;
+}
+
+interface Variables {
+  id: string;
+}
+
+const GET_PORTFOLIO_BY_ID: TypedDocumentNode<Data, Variables> = gql`
+  query GetPortfolioById($id: String!) {
+     portfolioById(id: $id) {
+         id
+         name
+         description
+         imageUrl
+         lastUpdated
+         totalAmount
+         averageAnnualReturn
+         standardDeviation
+         sharpeRatio
+    }
+  }
+`;
 
 export type PortfolioContainerProps = {
   id: string;
 }
 
-export default function PortfolioContainer({id}: Readonly<PortfolioContainerProps>) {
-  const [portfolio, setPortfolio] = useState<Portfolio | undefined>();
+export default function PortfolioContainer({id}: PortfolioContainerProps) {
+  const {data: {portfolioById}} = useSuspenseQuery(GET_PORTFOLIO_BY_ID, {variables: {id}});
 
-  useEffect(() => {
-    async function fetchPortfolio() {
-      const portfolio = await api.fetchPortfolioById(id);
-      setPortfolio(portfolio)
-    }
-
-    fetchPortfolio().catch(console.error)
-  }, [id])
-
-  return <PortfolioComponent portfolio={portfolio}/>;
+  return (
+    <Suspense fallback={<Loading/>}>
+      <PortfolioComponent portfolio={portfolioById}/>
+    </Suspense>
+  );
 }

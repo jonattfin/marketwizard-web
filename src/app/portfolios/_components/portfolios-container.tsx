@@ -1,20 +1,41 @@
 'use client';
 
-import api from "@/api";
-import {useEffect, useState} from "react";
+import {Suspense} from "react";
 import {type Portfolio} from "@/api/types";
 import PortfoliosCards from "@/app/portfolios/_components/portfolios-cards";
+import {gql, TypedDocumentNode, useSuspenseQuery} from "@apollo/client";
+import Loading from "@/shared/loading";
+
+interface Data {
+  portfolios: {
+    nodes: Portfolio[];
+  }
+}
+
+const GET_PORTFOLIOS: TypedDocumentNode<Data> = gql`
+  query GetPortfolios {
+     portfolios {
+      nodes {
+         id
+         name
+         description
+         imageUrl
+         lastUpdated
+         totalAmount
+         averageAnnualReturn
+         standardDeviation
+         sharpeRatio
+      }
+    }
+  }
+`;
 
 export default function PortfoliosContainer() {
-  const [portfolios, setPortfolios] = useState<Portfolio[]>([]);
+  const {data: {portfolios: {nodes = []}}} = useSuspenseQuery(GET_PORTFOLIOS);
 
-  useEffect(() => {
-    async function fetchPortfolios() {
-      const portfolios = await api.fetchPortfolios();
-      setPortfolios(portfolios);
-    }
-    fetchPortfolios().catch(console.error);
-  }, []);
-
-  return <PortfoliosCards portfolios={portfolios}></PortfoliosCards>
+  return (
+    <Suspense fallback={<Loading/>}>
+      <PortfoliosCards portfolios={nodes}></PortfoliosCards>
+    </Suspense>
+  )
 }
