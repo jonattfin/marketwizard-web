@@ -1,10 +1,11 @@
 export type RiskLevel = 1 | 2 | 3 | 4 | 5;
 
-export type PortfolioAsset = Asset & {
+export type PortfolioAsset = {
+  id: string;
+  symbol: string;
+  description: string;
   numberOfShares: number;
   pricePerShare: number;
-  performance: number;
-  allocation: number;
 };
 
 export type PortfolioNews = {
@@ -15,20 +16,21 @@ export type PortfolioNews = {
   provider: string;
 }
 
-export type AssetInsights = {
+export type PortfolioRatio = {
+  beta: number,
+  sharpe: number,
+  sortino: number,
+}
+
+export type PortfolioAssetReturn = {
+  assetName: string;
   weeks: number[],
   months: number[],
 }
 
 export type PortfolioPerformance = {
-  insights: {
-    [key: string]: AssetInsights,
-  }
-  ratios? : {
-    beta: number,
-    sharpe: number,
-    sortino: number,
-  }
+  ratio : PortfolioRatio;
+  returns: PortfolioAssetReturn[];
 }
 
 export type Portfolio = {
