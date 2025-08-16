@@ -1,13 +1,15 @@
 import {Portfolio} from "@/api/types";
 import {Grid} from "@mui/material";
+
 import PortfolioCard from "@/app/portfolios/_components/portfolio-card";
+import React from "react";
 
 export type PortfoliosCardsProps = {
   readonly portfolios: Portfolio[];
 }
 
 export default function PortfoliosCards({portfolios}: PortfoliosCardsProps) {
-return (
+  return (
     <div>
       <h2>Portfolios</h2>
       <Grid container spacing={2}>
@@ -17,6 +19,7 @@ return (
           </Grid>
         ))}
       </Grid>
+      <br/>
     </div>
   );
 }

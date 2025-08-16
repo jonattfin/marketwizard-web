@@ -13,12 +13,14 @@ import {type Portfolio} from "@/api/types";
 import PortfolioTabs from './portfolio-tabs';
 import PortfolioSummary from "./portfolio-summary";
 import {gql, TypedDocumentNode, useSuspenseQuery} from "@apollo/client";
+import {Suspense} from "react";
+import Loading from "@/shared/loading";
 
 export type PortfolioDetailsProps = {
   id: string
 }
 
-function userPortfolioById(id: string) {
+function usePortfolioById(id: string) {
   interface Data {
     portfolioById: Portfolio;
   }
@@ -48,10 +50,10 @@ function userPortfolioById(id: string) {
 }
 
 export default function PortfolioDetails({id}: Readonly<PortfolioDetailsProps>) {
-  const {portfolio} = userPortfolioById(id);
+  const {portfolio} = usePortfolioById(id);
 
   return (
-    <>
+    <Suspense fallback={<Loading/>}>
       <Card sx={{minWidth: 275}}>
         <CardMedia sx={{height: 400}} image={portfolio?.imageUrl}/>
         <CardContent>
@@ -131,6 +133,6 @@ export default function PortfolioDetails({id}: Readonly<PortfolioDetailsProps>) 
       <Box>
         <PortfolioTabs portfolioId={portfolio.id}/>
       </Box>
-    </>
+    </Suspense>
   );
 }
