@@ -1,4 +1,4 @@
-import PortfolioContainer from "./_components/portfolio-container";
+import PortfolioDetails from "@/app/portfolios/[id]/_components/portfolio-details";
 
 export default async function PortfolioPage({params}: Readonly<{
   params: Promise<{ id: string }>
@@ -10,6 +10,6 @@ export default async function PortfolioPage({params}: Readonly<{
   }
 
   return (
-    <PortfolioContainer {...{id}} />
+    <PortfolioDetails id={id}></PortfolioDetails>
   )
 }

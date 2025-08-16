@@ -1,7 +1,7 @@
-import PortfoliosContainer from "@/app/portfolios/_components/portfolios-container";
+import PortfoliosList from "@/app/portfolios/_components/portfolios-list";
 
 export default function PortfoliosPage() {
   return (
-    <PortfoliosContainer/>
+    <PortfoliosList/>
   )
 }

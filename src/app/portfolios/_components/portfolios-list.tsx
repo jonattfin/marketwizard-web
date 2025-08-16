@@ -30,7 +30,7 @@ const GET_PORTFOLIOS: TypedDocumentNode<Data> = gql`
   }
 `;
 
-export default function PortfoliosContainer() {
+export default function PortfoliosList() {
   const {data: {portfolios: {nodes = []}}} = useSuspenseQuery(GET_PORTFOLIOS);
 
   return (

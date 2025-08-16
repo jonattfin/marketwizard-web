@@ -17,15 +17,16 @@ import Loading from "@/shared/loading";
 
 import {gql, TypedDocumentNode, useSuspenseQuery} from "@apollo/client";
 
-interface Data {
-  portfolioPerformanceById: PortfolioPerformance;
-}
+function usePortfolioPerformance(id: string) {
+  interface Data {
+    portfolioPerformanceById: PortfolioPerformance;
+  }
 
-interface Variables {
-  id: string;
-}
+  interface Variables {
+    id: string;
+  }
 
-const GET_PERFORMANCE_BY_PORTFOLIO_ID: TypedDocumentNode<Data, Variables> = gql`
+  const GET_PERFORMANCE_BY_PORTFOLIO_ID: TypedDocumentNode<Data, Variables> = gql`
   query GetPortfolioPerformanceById($id: String!) {
      portfolioPerformanceById(id: $id) {
       id
@@ -42,6 +43,15 @@ const GET_PERFORMANCE_BY_PORTFOLIO_ID: TypedDocumentNode<Data, Variables> = gql`
     }
   }
 `;
+
+  const {data: {portfolioPerformanceById: performance}} = useSuspenseQuery(
+    GET_PERFORMANCE_BY_PORTFOLIO_ID,
+    {
+      variables: {id}
+    });
+
+  return {performance};
+}
 
 interface TabPanelProps {
   children?: React.ReactNode;
@@ -72,11 +82,7 @@ export type PortfolioTabsComponentProps = {
 export default function PortfolioTabsComponent({portfolioId}: PortfolioTabsComponentProps) {
   const [value, setValue] = useState(0);
 
-  const {data: {portfolioPerformanceById: performance}} = useSuspenseQuery(
-    GET_PERFORMANCE_BY_PORTFOLIO_ID,
-    {
-      variables: {id: portfolioId}
-    });
+  const {performance} = usePortfolioPerformance(portfolioId);
 
   const handleChange = (event: React.SyntheticEvent, newValue: number) => {
     setValue(newValue);

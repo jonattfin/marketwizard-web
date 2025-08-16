@@ -17,13 +17,14 @@ const CustomBox = styled(Box)`
     padding: 0 5px;
 `;
 
-interface Data {
-  watchlistAssets: {
-    nodes: Asset[];
+function useWatchlist() {
+  interface Data {
+    watchlistAssets: {
+      nodes: Asset[];
+    }
   }
-}
 
-const GET_WATCHLIST_ASSETS: TypedDocumentNode<Data> = gql`
+  const GET_WATCHLIST_ASSETS: TypedDocumentNode<Data> = gql`
   query GetWatchlistAssets {
      watchlistAssets {
       nodes {
@@ -38,8 +39,13 @@ const GET_WATCHLIST_ASSETS: TypedDocumentNode<Data> = gql`
   }
 `;
 
-export default function WatchlistMenu() {
   const {data: {watchlistAssets: {nodes: assets = []}}} = useSuspenseQuery(GET_WATCHLIST_ASSETS);
+
+  return {assets};
+}
+
+export default function WatchlistMenu() {
+  const {assets} = useWatchlist();
 
   return (
     <Suspense fallback={<Loading/>}>

@@ -1,3 +1,5 @@
+'use client';
+
 import Box from "@mui/material/Box";
 import {Accordion, Breadcrumbs, CardContent, CardMedia, Grid} from "@mui/material";
 import Typography from "@mui/material/Typography";
@@ -10,15 +12,43 @@ import Link from 'next/link'
 import {type Portfolio} from "@/api/types";
 import PortfolioTabs from './portfolio-tabs';
 import PortfolioSummary from "./portfolio-summary";
+import {gql, TypedDocumentNode, useSuspenseQuery} from "@apollo/client";
 
-export type PortfolioComponentProps = {
-  portfolio: Portfolio
+export type PortfolioDetailsProps = {
+  id: string
 }
 
-export default function PortfolioComponent({portfolio}: Readonly<PortfolioComponentProps>) {
-  if (!portfolio) {
-    return;
+function userPortfolioById(id: string) {
+  interface Data {
+    portfolioById: Portfolio;
   }
+
+  interface Variables {
+    id: string;
+  }
+
+  const GET_PORTFOLIO_BY_ID: TypedDocumentNode<Data, Variables> = gql`
+  query GetPortfolioById($id: String!) {
+     portfolioById(id: $id) {
+         id
+         name
+         description
+         imageUrl
+         lastUpdated
+         totalAmount
+         averageAnnualReturn
+         standardDeviation
+         sharpeRatio
+    }
+  }
+`;
+
+  const {data: {portfolioById: portfolio}} = useSuspenseQuery(GET_PORTFOLIO_BY_ID, {variables: {id}});
+  return {portfolio};
+}
+
+export default function PortfolioDetails({id}: Readonly<PortfolioDetailsProps>) {
+  const {portfolio} = userPortfolioById(id);
 
   return (
     <>

@@ -1,5 +1,3 @@
-'use client';
-
 import * as React from 'react';
 import Box from '@mui/material/Box';
 import {DataGrid, GridColDef} from '@mui/x-data-grid';
@@ -10,17 +8,18 @@ export type PortfolioNewsComponentProps = {
   portfolioId: string;
 }
 
-interface Data {
-  portfolioNewsById: {
-    nodes: PortfolioNews[];
+function usePortfolioNews(id: string) {
+  interface Data {
+    portfolioNewsById: {
+      nodes: PortfolioNews[];
+    }
   }
-}
 
-interface Variables {
-  id: string;
-}
+  interface Variables {
+    id: string;
+  }
 
-const GET_NEWS_BY_PORTFOLIO_ID: TypedDocumentNode<Data, Variables> = gql`
+  const GET_NEWS_BY_PORTFOLIO_ID: TypedDocumentNode<Data, Variables> = gql`
   query GetNewsByPortfolioId($id: String!) {
      portfolioNewsById(id: $id) {
       nodes {
@@ -34,8 +33,12 @@ const GET_NEWS_BY_PORTFOLIO_ID: TypedDocumentNode<Data, Variables> = gql`
   }
 `;
 
+  const {data: {portfolioNewsById: {nodes = []}}} = useSuspenseQuery(GET_NEWS_BY_PORTFOLIO_ID, {variables: {id}});
+  return {nodes};
+}
+
 export default function PortfolioNewsComponent({portfolioId}: PortfolioNewsComponentProps) {
-  const {data: {portfolioNewsById: {nodes = []}}} = useSuspenseQuery(GET_NEWS_BY_PORTFOLIO_ID, {variables: {id: portfolioId}});
+  const {nodes} = usePortfolioNews(portfolioId)
 
   return (
     <>
