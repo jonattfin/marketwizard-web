@@ -1,3 +1,5 @@
+'use client';
+
 import {range} from "@es-toolkit/es-toolkit";
 import {LineChart, LineSeries} from "@mui/x-charts/LineChart";
 import {PortfolioPerformance} from "@/api/types";

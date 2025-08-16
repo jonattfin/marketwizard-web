@@ -53,7 +53,7 @@ const CustomBox = styled(Box)`
 
 const client = new ApolloClient({
   uri: "http://localhost:5196/graphql",
-  cache: new InMemoryCache(),
+  cache: new InMemoryCache({}),
 });
 
 export default function RootLayout({
