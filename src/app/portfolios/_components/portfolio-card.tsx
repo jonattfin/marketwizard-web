@@ -28,15 +28,15 @@ export default function PortfolioCard({portfolio}: PortfolioCardProps) {
         <Typography gutterBottom sx={{ color: 'text.secondary', fontSize: 14 }}>
           {portfolio?.description}
         </Typography>
-        <Typography component={"div"}>
-          <ul>
-            <li>Risk level: {portfolio?.risk}</li>
-            <li>Average annual return: {portfolio?.averageAnnualReturn}</li>
-            <li>Maximum drawdown: {portfolio?.maximumDrawdown}</li>
-            <li>Standard deviation: {portfolio?.standardDeviation}</li>
-            <li>Sharpe ratio: {portfolio?.sharpeRatio}</li>
-          </ul>
-        </Typography>
+        {/*<Typography component={"div"}>*/}
+        {/*  <ul>*/}
+        {/*    <li>Risk level: {portfolio?.risk}</li>*/}
+        {/*    <li>Average annual return: {portfolio?.averageAnnualReturn}</li>*/}
+        {/*    <li>Maximum drawdown: {portfolio?.maximumDrawdown}</li>*/}
+        {/*    <li>Standard deviation: {portfolio?.standardDeviation}</li>*/}
+        {/*    <li>Sharpe ratio: {portfolio?.sharpeRatio}</li>*/}
+        {/*  </ul>*/}
+        {/*</Typography>*/}
       </CardContent>
       <CardActions>
         <CustomLink href={`/portfolios/${portfolio?.id}`}>Learn More</CustomLink>

@@ -34,10 +34,8 @@ export default function BasicTable({rows = []}: Readonly<BasicTableProps>) {
       <Table aria-label="simple table">
         <TableHead>
           <TableRow>
+            <TableCell>Name</TableCell>
             <TableCell>Symbol</TableCell>
-            <TableCell align="right">Last</TableCell>
-            <TableCell align="right">Chg</TableCell>
-            <TableCell align="right">Chg%</TableCell>
           </TableRow>
         </TableHead>
         <TableBody>
@@ -47,11 +45,11 @@ export default function BasicTable({rows = []}: Readonly<BasicTableProps>) {
               sx={{ '&:last-child td, &:last-child th': { border: 0 } }}
             >
               <TableCell component="th" scope="row">
+                {row.name}
+              </TableCell>
+              <TableCell component="th" scope="row">
                 {row.symbol}
               </TableCell>
-              <TableCell align="right">{row.price.toLocaleString("en-US")}</TableCell>
-              <TableCell align="right">{renderText(row.chg)}</TableCell>
-              <TableCell align="right">{renderText(row.changeAsPercentage, "%")}</TableCell>
             </TableRow>
           ))}
         </TableBody>

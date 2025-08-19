@@ -41,11 +41,6 @@ function usePortfolios(itemsPerPage: number = 6, direction = "backward", cursor?
          name
          description
          imageUrl
-         lastUpdated
-         totalAmount
-         averageAnnualReturn
-         standardDeviation
-         sharpeRatio
       }
     }
   }

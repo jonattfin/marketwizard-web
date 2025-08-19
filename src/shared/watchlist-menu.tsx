@@ -29,17 +29,19 @@ function useWatchlist() {
      watchlistAssets {
       nodes {
         id
-        price
         symbol
-        chg
+        name
         description
-        assetType
       }
     }
   }
 `;
 
-  const {data: {watchlistAssets: {nodes: assets = []}}} = useSuspenseQuery(GET_WATCHLIST_ASSETS);
+  const {data: {watchlistAssets: {nodes: assets = []}}, error} = useSuspenseQuery(GET_WATCHLIST_ASSETS);
+
+  if (error) {
+    return {assets: []};
+  }
 
   return {assets};
 }
@@ -59,7 +61,7 @@ export default function WatchlistMenu() {
             <Typography component="span">Indices</Typography>
           </AccordionSummary>
           <AccordionDetails>
-            <DataTable rows={assets.filter(a => a.assetType === "INDEX")}/>
+            <DataTable rows={assets}/>
           </AccordionDetails>
         </Accordion>
         <Accordion defaultExpanded>
@@ -71,7 +73,7 @@ export default function WatchlistMenu() {
             <Typography component="span">Stocks</Typography>
           </AccordionSummary>
           <AccordionDetails>
-            <DataTable rows={assets.filter(a => a.assetType === "STOCK")}/>
+            <DataTable rows={assets}/>
           </AccordionDetails>
         </Accordion>
         <Accordion defaultExpanded>
@@ -83,7 +85,7 @@ export default function WatchlistMenu() {
             <Typography component="span">Commodities</Typography>
           </AccordionSummary>
           <AccordionDetails>
-            <DataTable rows={assets.filter(a => a.assetType === "STOCK")}/>
+            <DataTable rows={assets}/>
           </AccordionDetails>
           <AccordionActions>
           </AccordionActions>

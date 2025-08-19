@@ -38,21 +38,11 @@ export type Portfolio = {
   name: string;
   description: string;
   imageUrl: string;
-  lastUpdated: string;
-  totalAmount: number;
-  risk: RiskLevel;
-  averageAnnualReturn: number;
-  standardDeviation: number;
-  sharpeRatio: number;
-  maximumDrawdown: number;
 }
 
 export type Asset = {
   id: string;
-  price: number;
+  name: string;
   symbol: string;
-  chg: number;
-  changeAsPercentage: number;
   description: string;
-  assetType: string;
 }

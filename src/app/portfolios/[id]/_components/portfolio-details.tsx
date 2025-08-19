@@ -30,17 +30,12 @@ function usePortfolioById(id: string) {
   }
 
   const GET_PORTFOLIO_BY_ID: TypedDocumentNode<Data, Variables> = gql`
-  query GetPortfolioById($id: String!) {
-     portfolioById(id: $id) {
+  query GetPortfolioById($id: UUID!) {
+     portfolioById(portfolioId: $id) {
          id
          name
          description
          imageUrl
-         lastUpdated
-         totalAmount
-         averageAnnualReturn
-         standardDeviation
-         sharpeRatio
     }
   }
 `;
@@ -76,13 +71,13 @@ export default function PortfolioDetails({id}: Readonly<PortfolioDetailsProps>) 
             </AccordionSummary>
             <AccordionDetails>
               {portfolio?.description}
-              <ul>
-                <li>Risk level: {portfolio?.risk}</li>
-                <li>Average annual return: {portfolio?.averageAnnualReturn}</li>
-                <li>Maximum drawdown: {portfolio?.maximumDrawdown}</li>
-                <li>Standard deviation: {portfolio?.standardDeviation}</li>
-                <li>Sharpe ratio: {portfolio?.sharpeRatio}</li>
-              </ul>
+              {/*<ul>*/}
+              {/*  <li>Risk level: {portfolio?.risk}</li>*/}
+              {/*  <li>Average annual return: {portfolio?.averageAnnualReturn}</li>*/}
+              {/*  <li>Maximum drawdown: {portfolio?.maximumDrawdown}</li>*/}
+              {/*  <li>Standard deviation: {portfolio?.standardDeviation}</li>*/}
+              {/*  <li>Sharpe ratio: {portfolio?.sharpeRatio}</li>*/}
+              {/*</ul>*/}
             </AccordionDetails>
           </Accordion>
           <Accordion defaultExpanded>
