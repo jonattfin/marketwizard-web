@@ -18,7 +18,7 @@ export default function PortfolioHoldingsLineChart({performance}: Readonly<Portf
 
   performance.returns.forEach((p) => {
     series.push({
-      data: p.months,
+      data: p.monthlyReturns,
       label: p.assetName,
       showMark: false
     });

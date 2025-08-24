@@ -18,7 +18,7 @@ export default function PortfolioScatterChart({performance}: Readonly<PortfolioS
 
   performance.returns.forEach((p) => {
     series.push({
-      data: p.weeks.map((value, index) => {
+      data: p.weeklyReturns.map((value, index) => {
         return ({x: index, y: value, id: `data-${index}`})
       })
       ,

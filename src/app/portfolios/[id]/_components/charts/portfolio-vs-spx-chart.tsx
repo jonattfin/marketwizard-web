@@ -18,7 +18,7 @@ export default function PortfolioVsSpxLineChart({performance}: Readonly<Portfoli
 
   performance.returns.forEach((p) => {
     series.push({
-      data: p.months,
+      data: p.monthlyReturns,
       label: p.assetName,
       showMark: false
     });

@@ -22,8 +22,8 @@ function usePortfolioNews(id: string) {
   }
 
   const GET_NEWS_BY_PORTFOLIO_ID: TypedDocumentNode<Data, Variables> = gql`
-  query GetNewsByPortfolioId($id: String!) {
-     portfolioNewsById(id: $id) {
+  query GetNewsByPortfolioId($id: UUID!) {
+     portfolioNewsById(portfolioId: $id) {
       nodes {
         id
         time

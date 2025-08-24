@@ -27,18 +27,18 @@ function usePortfolioPerformance(id: string) {
   }
 
   const GET_PERFORMANCE_BY_PORTFOLIO_ID: TypedDocumentNode<Data, Variables> = gql`
-  query GetPortfolioPerformanceById($id: String!) {
-     portfolioPerformanceById(id: $id) {
+  query GetPortfolioPerformanceById($id: UUID!) {
+     portfolioPerformanceById(portfolioId: $id) {
       id
       ratio {
-        beta
-        sharpe
-        sortino
+        betaRatio
+        sharpeRatio
+        sortinoRatio
       }
       returns {
         assetName
-        weeks
-        months
+        weeklyReturns
+        monthlyReturns
       }
     }
   }
@@ -105,17 +105,17 @@ export default function PortfolioTabsComponent({portfolioId}: PortfolioTabsCompo
           <Grid size={4}>
             <h4>Beta</h4>
             Should have enough data to analyze by Sep 1 2025
-            <Slider defaultValue={performance?.ratio?.beta} max={2} color={"error"} marks={buildMarks(2)}/>
+            <Slider defaultValue={performance?.ratio?.betaRatio} max={2} color={"error"} marks={buildMarks(2)}/>
           </Grid>
           <Grid size={4}>
             <h4>Sharpe ratio</h4>
             Should have enough data to analyze by Sep 1 2025
-            <Slider defaultValue={performance?.ratio?.sharpe} max={3} color="success" marks={buildMarks(3)}/>
+            <Slider defaultValue={performance?.ratio?.sharpeRatio} max={3} color="success" marks={buildMarks(3)}/>
           </Grid>
           <Grid size={4}>
             <h4>Sortino ratio</h4>
             Should have enough data to analyze by Sep 1 2025
-            <Slider defaultValue={performance?.ratio?.sortino} max={5} color="warning" marks={buildMarks(5)}/>
+            <Slider defaultValue={performance?.ratio?.sortinoRatio} max={5} color="warning" marks={buildMarks(5)}/>
           </Grid>
         </Grid>
       </>

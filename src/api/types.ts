@@ -17,15 +17,15 @@ export type PortfolioNews = {
 }
 
 export type PortfolioRatio = {
-  beta: number,
-  sharpe: number,
-  sortino: number,
+  betaRatio: number,
+  sharpeRatio: number,
+  sortinoRatio: number,
 }
 
 export type PortfolioAssetReturn = {
   assetName: string;
-  weeks: number[],
-  months: number[],
+  weeklyReturns: number[],
+  monthlyReturns: number[],
 }
 
 export type PortfolioPerformance = {
