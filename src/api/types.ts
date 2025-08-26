@@ -39,6 +39,8 @@ export type Portfolio = {
   name: string;
   description: string;
   imageUrl: string;
+  totalValue: number;
+  unrealizedGain: number;
 }
 
 export type PriceHistory = {
@@ -50,6 +52,8 @@ export type Asset = {
   id: string;
   name: string;
   symbol: string;
+  type: string;
   description: string;
+  lastPrice: number;
   priceHistories: PriceHistory[];
 }

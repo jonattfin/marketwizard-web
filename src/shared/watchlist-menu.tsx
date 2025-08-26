@@ -31,10 +31,16 @@ function useWatchlist() {
         id
         symbol
         name
+        type
         description
+        lastPrice
+        priceHistories {
+          price
+          date
       }
     }
   }
+}
 `;
 
   const {data: {watchlistAssets: {nodes: assets = []}}, error} = useSuspenseQuery(GET_WATCHLIST_ASSETS);
@@ -58,10 +64,10 @@ export default function WatchlistMenu() {
             aria-controls="panel1-content"
             id="panel1-header"
           >
-            <Typography component="span">Indices</Typography>
+            <Typography component="span">ETF</Typography>
           </AccordionSummary>
           <AccordionDetails>
-            <DataTable rows={assets}/>
+            <DataTable rows={assets.filter(a => a.type === "ETF")}/>
           </AccordionDetails>
         </Accordion>
         <Accordion defaultExpanded>
@@ -73,7 +79,7 @@ export default function WatchlistMenu() {
             <Typography component="span">Stocks</Typography>
           </AccordionSummary>
           <AccordionDetails>
-            <DataTable rows={assets}/>
+            <DataTable rows={assets.filter(a => a.type === "STOCK")}/>
           </AccordionDetails>
         </Accordion>
         <Accordion defaultExpanded>
@@ -82,10 +88,10 @@ export default function WatchlistMenu() {
             aria-controls="panel3-content"
             id="panel3-header"
           >
-            <Typography component="span">Commodities</Typography>
+            <Typography component="span">Crypto</Typography>
           </AccordionSummary>
           <AccordionDetails>
-            <DataTable rows={assets}/>
+            <DataTable rows={assets.filter(a => a.type === "CRYPTO")}/>
           </AccordionDetails>
           <AccordionActions>
           </AccordionActions>

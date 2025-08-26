@@ -36,6 +36,8 @@ function usePortfolioById(id: string) {
          name
          description
          imageUrl
+         totalValue
+         unrealizedGain
     }
   }
 `;
@@ -90,32 +92,25 @@ export default function PortfolioDetails({id}: Readonly<PortfolioDetailsProps>) 
             </AccordionSummary>
             <AccordionDetails>
               <Grid container spacing={2}>
-                <Grid size={3}>
+                <Grid size={4}>
                   <PortfolioSummary {...{
                     title: "Portfolio value",
-                    subtitle: "39.59 USD",
+                    subtitle: `${portfolio.totalValue} USD`,
                     note: "-"
                   }}/>
                 </Grid>
-                <Grid size={3}>
+                <Grid size={4}>
                   <PortfolioSummary {...{
                     title: "Unrealized gain",
-                    subtitle: "+40.59 USD",
+                    subtitle: `${portfolio.unrealizedGain} USD`,
                     note: "-"
                   }}/>
                 </Grid>
-                <Grid size={3}>
+                <Grid size={4}>
                   <PortfolioSummary {...{
-                    title: "Total gain",
-                    subtitle: "+40.59 USD",
+                    title: "Realized gain",
+                    subtitle: "0 USD",
                     note: "-"
-                  }}/>
-                </Grid>
-                <Grid size={3}>
-                  <PortfolioSummary {...{
-                    title: "Annualized yield",
-                    subtitle: "23.17%",
-                    note: "_"
                   }}/>
                 </Grid>
               </Grid>

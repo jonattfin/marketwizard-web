@@ -36,6 +36,7 @@ export default function BasicTable({rows = []}: Readonly<BasicTableProps>) {
           <TableRow>
             <TableCell>Name</TableCell>
             <TableCell>Symbol</TableCell>
+            <TableCell>LastPrice</TableCell>
           </TableRow>
         </TableHead>
         <TableBody>
@@ -49,6 +50,9 @@ export default function BasicTable({rows = []}: Readonly<BasicTableProps>) {
               </TableCell>
               <TableCell component="th" scope="row">
                 {row.symbol}
+              </TableCell>
+               <TableCell component="th" scope="row">
+                {row.lastPrice}
               </TableCell>
             </TableRow>
           ))}
