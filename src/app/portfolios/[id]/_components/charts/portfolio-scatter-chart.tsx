@@ -16,15 +16,18 @@ export default function PortfolioScatterChart({performance}: Readonly<PortfolioS
 
   const series: ScatterSeries[] = [];
 
-  performance.returns.forEach((p) => {
+  performance.portfolioAssets.forEach(({asset}) => {
+
     series.push({
-      data: p.weeklyReturns.map((value, index) => {
-        return ({x: index, y: value, id: `data-${index}`})
-      })
-      ,
-      label: p.assetName,
+      label: asset.symbol,
+      data: asset.priceHistories.map(((ph, index) => {
+        return {
+          x: new Date(ph.date).getMonth(),
+          y: ph.price,
+          id: `data-${index}`
+        }
+      }))
     })
-    ;
   })
 
   return (

@@ -23,14 +23,15 @@ export type PortfolioRatio = {
 }
 
 export type PortfolioAssetReturn = {
-  assetName: string;
-  weeklyReturns: number[],
-  monthlyReturns: number[],
+  type: string;
+  numberOfShares: number,
+  pricePerShare: number,
+  asset: Asset
 }
 
 export type PortfolioPerformance = {
-  ratio : PortfolioRatio;
-  returns: PortfolioAssetReturn[];
+  id: string;
+  portfolioAssets: PortfolioAssetReturn[];
 }
 
 export type Portfolio = {
@@ -40,9 +41,15 @@ export type Portfolio = {
   imageUrl: string;
 }
 
+export type PriceHistory = {
+  price: number;
+  date: Date;
+}
+
 export type Asset = {
   id: string;
   name: string;
   symbol: string;
   description: string;
+  priceHistories: PriceHistory[];
 }

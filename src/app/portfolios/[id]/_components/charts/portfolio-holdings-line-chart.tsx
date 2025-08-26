@@ -1,9 +1,7 @@
 'use client';
 
-import {range} from "@es-toolkit/es-toolkit";
 import {LineChart, LineSeries} from "@mui/x-charts/LineChart";
 import {PortfolioPerformance} from "@/api/types";
-import {getMonthName} from "@/app/constants";
 
 type PortfolioHoldingsLineChartProps = {
   performance?: PortfolioPerformance;
@@ -15,22 +13,28 @@ export default function PortfolioHoldingsLineChart({performance}: Readonly<Portf
   }
 
   const series: LineSeries[] = [];
+  const xAxisData: string[] = [];
 
-  performance.returns.forEach((p) => {
+  performance.portfolioAssets.forEach(({asset}) => {
+    const yData: number[] = [];
+
+    asset.priceHistories.forEach(histories => {
+      xAxisData.push(new Date(histories.date).getMonth().toString());
+      yData.push(histories.price)
+    })
+
     series.push({
-      data: p.monthlyReturns,
-      label: p.assetName,
-      showMark: false
-    });
+      label: asset.symbol,
+      data: yData,
+      showMark: true
+    })
   })
-
-  const xLabels = range(0, 12).map(getMonthName);
 
   return (
     <LineChart
       height={300}
       series={series}
-      xAxis={[{scaleType: 'point', data: xLabels}]}
+      xAxis={[{scaleType: 'point', data: xAxisData}]}
       yAxis={[{width: 50}]}
     />
   );
