@@ -7,7 +7,8 @@ import {type Portfolio} from "@/api/types";
 import PortfoliosCards from "@/app/portfolios/_components/portfolios-cards";
 import {gql, TypedDocumentNode, useSuspenseQuery} from "@apollo/client";
 import Loading from "@/shared/loading";
-import {Grid, TablePagination} from "@mui/material";
+import {Button, Grid, TablePagination} from "@mui/material";
+import CreatePortfolio from "@/app/portfolios/_components/create-portfolio";
 
 function usePortfolios(itemsPerPage: number = 6, direction = "backward", cursor?: string) {
   interface Data {
@@ -81,6 +82,8 @@ export default function PortfoliosList() {
 
   return (
     <Suspense fallback={<Loading/>}>
+      <div>&nbsp;</div>
+      <CreatePortfolio/>
       <PortfoliosCards portfolios={nodes}></PortfoliosCards>
       <Grid container spacing={2}>
         <Grid size={4}/>
