@@ -1,0 +1,60 @@
+'use client';
+
+import React from 'react';
+
+import {useState} from "react";
+import PortfoliosCards from "@/app/portfolios/_components/portfolios-cards";
+
+import {Grid, TablePagination} from "@mui/material";
+import CreatePortfolio from "@/app/portfolios/_components/create-portfolio";
+import {Portfolio} from "@/api/types";
+
+export type PortfoliosListComponentProps = {
+  portfolios: Portfolio[];
+  totalCount: number;
+}
+
+export default function PortfoliosListComponent({portfolios, totalCount}: PortfoliosListComponentProps) {
+  const [page, setPage] = useState(0);
+  const [rowsPerPage, setRowsPerPage] = useState(10);
+
+  const handleChangePage = (
+    event: React.MouseEvent<HTMLButtonElement> | null,
+    newPage: number,
+  ) => {
+    setPage(newPage);
+  };
+
+  const handleChangeRowsPerPage = (
+    event: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>,
+  ) => {
+    setRowsPerPage(parseInt(event.target.value, 10));
+    setPage(1);
+  };
+
+  const handleSubmit = async (name: string, description: string, imageUrl: string) => {
+    console.log(name, description, imageUrl);
+  }
+
+  return (
+    <>
+      <div>&nbsp;</div>
+      <CreatePortfolio onSubmit={handleSubmit}/>
+      <PortfoliosCards portfolios={portfolios}></PortfoliosCards>
+      <Grid container spacing={2}>
+        <Grid size={4}/>
+        <Grid size={4} alignContent={"center"}>
+          <TablePagination
+            component="div"
+            count={totalCount}
+            page={page}
+            onPageChange={handleChangePage}
+            rowsPerPage={rowsPerPage}
+            onRowsPerPageChange={handleChangeRowsPerPage}
+          />
+        </Grid>
+        <Grid size={4}/>
+      </Grid>
+    </>
+  )
+}
