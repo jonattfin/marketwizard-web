@@ -5,9 +5,9 @@ import React from 'react';
 import {Suspense, useState} from "react";
 import {type Portfolio} from "@/api/types";
 import PortfoliosCards from "@/app/portfolios/_components/portfolios-cards";
-import {gql, TypedDocumentNode, useSuspenseQuery} from "@apollo/client";
+import {gql, TypedDocumentNode, useMutation, useSuspenseQuery} from "@apollo/client";
 import Loading from "@/shared/loading";
-import {Button, Grid, TablePagination} from "@mui/material";
+import {Grid, TablePagination} from "@mui/material";
 import CreatePortfolio from "@/app/portfolios/_components/create-portfolio";
 
 function usePortfolios(itemsPerPage: number = 6, direction = "backward", cursor?: string) {
@@ -51,6 +51,26 @@ function usePortfolios(itemsPerPage: number = 6, direction = "backward", cursor?
   return {nodes, pageInfo, totalCount};
 }
 
+function addPortfolioMutation() {
+  const ADD_PORTFOLIO = gql`
+    mutation addPortfolio($name: String!, $description: String!, $imageUrl: String!) {
+      addPortfolio(portfolio: {
+        name: $name,
+        description: $description,
+        imageUrl: $imageUrl,
+        userId: "294778a7-0459-4f09-8a59-20ead8ad8aec"
+      }) {
+        id
+      }
+    }
+  `;
+
+  const [addPortfolio, {data, loading, error}] = useMutation(ADD_PORTFOLIO, {
+    refetchQueries: "all"
+  });
+  return [addPortfolio];
+}
+
 export default function PortfoliosList() {
   const [page, setPage] = useState(0);
   const [rowsPerPage, setRowsPerPage] = useState(10);
@@ -59,6 +79,7 @@ export default function PortfoliosList() {
   const [direction, setDirection] = useState<string>("forward");
 
   const {nodes, totalCount, pageInfo} = usePortfolios(rowsPerPage, direction, cursor);
+  const [addPortfolio] = addPortfolioMutation();
 
   const handleChangePage = (
     event: React.MouseEvent<HTMLButtonElement> | null,
@@ -80,10 +101,14 @@ export default function PortfoliosList() {
     setPage(1);
   };
 
+  const handleSubmit = async (name: string, description: string, imageUrl: string) => {
+    await addPortfolio({variables: {name, description, imageUrl}});
+  }
+
   return (
     <Suspense fallback={<Loading/>}>
       <div>&nbsp;</div>
-      <CreatePortfolio/>
+      <CreatePortfolio onSubmit={handleSubmit}/>
       <PortfoliosCards portfolios={nodes}></PortfoliosCards>
       <Grid container spacing={2}>
         <Grid size={4}/>
