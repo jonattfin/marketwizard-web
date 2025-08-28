@@ -7,27 +7,12 @@ import TableHead from '@mui/material/TableHead';
 import TableRow from '@mui/material/TableRow';
 import Paper from '@mui/material/Paper';
 import {Asset} from '@/api/types'
-import Typography from "@mui/material/Typography";
 
 export type BasicTableProps = {
   rows: Asset[]
 }
 
 export default function BasicTable({rows = []}: Readonly<BasicTableProps>) {
-
-  const renderText = (value?: number, suffix="") => {
-    if (!value) {
-      return;
-    }
-
-    const color = value > 0 ? "success" : "error";
-
-    return (
-      <Typography color={color}>
-        {value}{suffix}
-      </Typography>
-    )
-  }
 
   return (
     <TableContainer component={Paper}>

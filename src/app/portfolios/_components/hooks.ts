@@ -26,12 +26,12 @@ export const GET_PORTFOLIOS: TypedDocumentNode<Data> = gql`
   }
   `
 
-export function usePortfolios(itemsPerPage: number = 6, direction = "backward", cursor?: string) {
+export function usePortfolios() {
   const {data: {portfolios: {nodes = [], pageInfo, totalCount}}} = useSuspenseQuery(GET_PORTFOLIOS);
   return {nodes, pageInfo, totalCount};
 }
 
-export function addPortfolioMutation() {
+export function useAddPortfolioMutation() {
   const ADD_PORTFOLIO = gql`
     mutation addPortfolio($name: String!, $description: String!, $imageUrl: String!) {
       addPortfolio(portfolio: {
@@ -45,6 +45,6 @@ export function addPortfolioMutation() {
     }
   `;
 
-  const [addPortfolio, {data, loading, error}] = useMutation(ADD_PORTFOLIO);
+  const [addPortfolio] = useMutation(ADD_PORTFOLIO);
   return [addPortfolio];
 }

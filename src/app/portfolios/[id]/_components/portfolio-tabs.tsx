@@ -4,7 +4,6 @@ import {Suspense, useState} from "react";
 import Tabs from '@mui/material/Tabs';
 import Tab from '@mui/material/Tab';
 import Box from '@mui/material/Box';
-import {range} from "@es-toolkit/es-toolkit";
 
 import {PortfolioPerformance} from "@/api/types";
 import {
@@ -86,15 +85,6 @@ export default function PortfolioTabsComponent({portfolioId}: PortfolioTabsCompo
   const handleChange = (event: React.SyntheticEvent, newValue: number) => {
     setValue(newValue);
   };
-
-  const buildMarks = (maxValue = 0) => {
-    return range(maxValue + 1).map((_, i) => (
-      {
-        value: i,
-        label: i
-      }
-    ));
-  }
 
   return (
     <Box sx={{width: '100%'}}>

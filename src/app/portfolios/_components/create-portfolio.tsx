@@ -1,6 +1,6 @@
 'use client';
 
-import {Button, Modal, TextField, Typography} from "@mui/material";
+import {Button, Modal, TextField} from "@mui/material";
 import {useState} from "react";
 import Box from "@mui/material/Box";
 import {styled} from "@mui/material/styles";
@@ -34,6 +34,7 @@ export default function CreatePortfolio({onSubmit}: CreatePortfolioProps) {
   const handleOpen = () => {
     setIsOpen(true);
   };
+
   const handleClose = () => {
     setIsOpen(false);
   };
@@ -45,7 +46,7 @@ export default function CreatePortfolio({onSubmit}: CreatePortfolioProps) {
 
   return (
     <>
-      <Button color={"secondary"} variant="outlined" onClick={() => setIsOpen(true)}>Create portfolio</Button>
+      <Button color={"secondary"} variant="outlined" onClick={handleOpen}>Create portfolio</Button>
       <Modal
         open={isOpen}
         onClose={handleClose}
