@@ -12,9 +12,10 @@ import {Portfolio} from "@/api/types";
 export type PortfoliosListComponentProps = {
   portfolios: Portfolio[];
   totalCount: number;
+  onSubmit: (name: string, description: string, imageUrl: string) => void;
 }
 
-export default function PortfoliosListComponent({portfolios, totalCount}: PortfoliosListComponentProps) {
+export default function PortfoliosListComponent({portfolios, totalCount, onSubmit}: PortfoliosListComponentProps) {
   const [page, setPage] = useState(0);
   const [rowsPerPage, setRowsPerPage] = useState(10);
 
@@ -33,7 +34,7 @@ export default function PortfoliosListComponent({portfolios, totalCount}: Portfo
   };
 
   const handleSubmit = async (name: string, description: string, imageUrl: string) => {
-    console.log(name, description, imageUrl);
+    onSubmit(name, description, imageUrl);
   }
 
   return (

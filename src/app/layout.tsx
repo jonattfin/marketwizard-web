@@ -5,7 +5,7 @@ import {Geist, Geist_Mono} from "next/font/google";
 import {ThemeProvider, createTheme, styled} from '@mui/material/styles';
 import CssBaseline from '@mui/material/CssBaseline';
 import Box from '@mui/material/Box';
-import {ApolloClient, InMemoryCache, ApolloProvider} from '@apollo/client';
+import { ApolloProvider} from '@apollo/client';
 
 import {Analytics} from "@vercel/analytics/next"
 import {SpeedInsights} from "@vercel/speed-insights/next"
@@ -24,6 +24,7 @@ import {Grid} from "@mui/material";
 import WatchlistMenu from "@/shared/watchlist-menu";
 
 import {DarkTheme, LightTheme} from "@/app/constants";
+import apolloClient from "@/app/apolloClient";
 
 const geistSans = Geist({
   variable: "--font-geist-sans",
@@ -51,10 +52,6 @@ const CustomBox = styled(Box)`
     padding: ${({theme}) => theme.spacing(2)};
 `;
 
-const client = new ApolloClient({
-  uri: "http://localhost:5196/graphql",
-  cache: new InMemoryCache({}),
-});
 
 export default function RootLayout({
                                      children,
@@ -72,7 +69,7 @@ export default function RootLayout({
       />
     </head>
     <ThemeProvider theme={appTheme === "dark" ? darkTheme : lightTheme}>
-      <ApolloProvider client={client}>
+      <ApolloProvider client={apolloClient}>
         <CssBaseline/>
         <body className={`${geistSans.variable} ${geistMono.variable}`}>
         <Grid container spacing={0}>

@@ -35,7 +35,7 @@ export default function PortfoliosList() {
 
   return (
     <Suspense fallback={<Loading/>}>
-      <PortfoliosListComponent portfolios={portfolios} totalCount={totalCount} />
+      <PortfoliosListComponent portfolios={portfolios} totalCount={totalCount} onSubmit={handleSubmit} />
     </Suspense>
   )
 }

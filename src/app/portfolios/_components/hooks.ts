@@ -14,7 +14,7 @@ interface Data {
 
 export const GET_PORTFOLIOS: TypedDocumentNode<Data> = gql`
   query GetPortfolios {
-     portfolios() {
+     portfolios {
       totalCount
       nodes {
          id
@@ -45,8 +45,6 @@ export function addPortfolioMutation() {
     }
   `;
 
-  const [addPortfolio, {data, loading, error}] = useMutation(ADD_PORTFOLIO, {
-    refetchQueries: "all"
-  });
+  const [addPortfolio, {data, loading, error}] = useMutation(ADD_PORTFOLIO);
   return [addPortfolio];
 }
