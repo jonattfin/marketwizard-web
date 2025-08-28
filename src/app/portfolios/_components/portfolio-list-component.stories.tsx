@@ -21,14 +21,16 @@ type Story = StoryObj<typeof meta>;
 export const Empty: Story = {
   args: {
     portfolios: [],
-    totalCount: 0
+    totalCount: 0,
+    onSubmit: () => {}
   },
 };
 
 export const NotEmpty: Story = {
   args: {
     portfolios: createPortfolios(2),
-    totalCount: 2
+    totalCount: 2,
+    onSubmit: () => {}
   },
 };
 
