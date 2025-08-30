@@ -8,6 +8,9 @@ const nextConfig: NextConfig = {
   /* config options here */
   images: {
     domains: ['images.unsplash.com']
+  },
+  experimental: {
+    optimizePackageImports: ["@chakra-ui/react"],
   }
 };
 

@@ -3,6 +3,7 @@
 import {Geist, Geist_Mono} from "next/font/google";
 
 import {ApolloProvider} from '@apollo/client';
+import {Provider} from "@/components/ui/provider";
 
 import {Analytics} from "@vercel/analytics/next"
 import {SpeedInsights} from "@vercel/speed-insights/next"
@@ -33,7 +34,7 @@ export default function RootLayout({
   const [appTheme, setAppTheme] = useState<string>(DarkTheme);
 
   return (
-    <html lang="en">
+    <html lang="en" suppressHydrationWarning>
     <head title={"Create Next App"}>
       <link
         rel="stylesheet"
@@ -47,7 +48,9 @@ export default function RootLayout({
       <header>
       </header>
       <main>
-        {children}
+        <Provider>
+          {children}
+        </Provider>
       </main>
       <footer>
       </footer>
