@@ -10,7 +10,7 @@ export default function PortfolioCard({portfolio}: PortfolioCardProps) {
     <Card.Root overflow="hidden">
       <Image
         src={portfolio.imageUrl}
-        alt="Green double couch with wooden legs"
+        alt={portfolio.description}
       />
       <Card.Body gap="2">
         <Card.Title>{portfolio.name}</Card.Title>

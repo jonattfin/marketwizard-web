@@ -13,10 +13,12 @@ export default function AppMenu() {
 }
 
 function renderMenu(name: string = "Products") {
+  const palette = name == "Products"? "yellow": "blue"
+
   return (
     <Menu.Root>
       <Menu.Trigger asChild>
-        <Button variant="ghost" colorPalette={"blue"}>
+        <Button variant="ghost" colorPalette={palette}>
           {name}
         </Button>
       </Menu.Trigger>

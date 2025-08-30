@@ -3,7 +3,7 @@ import {Box, Table} from "@chakra-ui/react"
 export default function Watchlist() {
   return (
     <Box borderWidth={"1px"} padding="10px">
-      <Table.Root stickyHeader interactive size={"sm"} >
+      <Table.Root stickyHeader interactive size={"sm"} width={"400px"} >
         <Table.Header>
           <Table.Row>
             <Table.ColumnHeader>Symbol</Table.ColumnHeader>
