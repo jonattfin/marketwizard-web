@@ -1,15 +1,8 @@
 'use client';
 
-import {Suspense, useState} from "react";
-import Tabs from '@mui/material/Tabs';
-import Tab from '@mui/material/Tab';
-import Box from '@mui/material/Box';
+import {useState} from "react";
 
 import {PortfolioPerformance} from "@/api/types";
-import {
-  PortfolioScatterChart, PortfolioHoldingsLineChart,
-} from "./charts";
-import Loading from "@/shared/loading";
 
 import {gql, TypedDocumentNode, useSuspenseQuery} from "@apollo/client";
 
@@ -57,22 +50,6 @@ interface TabPanelProps {
   value: number;
 }
 
-function CustomTabPanel(props: TabPanelProps) {
-  const {children, value, index, ...other} = props;
-
-  return (
-    <div
-      role="tabpanel"
-      hidden={value !== index}
-      id={`simple-tabpanel-${index}`}
-      aria-labelledby={`simple-tab-${index}`}
-      {...other}
-    >
-      {value === index && <Box sx={{p: 3}}>{children}</Box>}
-    </div>
-  );
-}
-
 export type PortfolioTabsComponentProps = {
   readonly portfolioId: string;
 }
@@ -87,31 +64,6 @@ export default function PortfolioTabsComponent({portfolioId}: PortfolioTabsCompo
   };
 
   return (
-    <Box sx={{width: '100%'}}>
-      <Tabs
-        value={value}
-        onChange={handleChange}
-        textColor="secondary"
-        indicatorColor="secondary"
-        aria-label="secondary tabs example"
-      >
-        <Tab label="Holdings"/>
-        <Tab label="Analysis"/>
-      </Tabs>
-      <CustomTabPanel value={value} index={0}>
-        Holdings
-        <Suspense fallback={<Loading/>}>
-          <PortfolioHoldingsLineChart performance={performance}/>
-        </Suspense>
-      </CustomTabPanel>
-      <CustomTabPanel value={value} index={1}>
-        Analysis
-        <Suspense fallback={<Loading/>}>
-          <PortfolioScatterChart performance={performance}/>
-          {/*{renderRisks()}*/}
-          <div>&nbsp;</div>
-        </Suspense>
-      </CustomTabPanel>
-    </Box>
+    <div>tabs</div>
   );
 }
