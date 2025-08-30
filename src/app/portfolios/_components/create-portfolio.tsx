@@ -1,6 +1,7 @@
 'use client';
 
 import {useState} from "react";
+import {Button} from "@chakra-ui/react";
 
 
 export type CreatePortfolioProps = {
@@ -27,8 +28,6 @@ export default function CreatePortfolio({onSubmit}: CreatePortfolioProps) {
   }
 
   return (
-    <>
-      Create portfolio page
-    </>
+    <Button colorPalette={"orange"} variant={"outline"}>Create new portfolio</Button>
   )
 }

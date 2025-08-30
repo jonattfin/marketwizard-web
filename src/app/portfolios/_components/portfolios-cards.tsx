@@ -2,6 +2,7 @@ import {Portfolio} from "@/api/types";
 
 import PortfolioCard from "@/app/portfolios/_components/portfolio-card";
 import React from "react";
+import {Grid} from "@chakra-ui/react";
 
 export type PortfoliosCardsProps = {
   readonly portfolios: Portfolio[];
@@ -9,16 +10,17 @@ export type PortfoliosCardsProps = {
 
 export default function PortfoliosCards({portfolios}: PortfoliosCardsProps) {
   return (
-    <div>
-      <h2>Portfolios</h2>
-      <div>
+    <>
+      <h1>Portfolios</h1>
+      <div>&nbsp;</div>
+      <Grid templateColumns="repeat(3, 1fr)" gap="6">
         {portfolios.map((portfolio) => (
           <div key={portfolio.id}>
             <PortfolioCard {...{portfolio}} />
           </div>
         ))}
-      </div>
+      </Grid>
       <br/>
-    </div>
+    </>
   );
 }

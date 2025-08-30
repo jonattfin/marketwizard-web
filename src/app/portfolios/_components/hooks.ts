@@ -21,6 +21,8 @@ export const GET_PORTFOLIOS: TypedDocumentNode<Data> = gql`
          name
          description
          imageUrl
+         unrealizedGain
+         
       }
     }
   }
