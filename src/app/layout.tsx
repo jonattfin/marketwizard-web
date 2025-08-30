@@ -15,7 +15,8 @@ import "./globals.css";
 import {DarkTheme, LightTheme} from "@/app/constants";
 import apolloClient from "@/app/apolloClient";
 import AppMenu from "@/shared/app-menu";
-import {Box} from "@chakra-ui/react";
+import Watchlist from "@/shared/watchlist";
+import {Box, Grid, GridItem} from "@chakra-ui/react";
 
 const geistSans = Geist({
   variable: "--font-geist-sans",
@@ -46,22 +47,29 @@ export default function RootLayout({
     <Provider>
 
       <ApolloProvider client={apolloClient}>
-        <Box width="100%" padding="8">
-          <body className={`${geistSans.variable} ${geistMono.variable}`}>
-          <header>
-            <AppMenu/>
-          </header>
-          <main>
 
-            {children}
+        <body className={`${geistSans.variable} ${geistMono.variable}`}>
+        <header>
 
-          </main>
-          <footer>
-          </footer>
-          <Analytics/>
-          <SpeedInsights/>
-          </body>
-        </Box>
+        </header>
+        <main>
+          <Grid templateColumns="repeat(2, 1fr)" gap="6">
+            <GridItem>
+              <Box padding="20px">
+                <AppMenu/>
+                {children}
+              </Box>
+            </GridItem>
+            <GridItem>
+              <Watchlist/>
+            </GridItem>
+          </Grid>
+        </main>
+        <footer>
+        </footer>
+        <Analytics/>
+        <SpeedInsights/>
+        </body>
       </ApolloProvider>
     </Provider>
     </html>

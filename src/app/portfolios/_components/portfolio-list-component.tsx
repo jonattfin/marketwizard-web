@@ -38,9 +38,8 @@ export default function PortfoliosListComponent({portfolios, totalCount, onSubmi
 
   return (
     <div>
-      <CreatePortfolio onSubmit={handleSubmit}/>
-      <div>&nbsp;</div>
       <PortfoliosCards portfolios={portfolios}></PortfoliosCards>
+      <CreatePortfolio onSubmit={handleSubmit}/>
     </div>
   )
 }
