@@ -9,24 +9,25 @@ import {useAddPortfolioMutation, useDeletePortfolioMutation, usePortfolios} from
 import PortfoliosListComponent from "@/app/portfolios/_components/portfolio-list-component";
 
 export default function PortfoliosList() {
-  const {nodes:portfolios, totalCount} = usePortfolios();
+  const [page, setPage] = useState(1);
+  const {portfolios, totalCount} = usePortfolios(page);
 
   const [addPortfolio] = useAddPortfolioMutation();
   const [deletePortfolio] = useDeletePortfolioMutation();
 
-  const handleAddPortfolio = async (name: string, description: string, imageUrl: string) => {
-    await addPortfolio({variables: {name, description, imageUrl}});
-  }
-
-  const handleDeletePortfolio = async (id: string) => {
-    await deletePortfolio({variables: {portfolioId: id}});
-  }
-
   const props = {
     portfolios,
     totalCount,
-    onPortfolioAdd: handleAddPortfolio,
-    onPortfolioDelete: handleDeletePortfolio,
+    onPortfolioAdd: async (name: string, description: string, imageUrl: string) => {
+      await addPortfolio({variables: {name, description, imageUrl}});
+    },
+    onPortfolioDelete: async (id: string) => {
+      await deletePortfolio({variables: {portfolioId: id}});
+    },
+    onPageChange: (page: number) => {
+      setPage(page);
+    },
+    page,
   }
 
   return (

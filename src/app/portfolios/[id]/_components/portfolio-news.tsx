@@ -38,12 +38,11 @@ function usePortfolioNews(id: string) {
 }
 
 export default function PortfolioNewsComponent({portfolioId}: PortfolioNewsComponentProps) {
-  const {nodes} = usePortfolioNews(portfolioId)
+  const {} = usePortfolioNews(portfolioId)
 
   return (
     <>
       <h3>News</h3>
-
     </>
   );
 }

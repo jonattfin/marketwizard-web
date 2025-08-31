@@ -1,4 +1,4 @@
-import {Button, Card, Flex, Grid, Image, Text, Link as ChakraLink} from "@chakra-ui/react"
+import {Button, Card, Image, Text, Link as ChakraLink} from "@chakra-ui/react"
 import {Portfolio} from "@/api/types";
 import Link from "next/link";
 
@@ -15,7 +15,11 @@ export default function PortfolioCard({portfolio, onDeletePortfolio}: PortfolioC
         alt={portfolio.description}
       />
       <Card.Body gap="2">
-        <Card.Title>{portfolio.name}</Card.Title>
+        <Card.Title>
+          <ChakraLink asChild>
+            <Link href={`/portfolios/${portfolio.id}`}>{portfolio.name}</Link>
+          </ChakraLink>
+        </Card.Title>
         <Card.Description>
           {portfolio.description}
         </Card.Description>
@@ -24,11 +28,8 @@ export default function PortfolioCard({portfolio, onDeletePortfolio}: PortfolioC
         </Text>
       </Card.Body>
       <Card.Footer gap="2">
-        <ChakraLink asChild>
-          <Link href={`/portfolios/${portfolio.id}`}>View details</Link>
-        </ChakraLink>
-        <Button colorPalette={"yellow"} variant={"ghost"}>Update</Button>
-        <Button colorPalette={"red"} variant={"solid"} onClick={async () => {
+        <Button colorPalette={"yellow"} variant={"outline"}>Update</Button>
+        <Button colorPalette={"red"} variant={"outline"} onClick={async () => {
           await onDeletePortfolio(portfolio.id);
         }}>Delete</Button>
       </Card.Footer>

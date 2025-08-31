@@ -3,34 +3,31 @@ import {gql, TypedDocumentNode, useMutation, useSuspenseQuery} from "@apollo/cli
 
 interface Data {
   portfolios: {
-    nodes: Portfolio[];
+    items: Portfolio[];
     totalCount: number;
-    pageInfo: {
-      startCursor: string;
-      endCursor: string;
-    }
   }
 }
 
 export const GET_PORTFOLIOS: TypedDocumentNode<Data> = gql`
-  query GetPortfolios {
-     portfolios(first: 3) {
+  query GetPortfolios($take: Int, $skip: Int) {
+     portfolios(take: $take, skip: $skip) {
       totalCount
-      nodes {
+      items {
          id
          name
          description
          imageUrl
          unrealizedGain
-         
       }
     }
   }
-  `
+  `;
 
-export function usePortfolios() {
-  const {data: {portfolios: {nodes = [], pageInfo, totalCount}}} = useSuspenseQuery(GET_PORTFOLIOS);
-  return {nodes, pageInfo, totalCount};
+export function usePortfolios(page: number = 1) {
+  const {data: {portfolios: {items = [], totalCount}}} = useSuspenseQuery(GET_PORTFOLIOS, {
+    variables: {take: 3, skip: (page - 1) * 3},
+  });
+  return {portfolios: items, totalCount};
 }
 
 export function useAddPortfolioMutation() {
@@ -48,7 +45,7 @@ export function useAddPortfolioMutation() {
   `;
 
   const [addPortfolio] = useMutation(ADD_PORTFOLIO, {
-    refetchQueries: [GET_PORTFOLIOS],
+    refetchQueries: "active",
   });
   return [addPortfolio];
 }
@@ -61,7 +58,7 @@ export function useDeletePortfolioMutation() {
   `;
 
   const [deletePortfolio] = useMutation(DELETE_PORTFOLIO, {
-    refetchQueries: [GET_PORTFOLIOS],
+    refetchQueries: "active",
   });
   return [deletePortfolio];
 }

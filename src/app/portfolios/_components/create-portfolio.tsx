@@ -36,7 +36,7 @@ export default function CreatePortfolio({onAddPortfolio}: CreatePortfolioProps) 
     <>
       <Dialog.Root lazyMount open={open} onOpenChange={(e) => setOpen(e.open)}>
         <Dialog.Trigger asChild>
-          <Button variant="outline" colorPalette={"orange"}>Create new portfolio</Button>
+          <Button variant="outline" colorPalette={"green"}>Create new portfolio</Button>
         </Dialog.Trigger>
         <Portal>
           <Dialog.Backdrop/>

@@ -1,45 +1,32 @@
 'use client';
 
 import React from 'react';
-
-import {useState} from "react";
-import PortfoliosCards from "@/app/portfolios/_components/portfolios-cards";
-
-import CreatePortfolio from "@/app/portfolios/_components/create-portfolio";
-import {Portfolio} from "@/api/types";
-import {Toaster, toaster} from "@/components/ui/toaster";
 import {ButtonGroup, Center, IconButton, Pagination} from "@chakra-ui/react";
 import {LuChevronLeft, LuChevronRight} from "react-icons/lu";
+
+import {Toaster, toaster} from "@/components/ui/toaster";
+
+import PortfoliosCards from "@/app/portfolios/_components/portfolios-cards";
+import {Portfolio} from "@/api/types";
 
 export type PortfoliosListComponentProps = {
   portfolios: Portfolio[];
   totalCount: number;
   onPortfolioAdd: (name: string, description: string, imageUrl: string) => Promise<void>;
   onPortfolioDelete: (id: string) => Promise<void>;
+  page: number;
+  onPageChange: (page: number) => void;
 }
 
-export default function PortfoliosListComponent({
-                                                  portfolios,
-                                                  totalCount,
-                                                  onPortfolioAdd,
-                                                  onPortfolioDelete
-                                                }: PortfoliosListComponentProps) {
-  const [page, setPage] = useState(0);
-  const [rowsPerPage, setRowsPerPage] = useState(10);
-
-  const handleChangePage = (
-    event: React.MouseEvent<HTMLButtonElement> | null,
-    newPage: number,
-  ) => {
-    setPage(newPage);
-  };
-
-  const handleChangeRowsPerPage = (
-    event: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>,
-  ) => {
-    setRowsPerPage(parseInt(event.target.value, 10));
-    setPage(1);
-  };
+export default function PortfoliosListComponent(
+  {
+    portfolios,
+    totalCount,
+    onPortfolioAdd,
+    onPortfolioDelete,
+    page,
+    onPageChange,
+  }: PortfoliosListComponentProps) {
 
   const handleAddPortfolio = async (name: string, description: string, imageUrl: string) => {
     try {
@@ -50,7 +37,7 @@ export default function PortfoliosListComponent({
         type: "success",
       });
 
-    } catch (error) {
+    } catch {
       toaster.create({
         title: "Portfolio can't be created",
         type: "error",
@@ -67,7 +54,7 @@ export default function PortfoliosListComponent({
         type: "success",
       });
 
-    } catch (error) {
+    } catch {
       toaster.create({
         title: "Portfolio can't be deleted",
         type: "error",
@@ -84,7 +71,7 @@ export default function PortfoliosListComponent({
         onAddPortfolio: handleAddPortfolio
       }}/>
       <Center>
-        <Pagination.Root count={totalCount} pageSize={3} defaultPage={1}>
+        <Pagination.Root count={totalCount} pageSize={3} defaultPage={page} onPageChange={(e) => onPageChange(e.page)}>
           <ButtonGroup variant="ghost" size="sm">
             <Pagination.PrevTrigger asChild>
               <IconButton>
@@ -99,7 +86,6 @@ export default function PortfoliosListComponent({
                 </IconButton>
               )}
             />
-
             <Pagination.NextTrigger asChild>
               <IconButton>
                 <LuChevronRight/>

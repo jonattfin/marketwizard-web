@@ -72,19 +72,15 @@ export default function PortfolioTabsComponent({portfolioId}: PortfolioTabsCompo
           Analyis
         </Tabs.Trigger>
       </Tabs.List>
-      <Tabs.Content value="overview">{renderOverview(performance)}</Tabs.Content>
-      <Tabs.Content value="holdings">{renderHoldings(performance)}</Tabs.Content>
+      <Tabs.Content value="overview">{Overview(performance)}</Tabs.Content>
+      <Tabs.Content value="holdings">{Holdings(performance)}</Tabs.Content>
       <Tabs.Content value="transactions">Transactions</Tabs.Content>
       <Tabs.Content value="analysis">Analysis</Tabs.Content>
     </Tabs.Root>
   );
 }
 
-function renderOverview(performance: PortfolioPerformance) {
-  if (!performance) {
-    return;
-  }
-
+function Overview(performance: PortfolioPerformance) {
   const chart = useChart({
     data: [
       {windows: 186, mac: 80, linux: 120, month: "January"},
@@ -142,7 +138,7 @@ function renderOverview(performance: PortfolioPerformance) {
   )
 }
 
-function renderHoldings(performance: PortfolioPerformance) {
+function Holdings(performance: PortfolioPerformance) {
   const items = performance.portfolioAssets.map(p => ({
     symbol: p.asset.symbol,
     name: p.asset.symbol,

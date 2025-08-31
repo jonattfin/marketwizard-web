@@ -1,6 +1,6 @@
 'use client';
 
-import {Button, Center, Flex, Grid, GridItem, Menu, Portal} from "@chakra-ui/react"
+import {Button, Center, Flex, Menu, Portal} from "@chakra-ui/react"
 
 export default function AppMenu() {
   return (

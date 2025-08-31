@@ -1,7 +1,5 @@
 'use client';
 
-import * as React from 'react';
-
 export type PortfolioSummaryComponentProps = {
   title: string;
   subtitle: string;
@@ -9,7 +7,6 @@ export type PortfolioSummaryComponentProps = {
 }
 
 export default function PortfolioSummaryComponent({title, subtitle, note}: PortfolioSummaryComponentProps) {
-
   return (
    JSON.stringify({title, subtitle, note})
   );

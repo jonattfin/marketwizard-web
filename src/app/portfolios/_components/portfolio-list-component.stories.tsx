@@ -22,7 +22,10 @@ export const Empty: Story = {
   args: {
     portfolios: [],
     totalCount: 0,
-    onSubmit: () => {}
+    page: 1,
+    onPortfolioAdd: () => Promise.resolve(),
+    onPageChange: () => {},
+    onPortfolioDelete: () => Promise.resolve()
   },
 };
 
@@ -30,7 +33,10 @@ export const NotEmpty: Story = {
   args: {
     portfolios: createPortfolios(2),
     totalCount: 2,
-    onSubmit: () => {}
+    page: 1,
+    onPortfolioAdd: () => Promise.resolve(),
+    onPageChange: () => {},
+    onPortfolioDelete: () => Promise.resolve()
   },
 };
 
