@@ -14,7 +14,7 @@ interface Data {
 
 export const GET_PORTFOLIOS: TypedDocumentNode<Data> = gql`
   query GetPortfolios {
-     portfolios {
+     portfolios(first: 3) {
       totalCount
       nodes {
          id
@@ -47,6 +47,21 @@ export function useAddPortfolioMutation() {
     }
   `;
 
-  const [addPortfolio] = useMutation(ADD_PORTFOLIO);
+  const [addPortfolio] = useMutation(ADD_PORTFOLIO, {
+    refetchQueries: [GET_PORTFOLIOS],
+  });
   return [addPortfolio];
+}
+
+export function useDeletePortfolioMutation() {
+  const DELETE_PORTFOLIO = gql`
+    mutation DeletePortfolio($portfolioId: UUID!) {
+      deletePortfolio(portfolioId: $portfolioId)
+    }
+  `;
+
+  const [deletePortfolio] = useMutation(DELETE_PORTFOLIO, {
+    refetchQueries: [GET_PORTFOLIOS],
+  });
+  return [deletePortfolio];
 }

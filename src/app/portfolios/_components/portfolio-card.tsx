@@ -3,10 +3,11 @@ import {Portfolio} from "@/api/types";
 import Link from "next/link";
 
 export type PortfolioCardProps = {
+  onDeletePortfolio: (id: string) => Promise<void>;
   readonly portfolio: Portfolio;
 }
 
-export default function PortfolioCard({portfolio}: PortfolioCardProps) {
+export default function PortfolioCard({portfolio, onDeletePortfolio}: PortfolioCardProps) {
   return (
     <Card.Root overflow="hidden">
       <Image
@@ -27,7 +28,9 @@ export default function PortfolioCard({portfolio}: PortfolioCardProps) {
           <Link href={`/portfolios/${portfolio.id}`}>View details</Link>
         </ChakraLink>
         <Button colorPalette={"yellow"} variant={"ghost"}>Update</Button>
-        <Button colorPalette={"red"} variant={"solid"}>Delete</Button>
+        <Button colorPalette={"red"} variant={"solid"} onClick={async () => {
+          await onDeletePortfolio(portfolio.id);
+        }}>Delete</Button>
       </Card.Footer>
     </Card.Root>
   );

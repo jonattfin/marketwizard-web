@@ -5,7 +5,7 @@ import {Button, CloseButton, Dialog, Field, Input, Portal, Stack, Textarea} from
 import {useForm} from "react-hook-form";
 
 export type CreatePortfolioProps = {
-  onSubmit: (name: string, description: string, image: string) => Promise<void>;
+  onAddPortfolio: (name: string, description: string, image: string) => Promise<void>;
 }
 
 interface FormValues {
@@ -14,20 +14,22 @@ interface FormValues {
   imageUrl: string
 }
 
-export default function CreatePortfolio({onSubmit: onSubmitForm}: CreatePortfolioProps) {
+export default function CreatePortfolio({onAddPortfolio}: CreatePortfolioProps) {
   const [open, setOpen] = useState(false)
 
   const {
     register,
     handleSubmit,
     formState: {errors},
+    reset
   } = useForm<FormValues>()
 
   const onSubmit = handleSubmit(async (data) => {
     const {name, description, imageUrl} = data;
-    await onSubmitForm(name, description, imageUrl);
+    await onAddPortfolio(name, description, imageUrl);
 
     setOpen(false);
+    reset();
   })
 
   return (
