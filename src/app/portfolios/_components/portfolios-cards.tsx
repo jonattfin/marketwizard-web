@@ -11,12 +11,12 @@ export type PortfoliosCardsProps = {
   onDeletePortfolio: (id: string) => Promise<void>;
 }
 
-export default function PortfoliosCards({portfolios, onDeletePortfolio}: PortfoliosCardsProps) {
+export default function PortfoliosCards({portfolios, onDeletePortfolio, onAddPortfolio}: PortfoliosCardsProps) {
   return (
     <>
       <Heading>Portfolios</Heading>
       <div>&nbsp;</div>
-      <CreatePortfolio onAddPortfolio={onDeletePortfolio}/>
+      <CreatePortfolio onAddPortfolio={onAddPortfolio}/>
       <div>&nbsp;</div>
       <Grid templateColumns="repeat(3, 1fr)" gap="6">
         {portfolios.map((portfolio) => (
