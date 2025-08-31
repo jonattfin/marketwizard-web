@@ -1,13 +1,13 @@
 'use client';
 
-import Link from 'next/link'
+import {Breadcrumb, Image} from "@chakra-ui/react"
 
 import {type Portfolio} from "@/api/types";
 import PortfolioTabs from './portfolio-tabs';
-import PortfolioSummary from "./portfolio-summary";
 import {gql, TypedDocumentNode, useSuspenseQuery} from "@apollo/client";
 import {Suspense} from "react";
 import Loading from "@/shared/loading";
+import {Heading} from "@chakra-ui/react";
 
 export type PortfolioDetailsProps = {
   id: string
@@ -44,8 +44,20 @@ export default function PortfolioDetails({id}: Readonly<PortfolioDetailsProps>) 
 
   return (
     <Suspense fallback={<Loading/>}>
-      {JSON.stringify(portfolio, null, 2)}
-      <PortfolioSummary title={""} subtitle={""}></PortfolioSummary>
+      <Breadcrumb.Root>
+        <Breadcrumb.List>
+          <Breadcrumb.Item>
+            <Breadcrumb.Link href="/portfolios">Portfolios</Breadcrumb.Link>
+          </Breadcrumb.Item>
+          <Breadcrumb.Separator/>
+          <Breadcrumb.Item>
+            <Breadcrumb.CurrentLink>{portfolio.name}</Breadcrumb.CurrentLink>
+          </Breadcrumb.Item>
+        </Breadcrumb.List>
+      </Breadcrumb.Root>
+      <Heading>{portfolio.description}</Heading>
+      <Image src={portfolio.imageUrl} height={320}></Image>
+      <div>&nbsp;</div>
       <PortfolioTabs portfolioId={portfolio.id}/>
     </Suspense>
   );

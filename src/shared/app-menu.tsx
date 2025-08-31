@@ -16,7 +16,7 @@ function renderMenu(name: string = "Products") {
   const palette = name == "Products"? "yellow": "blue"
 
   return (
-    <Menu.Root>
+    <Menu.Root key={name}>
       <Menu.Trigger asChild>
         <Button variant="ghost" colorPalette={palette}>
           {name}

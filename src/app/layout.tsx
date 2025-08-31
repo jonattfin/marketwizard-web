@@ -1,7 +1,7 @@
 'use client';
 
 import {Geist, Geist_Mono} from "next/font/google";
-import {Flex, Theme} from "@chakra-ui/react"
+import {Theme} from "@chakra-ui/react"
 
 import {ApolloProvider} from '@apollo/client';
 import {Provider} from "@/components/ui/provider";
@@ -41,29 +41,58 @@ export default function RootLayout({
         href="https://fonts.googleapis.com/icon?family=Material+Icons"
       />
     </head>
-    <Provider>
-      <Theme appearance="dark">
-        <ApolloProvider client={apolloClient}>
-          <body className={`${geistSans.variable} ${geistMono.variable}`}>
+
+    <ApolloProvider client={apolloClient}>
+      <body className={`${geistSans.variable} ${geistMono.variable}`}>
+      <Provider>
+        <Theme appearance="dark">
           <header>
           </header>
           <main>
-            <Flex>
-              <Box padding="20px">
-                <AppMenu/>
-                {children}
-              </Box>
-              <Watchlist/>
-            </Flex>
+            <Grid templateColumns="repeat(4, 1fr)" gap="6">
+              <GridItem colSpan={3}>
+                <Box padding="20px">
+                  <AppMenu/>
+                  {children}
+                </Box>
+              </GridItem>
+              <GridItem>
+                <Watchlist/>
+              </GridItem>
+            </Grid>
           </main>
           <footer>
+            <div>&nbsp;</div>
+            <div>&nbsp;</div>
+            <div>&nbsp;</div>
+            <div>&nbsp;</div>
+            <div>&nbsp;</div>
+            <div>&nbsp;</div>
+            <div>&nbsp;</div>
+            <div>&nbsp;</div>
+            <div>&nbsp;</div>
+            <div>&nbsp;</div>
+            <div>&nbsp;</div>
+            <div>&nbsp;</div>
+            <div>&nbsp;</div>
+            <div>&nbsp;</div>
+            <div>&nbsp;</div>
+            <div>&nbsp;</div>
+            <div>&nbsp;</div>
+            <div>&nbsp;</div>
+            <div>&nbsp;</div>
+            <div>&nbsp;</div>
+            <div>&nbsp;</div>
+            <div>&nbsp;</div>
+            <div>&nbsp;</div>
           </footer>
           <Analytics/>
           <SpeedInsights/>
-          </body>
-        </ApolloProvider>
-      </Theme>
-    </Provider>
+        </Theme>
+      </Provider>
+      </body>
+    </ApolloProvider>
+
     </html>
   );
 }

@@ -1,5 +1,6 @@
-import {Button, Card, Flex, Grid, Image, Text} from "@chakra-ui/react"
+import {Button, Card, Flex, Grid, Image, Text, Link as ChakraLink} from "@chakra-ui/react"
 import {Portfolio} from "@/api/types";
+import Link from "next/link";
 
 export type PortfolioCardProps = {
   readonly portfolio: Portfolio;
@@ -22,7 +23,9 @@ export default function PortfolioCard({portfolio}: PortfolioCardProps) {
         </Text>
       </Card.Body>
       <Card.Footer gap="2">
-        <Button colorPalette={"green"} variant={"ghost"}>View details</Button>
+        <ChakraLink asChild>
+          <Link href={`/portfolios/${portfolio.id}`}>View details</Link>
+        </ChakraLink>
         <Button colorPalette={"yellow"} variant={"ghost"}>Update</Button>
         <Button colorPalette={"red"} variant={"solid"}>Delete</Button>
       </Card.Footer>

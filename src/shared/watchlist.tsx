@@ -1,4 +1,5 @@
 import {Box, Table} from "@chakra-ui/react"
+import {range} from "@es-toolkit/es-toolkit";
 
 export default function Watchlist() {
   return (
@@ -25,35 +26,6 @@ export default function Watchlist() {
   )
 }
 
-const items = [
-  {id: 1, symbol: "Vix", category: "Electronics", price: 999.99},
-  {id: 2, symbol: "NDQ", category: "Home Appliances", price: 49.99},
-  {id: 3, symbol: "SPX", category: "Furniture", price: 150.0},
-  {id: 4, symbol: "DJI", category: "Electronics", price: 799.99},
-  {id: 5, symbol: "DAX", category: "Accessories", price: 199.99},
-  {id: 5, symbol: "DAX", category: "Accessories", price: 199.99},
-  {id: 5, symbol: "DAX", category: "Accessories", price: 199.99},
-  {id: 5, symbol: "DAX", category: "Accessories", price: 199.99},
-  {id: 5, symbol: "DAX", category: "Accessories", price: 199.99},
-  {id: 5, symbol: "DAX", category: "Accessories", price: 199.99},
-  {id: 1, symbol: "Vix", category: "Electronics", price: 999.99},
-  {id: 2, symbol: "NDQ", category: "Home Appliances", price: 49.99},
-  {id: 3, symbol: "SPX", category: "Furniture", price: 150.0},
-  {id: 4, symbol: "DJI", category: "Electronics", price: 799.99},
-  {id: 5, symbol: "DAX", category: "Accessories", price: 199.99},
-  {id: 5, symbol: "DAX", category: "Accessories", price: 199.99},
-  {id: 5, symbol: "DAX", category: "Accessories", price: 199.99},
-  {id: 5, symbol: "DAX", category: "Accessories", price: 199.99},
-  {id: 5, symbol: "DAX", category: "Accessories", price: 199.99},
-  {id: 5, symbol: "DAX", category: "Accessories", price: 199.99},
-  {id: 1, symbol: "Vix", category: "Electronics", price: 999.99},
-  {id: 2, symbol: "NDQ", category: "Home Appliances", price: 49.99},
-  {id: 3, symbol: "SPX", category: "Furniture", price: 150.0},
-  {id: 4, symbol: "DJI", category: "Electronics", price: 799.99},
-  {id: 5, symbol: "DAX", category: "Accessories", price: 199.99},
-  {id: 5, symbol: "DAX", category: "Accessories", price: 199.99},
-  {id: 5, symbol: "DAX", category: "Accessories", price: 199.99},
-  {id: 5, symbol: "DAX", category: "Accessories", price: 199.99},
-  {id: 5, symbol: "DAX", category: "Accessories", price: 199.99},
-  {id: 5, symbol: "DAX", category: "Accessories", price: 199.99},
-]
+const items = range(1, 20).map((item) => {
+  return {id: item, symbol: "Vix", category: "Electronics", price: 999.99};
+});
