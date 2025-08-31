@@ -1,12 +1,14 @@
 'use client';
 
-import {Button, Center, Flex, Menu, Portal} from "@chakra-ui/react"
+import {Button, Center, Flex, HStack, Menu, Portal} from "@chakra-ui/react"
 
 export default function AppMenu() {
   return (
     <Center>
       <Flex>
-        {["Products", "Community", "Markets", "Brokers", "More"].map(renderMenu)}
+        <HStack wrap="wrap" gap="6">
+          {["Products", "Community", "Markets", "Brokers", "More"].map(renderMenu)}
+        </HStack>
       </Flex>
     </Center>
   )
@@ -18,7 +20,7 @@ function renderMenu(name: string = "Products") {
   return (
     <Menu.Root key={name}>
       <Menu.Trigger asChild>
-        <Button variant="ghost" colorPalette={palette}>
+        <Button variant="subtle" colorPalette={palette}>
           {name}
         </Button>
       </Menu.Trigger>
