@@ -36,7 +36,7 @@ export function usePortfolios() {
 export function useAddPortfolioMutation() {
   const ADD_PORTFOLIO = gql`
     mutation addPortfolio($name: String!, $description: String!, $imageUrl: String!) {
-      addPortfolio(portfolio: {
+      addPortfolio(portfolioInput: {
         name: $name,
         description: $description,
         imageUrl: $imageUrl,
