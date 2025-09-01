@@ -8,6 +8,7 @@ import {Toaster, toaster} from "@/components/ui/toaster";
 
 import PortfoliosCards from "@/app/portfolios/_components/portfolios-cards";
 import {Portfolio} from "@/api/types";
+import {PAGE_SIZE} from "@/app/constants";
 
 export type PortfoliosListComponentProps = {
   portfolios: Portfolio[];
@@ -71,7 +72,7 @@ export default function PortfoliosListComponent(
         onAddPortfolio: handleAddPortfolio
       }}/>
       <Center>
-        <Pagination.Root count={totalCount} pageSize={3} defaultPage={page} onPageChange={(e) => onPageChange(e.page)}>
+        <Pagination.Root count={totalCount} pageSize={PAGE_SIZE} defaultPage={page} onPageChange={(e) => onPageChange(e.page)}>
           <ButtonGroup variant="ghost" size="sm">
             <Pagination.PrevTrigger asChild>
               <IconButton>
