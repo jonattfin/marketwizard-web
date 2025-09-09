@@ -13,8 +13,9 @@ import {PAGE_SIZE} from "@/app/constants";
 export type PortfoliosListComponentProps = {
   portfolios: Portfolio[];
   totalCount: number;
-  onPortfolioAdd: (name: string, description: string, imageUrl: string) => Promise<void>;
-  onPortfolioDelete: (id: string) => Promise<void>;
+  onPortfolioAdd?: (name: string, description: string, imageUrl: string) => Promise<void>;
+  onPortfolioDelete?: (id: string) => Promise<void>;
+  onPortfolioUpdate?: (portfolio: Portfolio) => Promise<void>;
   page: number;
   onPageChange: (page: number) => void;
 }
@@ -25,19 +26,23 @@ export default function PortfoliosListComponent(
     totalCount,
     onPortfolioAdd,
     onPortfolioDelete,
+    onPortfolioUpdate,
     page,
     onPageChange,
   }: PortfoliosListComponentProps) {
 
   const handleAddPortfolio = async (name: string, description: string, imageUrl: string) => {
     try {
+      if (!onPortfolioAdd) {
+        return;
+      }
+
       await onPortfolioAdd(name, description, imageUrl);
 
       toaster.create({
         title: "Portfolio created",
         type: "success",
       });
-
     } catch {
       toaster.create({
         title: "Portfolio can't be created",
@@ -48,6 +53,10 @@ export default function PortfoliosListComponent(
 
   const handleDeletePortfolio = async (id: string) => {
     try {
+      if (!onPortfolioDelete) {
+        return;
+      }
+
       await onPortfolioDelete(id);
 
       toaster.create({
@@ -63,16 +72,38 @@ export default function PortfoliosListComponent(
     }
   }
 
+  const handleUpdatePortfolio = async (portfolio: Portfolio) => {
+    try {
+      if (!onPortfolioUpdate) {
+        return;
+      }
+
+      await onPortfolioUpdate(portfolio);
+
+      toaster.create({
+        title: "Portfolio updated",
+        type: "success",
+      });
+    } catch {
+      toaster.create({
+        title: "Portfolio couldn't be updated",
+        type: "error",
+      });
+    }
+  }
+
   return (
     <div>
       <Toaster/>
       <PortfoliosCards {...{
         portfolios,
         onDeletePortfolio: handleDeletePortfolio,
-        onAddPortfolio: handleAddPortfolio
+        onAddPortfolio: handleAddPortfolio,
+        onUpdatePortfolio: handleUpdatePortfolio,
       }}/>
       <Center>
-        <Pagination.Root count={totalCount} pageSize={PAGE_SIZE} defaultPage={page} onPageChange={(e) => onPageChange(e.page)}>
+        <Pagination.Root count={totalCount} pageSize={PAGE_SIZE} defaultPage={page}
+                         onPageChange={(e) => onPageChange(e.page)}>
           <ButtonGroup variant="ghost" size="sm">
             <Pagination.PrevTrigger asChild>
               <IconButton>

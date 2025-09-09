@@ -1,17 +1,19 @@
 import {Portfolio} from "@/api/types";
 
-import React from "react";
+import React, {useState} from "react";
 import {Button, Card, Image, Text, Heading, Grid, Link as ChakraLink, FormatNumber} from "@chakra-ui/react"
 import CreatePortfolio from "@/app/portfolios/_components/create-portfolio";
 import Link from "next/link";
+import UpdatePortfolio from "@/app/portfolios/_components/update-portfolio";
 
 export type PortfoliosCardsProps = {
   readonly portfolios: Portfolio[];
   onAddPortfolio: (name: string, description: string, image: string) => Promise<void>;
   onDeletePortfolio: (id: string) => Promise<void>;
+  onUpdatePortfolio: (portfolio: Portfolio) => Promise<void>;
 }
 
-export default function PortfoliosCards({portfolios, onDeletePortfolio, onAddPortfolio}: PortfoliosCardsProps) {
+export default function PortfoliosCards({portfolios, onDeletePortfolio, onAddPortfolio, onUpdatePortfolio}: PortfoliosCardsProps) {
   return (
     <>
       <Heading>Portfolios</Heading>
@@ -21,7 +23,7 @@ export default function PortfoliosCards({portfolios, onDeletePortfolio, onAddPor
       <Grid templateColumns="repeat(3, 1fr)" gap="6">
         {portfolios.map((portfolio) => (
           <div key={portfolio.id}>
-            <PortfolioCard {...{portfolio}} onDeletePortfolio={onDeletePortfolio}/>
+            <PortfolioCard {...{portfolio}} onDeletePortfolio={onDeletePortfolio} onUpdatePortfolio={onUpdatePortfolio}/>
           </div>
         ))}
       </Grid>
@@ -32,10 +34,11 @@ export default function PortfoliosCards({portfolios, onDeletePortfolio, onAddPor
 
 type PortfolioCardProps = {
   onDeletePortfolio: (id: string) => Promise<void>;
+  onUpdatePortfolio: (portfolio: Portfolio) => Promise<void>;
   readonly portfolio: Portfolio;
 }
 
-function PortfolioCard({portfolio, onDeletePortfolio}: PortfolioCardProps) {
+function PortfolioCard({portfolio, onDeletePortfolio, onUpdatePortfolio}: PortfolioCardProps) {
   return (
     <Card.Root overflow="hidden">
       <Image
@@ -52,17 +55,17 @@ function PortfolioCard({portfolio, onDeletePortfolio}: PortfolioCardProps) {
           {portfolio.description}
         </Card.Description>
         <Text letterSpacing="tight" mt="2">
-          Total value: <FormatNumber value={portfolio.totalValue} style="currency" currency="USD"/>
+          Total value: <FormatNumber value={portfolio?.totalValue || 0} style="currency" currency="USD"/>
         </Text>
         <Text letterSpacing="tight" mt="2">
-          Unrealized gain: <FormatNumber value={portfolio.unrealizedGain} style="currency" currency="USD"/>
+          Unrealized gain: <FormatNumber value={portfolio?.unrealizedGain || 0} style="currency" currency="USD"/>
         </Text>
         <Text letterSpacing="tight" mt="2">
-          Holdings: {portfolio.portfolioAssets.length}
+          Holdings: {portfolio?.portfolioAssets?.length || 0}
         </Text>
       </Card.Body>
       <Card.Footer gap="2">
-        <Button colorPalette={"yellow"} variant={"outline"}>Update</Button>
+        <UpdatePortfolio portfolio={portfolio} onUpdatePortfolio={onUpdatePortfolio}></UpdatePortfolio>
         <Button colorPalette={"red"} variant={"outline"} onClick={async () => {
           await onDeletePortfolio(portfolio.id);
         }}>Delete</Button>

@@ -50,6 +50,7 @@ function createPortfolios(numberOfPortfolios: number) {
       description: `Portfolio ${i}`,
       unrealizedGain: 0,
       imageUrl: "https://picsum.photos/seed/picsum/200/300",
+      portfolioAssets: []
     })
   }
   return portfolios;

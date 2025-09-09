@@ -77,3 +77,24 @@ export function useDeletePortfolioMutation() {
   });
   return [deletePortfolio];
 }
+
+export function useUpdatePortfolioMutation() {
+  const UPDATE_PORTFOLIO = gql`
+    mutation UpdatePortfolio($id: UUID!, $name: String!, $description: String!, $imageUrl: String!) {
+      updatePortfolio(portfolioInput: {
+        id: $id,
+        name: $name,
+        description: $description,
+        imageUrl: $imageUrl,
+        userId: "294778a7-0459-4f09-8a59-20ead8ad8aec"
+      }) {
+        id
+      }
+    }
+  `;
+
+  const [updatePortfolio] = useMutation(UPDATE_PORTFOLIO, {
+    refetchQueries: "active",
+  });
+  return [updatePortfolio];
+}

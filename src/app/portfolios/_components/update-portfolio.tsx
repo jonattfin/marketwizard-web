@@ -3,9 +3,11 @@
 import {useState} from "react";
 import {Button, CloseButton, Dialog, Field, Input, Portal, Stack, Textarea} from "@chakra-ui/react";
 import {useForm} from "react-hook-form";
+import {Portfolio} from "@/api/types";
 
-export type CreatePortfolioProps = {
-  onAddPortfolio: (name: string, description: string, image: string) => Promise<void>;
+export type UpdatePortfolioProps = {
+  portfolio: Portfolio;
+  onUpdatePortfolio: (portfolio: Portfolio) => Promise<void>;
 }
 
 interface FormValues {
@@ -14,19 +16,26 @@ interface FormValues {
   imageUrl: string
 }
 
-export default function CreatePortfolio({onAddPortfolio}: CreatePortfolioProps) {
+export default function UpdatePortfolio({portfolio, onUpdatePortfolio}: UpdatePortfolioProps) {
   const [open, setOpen] = useState(false)
 
   const {
     register,
     handleSubmit,
     formState: {errors},
-    reset
-  } = useForm<FormValues>()
+    reset,
+  } = useForm<FormValues>({
+    defaultValues: {
+      name: portfolio?.name,
+      description: portfolio?.description,
+      imageUrl: portfolio?.imageUrl
+    }
+  })
 
   const onSubmit = handleSubmit(async (data) => {
     const {name, description, imageUrl} = data;
-    await onAddPortfolio(name, description, imageUrl);
+
+    await onUpdatePortfolio({id: portfolio?.id, name, description, imageUrl});
 
     setOpen(false);
     reset();
@@ -36,14 +45,14 @@ export default function CreatePortfolio({onAddPortfolio}: CreatePortfolioProps) 
     <>
       <Dialog.Root lazyMount open={open} onOpenChange={(e) => setOpen(e.open)}>
         <Dialog.Trigger asChild>
-          <Button variant="outline" colorPalette={"green"}>Create new portfolio</Button>
+          <Button variant="outline" colorPalette={"orange"}>Update portfolio</Button>
         </Dialog.Trigger>
         <Portal>
           <Dialog.Backdrop/>
           <Dialog.Positioner>
             <Dialog.Content>
               <Dialog.Header>
-                <Dialog.Title>Create new portfolio</Dialog.Title>
+                <Dialog.Title>Update portfolio</Dialog.Title>
               </Dialog.Header>
               <Dialog.Body>
                 <form onSubmit={onSubmit}>
@@ -62,7 +71,7 @@ export default function CreatePortfolio({onAddPortfolio}: CreatePortfolioProps) 
 
                     <Field.Root invalid={!!errors.description} required>
                       <Field.Label>Portfolio description</Field.Label>
-                      <Textarea {...register("description")} />
+                      <Textarea {...register("description")}/>
                       <Field.ErrorText>{errors.description?.message}</Field.ErrorText>
                     </Field.Root>
 
