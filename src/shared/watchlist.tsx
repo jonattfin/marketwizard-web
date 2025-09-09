@@ -1,11 +1,15 @@
 "use client"
 
-import {For, HStack, IconButton, Stack, TreeView, createTreeCollection, useTreeViewContext} from "@chakra-ui/react"
+import {HStack, IconButton, TreeView, createTreeCollection, useTreeViewContext} from "@chakra-ui/react"
 import {LuFile, LuFolder, LuPlus, LuTrash} from "react-icons/lu"
-import {useState} from "react";
+import {Suspense, useState} from "react";
+import {useWatchlistAssets} from "@/shared/hooks";
+import {Asset} from "@/api/types";
+import Loading from "@/shared/loading";
 
 const Watchlist = () => {
-  const [collection, setCollection] = useState(initialCollection)
+  const {watchlistAssets, totalCount} = useWatchlistAssets();
+  const [collection, setCollection] = useState(createCollection(watchlistAssets));
 
   const removeNode = (props: TreeNodeProps) => {
     setCollection(collection.remove([props.indexPath]))
@@ -25,7 +29,7 @@ const Watchlist = () => {
   }
 
   return (
-    <>
+    <Suspense fallback={<Loading/>}>
       <div>&nbsp;</div>
       <TreeView.Root collection={collection} maxW="sm" colorPalette={"yellow"} variant="subtle">
         <TreeView.Label>Watchlist</TreeView.Label>
@@ -60,7 +64,7 @@ const Watchlist = () => {
           />
         </TreeView.Tree>
       </TreeView.Root>
-    </>
+    </Suspense>
   )
 }
 
@@ -121,55 +125,38 @@ interface Node {
   childrenCount?: number
 }
 
-const initialCollection = createTreeCollection<Node>({
-  nodeToValue: (node) => node.id,
-  nodeToString: (node) => node.name,
-  rootNode: {
-    id: "ROOT",
-    name: "",
-    children: [
-      {
-        id: "indices",
-        name: "INDICES",
-        children: [
-          {id: "indices/zag-js", name: "zag-js"},
-          {id: "indices/pandacss", name: "panda"},
-          {
-            id: "node_modules/@types",
-            name: "@types",
-            children: [
-              {id: "node_modules/@types/react", name: "react"},
-              {id: "node_modules/@types/react-dom", name: "react-dom"},
-            ],
-          },
-        ],
-      },
-      {
-        id: "STOCKS",
-        name: "STOCKS",
-        children: [
-          {id: "src/app.tsx", name: "app.tsx"},
-          {id: "src/index.ts", name: "index.ts"},
-        ],
-      },
-      {
-        id: "ETF",
-        name: "ETF",
-        children: [
-          {id: "src/app.tsx", name: "app.tsx"},
-          {id: "src/index.ts", name: "index.ts"},
-        ],
-      },
-      {
-        id: "COMMODITIES",
-        name: "COMMODITIES",
-        children: [
-          {id: "src/app.tsx", name: "app.tsx"},
-          {id: "src/index.ts", name: "index.ts"},
-        ],
-      },
-    ],
-  },
-})
+function createCollection(watchlistAssets: Asset[]) {
+  const children: Node[] = [];
+
+  ["STOCK", "ETF", "CRYPTO"].forEach(node => {
+    const createChildren = (): Node[] => {
+      const currentAssets = watchlistAssets.filter(asset => asset.type === node);
+
+      return currentAssets.map(asset => {
+        return {
+          id: asset.id,
+          name: `${asset.name} - Price: ${asset.lastPrice || ' N/A'}`,
+        }
+      })
+    }
+
+    children.push({
+      id: node,
+      name: node,
+      children: createChildren(),
+    },)
+  })
+
+  return createTreeCollection<Node>({
+    nodeToValue: (node) => node.id,
+    nodeToString: (node) => node.name,
+    rootNode: {
+      id: "ROOT",
+      name: "",
+      children
+    },
+  })
+}
+
 
 export default Watchlist;
