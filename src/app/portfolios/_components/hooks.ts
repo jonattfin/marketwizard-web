@@ -1,6 +1,6 @@
 import {Portfolio} from "@/api/types";
 import {gql, TypedDocumentNode, useMutation, useSuspenseQuery} from "@apollo/client";
-import {PAGE_SIZE} from "@/app/constants";
+import {DEFAULT_USER_ID, PAGE_SIZE} from "@/app/constants";
 
 interface Data {
   portfolios: {
@@ -52,7 +52,7 @@ export function useAddPortfolioMutation() {
         name: $name,
         description: $description,
         imageUrl: $imageUrl,
-        userId: "294778a7-0459-4f09-8a59-20ead8ad8aec"
+        userId: "${DEFAULT_USER_ID}"
       }) {
         id
       }
@@ -86,7 +86,7 @@ export function useUpdatePortfolioMutation() {
         name: $name,
         description: $description,
         imageUrl: $imageUrl,
-        userId: "294778a7-0459-4f09-8a59-20ead8ad8aec"
+        userId: "${DEFAULT_USER_ID}"
       }) {
         id
       }

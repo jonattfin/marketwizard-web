@@ -101,31 +101,34 @@ export default function PortfoliosListComponent(
         onAddPortfolio: handleAddPortfolio,
         onUpdatePortfolio: handleUpdatePortfolio,
       }}/>
-      <Center>
-        <Pagination.Root count={totalCount} pageSize={PAGE_SIZE} defaultPage={page}
-                         onPageChange={(e) => onPageChange(e.page)}>
-          <ButtonGroup variant="ghost" size="sm">
-            <Pagination.PrevTrigger asChild>
-              <IconButton>
-                <LuChevronLeft/>
-              </IconButton>
-            </Pagination.PrevTrigger>
-
-            <Pagination.Items
-              render={(page) => (
-                <IconButton variant={{base: "ghost", _selected: "outline"}}>
-                  {page.value}
+      {totalCount > 0 && (
+        <Center>
+          <Pagination.Root count={totalCount} pageSize={PAGE_SIZE} defaultPage={page}
+                           onPageChange={(e) => onPageChange(e.page)}>
+            <ButtonGroup variant="ghost" size="sm">
+              <Pagination.PrevTrigger asChild>
+                <IconButton>
+                  <LuChevronLeft/>
                 </IconButton>
-              )}
-            />
-            <Pagination.NextTrigger asChild>
-              <IconButton>
-                <LuChevronRight/>
-              </IconButton>
-            </Pagination.NextTrigger>
-          </ButtonGroup>
-        </Pagination.Root>
-      </Center>
+              </Pagination.PrevTrigger>
+
+              <Pagination.Items
+                render={(page) => (
+                  <IconButton variant={{base: "ghost", _selected: "outline"}}>
+                    {page.value}
+                  </IconButton>
+                )}
+              />
+              <Pagination.NextTrigger asChild>
+                <IconButton>
+                  <LuChevronRight/>
+                </IconButton>
+              </Pagination.NextTrigger>
+            </ButtonGroup>
+          </Pagination.Root>
+        </Center>
+      )}
+
     </div>
   )
 }
