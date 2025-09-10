@@ -1,15 +1,33 @@
 "use client"
 
-import {HStack, IconButton, TreeView, createTreeCollection, useTreeViewContext} from "@chakra-ui/react"
+import {HStack, IconButton, TreeView, createTreeCollection, useTreeViewContext, TreeCollection} from "@chakra-ui/react"
 import {LuFile, LuFolder, LuPlus, LuTrash} from "react-icons/lu"
-import {Suspense, useState} from "react";
-import {useWatchlistAssets} from "@/shared/hooks";
+import {Suspense, useEffect, useState} from "react";
+import {StockQuote, useStockQuotes, useWatchlistAssets} from "@/shared/hooks";
 import {Asset} from "@/api/types";
 import Loading from "@/shared/loading";
 
 const Watchlist = () => {
   const {watchlistAssets, totalCount} = useWatchlistAssets();
-  const [collection, setCollection] = useState(createCollection(watchlistAssets));
+  const {data, loading, error} = useStockQuotes();
+
+  const [collection, setCollection] = useState<TreeCollection<Node>>(createCollection(watchlistAssets, []));
+
+  useEffect(() => {
+    if (loading) {
+      console.log("Loading...");
+    }
+
+    if (error) {
+      console.error(error);
+    }
+
+    if (data?.onStockPriceUpdated) {
+      setCollection(createCollection(watchlistAssets, data?.onStockPriceUpdated));
+    }
+
+  }, [data, loading, error]);
+
 
   const removeNode = (props: TreeNodeProps) => {
     setCollection(collection.remove([props.indexPath]))
@@ -32,7 +50,7 @@ const Watchlist = () => {
     <Suspense fallback={<Loading/>}>
       <div>&nbsp;</div>
       <TreeView.Root collection={collection} maxW="sm" colorPalette={"yellow"} variant="subtle">
-        <TreeView.Label>Watchlist</TreeView.Label>
+        <TreeView.Label>Watchlist [{totalCount}]</TreeView.Label>
         <TreeView.Tree>
           <TreeView.Node
             indentGuide={<TreeView.BranchIndentGuide/>}
@@ -125,7 +143,7 @@ interface Node {
   childrenCount?: number
 }
 
-function createCollection(watchlistAssets: Asset[]) {
+function createCollection(watchlistAssets: Asset[], stocksQuote: StockQuote[]) {
   const children: Node[] = [];
 
   ["STOCK", "ETF", "CRYPTO"].forEach(node => {
@@ -133,9 +151,11 @@ function createCollection(watchlistAssets: Asset[]) {
       const currentAssets = watchlistAssets.filter(asset => asset.type === node);
 
       return currentAssets.map(asset => {
+        const price = stocksQuote.find(stock => stock.symbol === asset.symbol)?.currentPrice || 'n/a';
+
         return {
           id: asset.id,
-          name: `${asset.name} - Price: ${asset.lastPrice || ' N/A'}`,
+          name: `${asset.name} - Price: ${price}`,
         }
       })
     }
@@ -157,6 +177,5 @@ function createCollection(watchlistAssets: Asset[]) {
     },
   })
 }
-
 
 export default Watchlist;
