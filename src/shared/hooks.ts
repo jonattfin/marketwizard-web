@@ -2,7 +2,6 @@ import {gql, TypedDocumentNode, useSubscription, useSuspenseQuery} from "@apollo
 import {Asset} from "@/api/types";
 import {DEFAULT_USER_ID} from "@/app/constants";
 
-
 export function useWatchlistAssets() {
   interface Data {
     watchlistAssets: {

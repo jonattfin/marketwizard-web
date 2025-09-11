@@ -37,6 +37,7 @@ export type Portfolio = {
   name: string;
   description: string;
   imageUrl: string;
+  createdAt?: string;
   totalValue?: number;
   unrealizedGain?: number;
   portfolioAssets?: PortfolioAssetReturn[];

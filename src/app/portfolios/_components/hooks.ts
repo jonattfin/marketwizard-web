@@ -18,6 +18,7 @@ query GetPortfolios($take: Int, $skip: Int) {
       name
       description
       imageUrl
+      createdAt
       unrealizedGain
       totalValue
       portfolioAssets {

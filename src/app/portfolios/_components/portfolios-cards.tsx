@@ -1,6 +1,7 @@
 import {Portfolio} from "@/api/types";
 
-import React, {useState} from "react";
+import React from "react";
+import dayjs from "dayjs";
 import {Button, Card, Image, Text, Heading, Grid, Link as ChakraLink, FormatNumber} from "@chakra-ui/react"
 import CreatePortfolio from "@/app/portfolios/_components/create-portfolio";
 import Link from "next/link";
@@ -13,7 +14,12 @@ export type PortfoliosCardsProps = {
   onUpdatePortfolio: (portfolio: Portfolio) => Promise<void>;
 }
 
-export default function PortfoliosCards({portfolios, onDeletePortfolio, onAddPortfolio, onUpdatePortfolio}: PortfoliosCardsProps) {
+export default function PortfoliosCards({
+                                          portfolios,
+                                          onDeletePortfolio,
+                                          onAddPortfolio,
+                                          onUpdatePortfolio
+                                        }: PortfoliosCardsProps) {
   return (
     <>
       <Heading>Portfolios</Heading>
@@ -23,7 +29,8 @@ export default function PortfoliosCards({portfolios, onDeletePortfolio, onAddPor
       <Grid templateColumns="repeat(3, 1fr)" gap="6">
         {portfolios.map((portfolio) => (
           <div key={portfolio.id}>
-            <PortfolioCard {...{portfolio}} onDeletePortfolio={onDeletePortfolio} onUpdatePortfolio={onUpdatePortfolio}/>
+            <PortfolioCard {...{portfolio}} onDeletePortfolio={onDeletePortfolio}
+                           onUpdatePortfolio={onUpdatePortfolio}/>
           </div>
         ))}
       </Grid>
@@ -52,6 +59,8 @@ function PortfolioCard({portfolio, onDeletePortfolio, onUpdatePortfolio}: Portfo
           </ChakraLink>
         </Card.Title>
         <Card.Description>
+          {portfolio.createdAt && (<div>Created at: {dayjs(portfolio.createdAt).format("DD/MM/YYYY")}</div>)}
+          <br/>
           {portfolio.description}
         </Card.Description>
         <Text letterSpacing="tight" mt="2">
