@@ -3,13 +3,13 @@
 import {HStack, IconButton, TreeView, createTreeCollection, useTreeViewContext, TreeCollection} from "@chakra-ui/react"
 import {LuFile, LuFolder, LuPlus, LuTrash} from "react-icons/lu"
 import {Suspense, useEffect, useState} from "react";
-import {StockQuote, useStockQuotes, useWatchlistAssets} from "@/shared/hooks";
-import {Asset} from "@/api/types";
+import {Asset, StockQuote} from "@/api/types";
 import Loading from "@/shared/loading";
+import {useStockQuotes, useWatchlistAssets} from "@/graphql/hooks";
 
 const Watchlist = () => {
   const {watchlistAssets, totalCount} = useWatchlistAssets();
-  const {data, loading, error} = useStockQuotes();
+  const {stockQuotes, loading, error} = useStockQuotes();
 
   const [collection, setCollection] = useState<TreeCollection<Node>>(createCollection(watchlistAssets, []));
 
@@ -22,11 +22,11 @@ const Watchlist = () => {
       console.error(error);
     }
 
-    if (data?.onStockPriceUpdated) {
-      setCollection(createCollection(watchlistAssets, data?.onStockPriceUpdated));
+    if (stockQuotes) {
+      setCollection(createCollection(watchlistAssets, stockQuotes));
     }
 
-  }, [data, loading, error]);
+  }, [watchlistAssets, stockQuotes, loading, error]);
 
 
   const removeNode = (props: TreeNodeProps) => {

@@ -5,17 +5,19 @@ import React, {useState} from 'react';
 import {Suspense} from "react";
 import Loading from "@/shared/loading";
 
+import PortfoliosListComponent from "@/app/portfolios/_components/portfolio-list-component";
+import {Portfolio} from "@/api/types";
 import {
   useAddPortfolioMutation,
   useDeletePortfolioMutation,
-  usePortfolios,
   useUpdatePortfolioMutation
-} from "@/app/portfolios/_components/hooks";
-import PortfoliosListComponent from "@/app/portfolios/_components/portfolio-list-component";
-import {Portfolio} from "@/api/types";
+} from "@/graphql/_generated/graphql";
+import {DEFAULT_USER_ID} from "@/app/constants";
+import {usePortfolios} from "@/graphql/hooks";
 
 export default function PortfoliosList() {
   const [page, setPage] = useState(1);
+
   const {portfolios, totalCount} = usePortfolios(page);
 
   const [addPortfolio] = useAddPortfolioMutation();
@@ -26,7 +28,7 @@ export default function PortfoliosList() {
     portfolios,
     totalCount,
     onPortfolioAdd: async (name: string, description: string, imageUrl: string) => {
-      await addPortfolio({variables: {name, description, imageUrl}});
+      await addPortfolio({variables: {name, description, imageUrl, userId: DEFAULT_USER_ID}});
     },
     onPortfolioDelete: async (id: string) => {
       await deletePortfolio({variables: {portfolioId: id}});
@@ -37,7 +39,8 @@ export default function PortfoliosList() {
           id: portfolio.id,
           name: portfolio.name,
           description: portfolio.description,
-          imageUrl: portfolio.imageUrl
+          imageUrl: portfolio.imageUrl,
+          userId: DEFAULT_USER_ID
         }
       });
     },

@@ -1,0 +1,124 @@
+query GetPortfolioById($id: UUID!) {
+  portfolioById(portfolioId: $id) {
+    id
+    name
+    description
+    imageUrl
+    totalValue
+    unrealizedGain
+  }
+}
+
+query GetPortfolios($take: Int, $skip: Int) {
+  portfolios(take: $take, skip: $skip, order: [{ name: DESC }]) {
+    totalCount
+    items {
+      id
+      name
+      description
+      imageUrl
+      createdAt
+      unrealizedGain
+      totalValue
+      portfolioAssets {
+        asset {
+          id
+          symbol
+          name
+          lastPrice
+          priceHistories {
+            price
+          }
+        }
+        numberOfShares
+        pricePerShare
+      }
+    }
+  }
+}
+
+mutation addPortfolio(
+  $name: String!
+  $description: String!
+  $imageUrl: String!
+  $userId: UUID!
+) {
+  addPortfolio(
+    portfolioInput: {
+      name: $name
+      description: $description
+      imageUrl: $imageUrl
+      userId: $userId
+    }
+  ) {
+    id
+  }
+}
+
+mutation DeletePortfolio($portfolioId: UUID!) {
+  deletePortfolio(portfolioId: $portfolioId)
+}
+
+mutation UpdatePortfolio(
+  $id: UUID!
+  $name: String!
+  $description: String!
+  $imageUrl: String!
+  $userId: UUID!
+) {
+  updatePortfolio(
+    portfolioInput: {
+      id: $id
+      name: $name
+      description: $description
+      imageUrl: $imageUrl
+      userId: $userId
+    }
+  ) {
+    id
+  }
+}
+
+query GetPortfolioPerformanceById($id: UUID!) {
+  portfolioById(portfolioId: $id) {
+    id
+    portfolioAssets {
+      type
+      numberOfShares
+      pricePerShare
+      asset {
+        symbol
+        priceHistories {
+          price
+          date
+        }
+      }
+    }
+  }
+}
+
+query GetWatchlistAssets($userId: UUID!) {
+  watchlistAssets(userId: $userId) {
+    totalCount
+    items {
+      id
+      symbol
+      name
+      type
+      lastPrice
+    }
+  }
+}
+
+subscription OnStockPriceUpdated {
+  onStockPriceUpdated {
+    symbol
+    currentPrice
+    highPrice
+    lowPrice
+    previousClosePrice
+    openPrice
+  }
+}
+
+

@@ -6,7 +6,7 @@ import {Portfolio} from "@/api/types";
 const meta = {
   title: 'Portfolios/PortfoliosList',
   component: PortfoliosListComponent,
-  // This component will have an automatically generated Autodocs entry: https://storybook.js.org/docs/writing-docs/autodocs
+  // This component will have an automatically _generated Autodocs entry: https://storybook.js.org/docs/writing-docs/autodocs
   tags: ['autodocs'],
   parameters: {
     // More on how to position stories at: https://storybook.js.org/docs/configure/story-layout

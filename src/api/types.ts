@@ -1,35 +1,8 @@
-export type PortfolioAsset = {
-  id: string;
-  symbol: string;
-  description: string;
-  numberOfShares: number;
-  pricePerShare: number;
-};
-
-export type PortfolioNews = {
-  id: string;
-  time: string;
-  symbol: string;
-  headline: string;
-  provider: string;
-}
-
-export type PortfolioRatio = {
-  betaRatio: number,
-  sharpeRatio: number,
-  sortinoRatio: number,
-}
-
 export type PortfolioAssetReturn = {
   type: string;
   numberOfShares: number,
   pricePerShare: number,
   asset: Asset
-}
-
-export type PortfolioPerformance = {
-  id: string;
-  portfolioAssets: PortfolioAssetReturn[];
 }
 
 export type Portfolio = {
@@ -56,4 +29,13 @@ export type Asset = {
   description: string;
   lastPrice: number;
   priceHistories: PriceHistory[];
+}
+
+export type StockQuote = {
+  symbol: string;
+  currentPrice: number;
+  highPrice: number;
+  lowPrice: number;
+  openPrice: number;
+  previousClosePrice: number;
 }

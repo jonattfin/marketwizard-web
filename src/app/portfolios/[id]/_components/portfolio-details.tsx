@@ -4,43 +4,22 @@ import {Breadcrumb, Image} from "@chakra-ui/react"
 
 import {type Portfolio} from "@/api/types";
 import PortfolioTabs from './portfolio-tabs';
-import {gql, TypedDocumentNode, useSuspenseQuery} from "@apollo/client";
 import {Suspense} from "react";
 import Loading from "@/shared/loading";
 import {Heading} from "@chakra-ui/react";
+import {usePortfolio} from "@/graphql/hooks";
 
 export type PortfolioDetailsProps = {
   id: string
 }
 
-function usePortfolioById(id: string) {
-  interface Data {
-    portfolioById: Portfolio;
-  }
-
-  interface Variables {
-    id: string;
-  }
-
-  const GET_PORTFOLIO_BY_ID: TypedDocumentNode<Data, Variables> = gql`
-  query GetPortfolioById($id: UUID!) {
-     portfolioById(portfolioId: $id) {
-         id
-         name
-         description
-         imageUrl
-         totalValue
-         unrealizedGain
-    }
-  }
-`;
-
-  const {data: {portfolioById: portfolio}} = useSuspenseQuery(GET_PORTFOLIO_BY_ID, {variables: {id}});
-  return {portfolio};
-}
 
 export default function PortfolioDetails({id}: Readonly<PortfolioDetailsProps>) {
-  const {portfolio} = usePortfolioById(id);
+  const {portfolio} = usePortfolio(id);
+
+  if (!portfolio) {
+    return;
+  }
 
   return (
     <Suspense fallback={<Loading/>}>
