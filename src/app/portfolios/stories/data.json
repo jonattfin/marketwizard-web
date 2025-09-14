@@ -1,0 +1,43 @@
+{
+  "data": {
+    "portfolios": {
+      "totalCount": 5,
+      "items": [
+        {
+          "id": "01994684-81b4-7a26-a4e4-a9568f0449fc",
+          "name": "Aggressive Growth Portfolio",
+          "description": "This portfolio is designed for investment goals with a long-term horizon. It is best for investors focusing on high-growth potential with the ability to withstand higher market swings.",
+          "imageUrl": "https://images.unsplash.com/photo-1611974789855-9c2a0a7236a3",
+          "createdAt": "2025-09-14T04:38:33.140Z",
+          "unrealizedGain": 0,
+          "totalValue": 0,
+          "portfolioAssets": [],
+          "__typename": "GetPortfolioDto"
+        },
+        {
+          "id": "01994684-4c86-7dca-82b1-9502b8961c23",
+          "name": "Bold Stack Portfolio",
+          "description": "Designed for investment goals with a medium-long-term horizon. It is best suited for investors seeking long-term growth with somewhat less variable returns and above-average volatility.",
+          "imageUrl": "https://images.unsplash.com/photo-1611974789855-9c2a0a7236a3",
+          "createdAt": "2025-09-14T04:38:19.526Z",
+          "unrealizedGain": 0,
+          "totalValue": 0,
+          "portfolioAssets": [],
+          "__typename": "GetPortfolioDto"
+        },
+        {
+          "id": "01994684-10f4-7074-ba7d-5312c4568041",
+          "name": "Balanced Bundle Portfolio ",
+          "description": "This portfolio is designed for investment goals with a medium-term horizon. It is best for investors seeking relatively higher returns while being willing to accept modest risk.",
+          "imageUrl": "https://images.unsplash.com/photo-1611974789855-9c2a0a7236a3",
+          "createdAt": "2025-09-14T04:38:04.276Z",
+          "unrealizedGain": 0,
+          "totalValue": 0,
+          "portfolioAssets": [],
+          "__typename": "GetPortfolioDto"
+        }
+      ],
+      "__typename": "PortfoliosCollectionSegment"
+    }
+  }
+}

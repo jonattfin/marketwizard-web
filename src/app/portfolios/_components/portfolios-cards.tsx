@@ -53,7 +53,7 @@ function PortfolioCard({portfolio, onDeletePortfolio, onUpdatePortfolio}: Portfo
         alt={portfolio.description}
       />
       <Card.Body gap="2">
-        <Card.Title>
+        <Card.Title data-testid={portfolio.id}>
           <ChakraLink asChild>
             <Link href={`/portfolios/${portfolio.id}`}>{portfolio.name}</Link>
           </ChakraLink>
@@ -75,7 +75,7 @@ function PortfolioCard({portfolio, onDeletePortfolio, onUpdatePortfolio}: Portfo
       </Card.Body>
       <Card.Footer gap="2">
         <UpdatePortfolio portfolio={portfolio} onUpdatePortfolio={onUpdatePortfolio}></UpdatePortfolio>
-        <Button colorPalette={"red"} variant={"outline"} onClick={async () => {
+        <Button data-testid={`delete-btn-${portfolio.id}`} colorPalette={"red"} variant={"outline"} onClick={async () => {
           await onDeletePortfolio(portfolio.id);
         }}>Delete</Button>
       </Card.Footer>

@@ -36,7 +36,7 @@ export default function CreatePortfolio({onAddPortfolio}: CreatePortfolioProps) 
     <>
       <Dialog.Root lazyMount open={open} onOpenChange={(e) => setOpen(e.open)}>
         <Dialog.Trigger asChild>
-          <Button variant="outline" colorPalette={"green"}>Create new portfolio</Button>
+          <Button variant="outline" colorPalette={"green"} data-testid={`create-btn`}>Create new portfolio</Button>
         </Dialog.Trigger>
         <Portal>
           <Dialog.Backdrop/>
@@ -48,9 +48,9 @@ export default function CreatePortfolio({onAddPortfolio}: CreatePortfolioProps) 
               <Dialog.Body>
                 <form onSubmit={onSubmit}>
                   <Stack gap="4" align="flex-start" maxW="sm">
-                    <Field.Root invalid={!!errors.name} required>
+                    <Field.Root invalid={!!errors.name} required >
                       <Field.Label>Portfolio name</Field.Label>
-                      <Input {...register("name")} />
+                      <Input {...register("name")}/>
                       <Field.ErrorText>{errors.name?.message}</Field.ErrorText>
                     </Field.Root>
 

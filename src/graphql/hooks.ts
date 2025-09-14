@@ -72,8 +72,8 @@ export const usePortfolio = (id: String) => {
 export const usePortfolios = (pageNumber: number) => {
   const {data, loading, error} = useGetPortfoliosQuery({
     variables: {
-      skip: (pageNumber - 1) * PAGE_SIZE,
       take: PAGE_SIZE,
+      skip: (pageNumber - 1) * PAGE_SIZE,
     },
   });
 
