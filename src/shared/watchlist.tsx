@@ -103,14 +103,11 @@ const Watchlist = () => {
 }
 
 function createData(watchlistAssets: AssetDto[], stockQuotes: StockQuoteDto[]): WatchlistItem[] {
-  const assetSymbols = watchlistAssets.map((asset: AssetDto) => asset.symbol);
-  const filteredStockQuotes = stockQuotes.filter(s => assetSymbols.includes(s.symbol));
-
-  return assetSymbols.map((symbol) => {
-    const stockQuote = filteredStockQuotes.find(q => q.symbol === symbol);
+  return watchlistAssets.map((asset) => {
+    const stockQuote = stockQuotes.find(q => q.symbol === asset.symbol) || asset.quote;
 
     return {
-      symbol: symbol,
+      symbol: asset.symbol,
       last: stockQuote?.currentPrice,
       change: stockQuote?.change,
       percentChange: stockQuote?.percentChange

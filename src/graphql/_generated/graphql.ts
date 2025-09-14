@@ -38,6 +38,7 @@ export type AssetDto = {
   id: Scalars['UUID']['output'];
   lastPrice?: Maybe<Scalars['Float']['output']>;
   name: Scalars['String']['output'];
+  quote?: Maybe<StockQuoteDto>;
   symbol: Scalars['String']['output'];
   type?: Maybe<AssetType>;
 };
@@ -49,6 +50,7 @@ export type AssetDtoFilterInput = {
   lastPrice?: InputMaybe<FloatOperationFilterInput>;
   name?: InputMaybe<StringOperationFilterInput>;
   or?: InputMaybe<Array<AssetDtoFilterInput>>;
+  quote?: InputMaybe<StockQuoteDtoFilterInput>;
   symbol?: InputMaybe<StringOperationFilterInput>;
   type?: InputMaybe<NullableOfAssetTypeOperationFilterInput>;
 };
@@ -58,6 +60,7 @@ export type AssetDtoSortInput = {
   id?: InputMaybe<SortEnumType>;
   lastPrice?: InputMaybe<SortEnumType>;
   name?: InputMaybe<SortEnumType>;
+  quote?: InputMaybe<StockQuoteDtoSortInput>;
   symbol?: InputMaybe<SortEnumType>;
   type?: InputMaybe<SortEnumType>;
 };
@@ -96,6 +99,21 @@ export type DateTimeOperationFilterInput = {
   nin?: InputMaybe<Array<InputMaybe<Scalars['DateTime']['input']>>>;
   nlt?: InputMaybe<Scalars['DateTime']['input']>;
   nlte?: InputMaybe<Scalars['DateTime']['input']>;
+};
+
+export type DecimalOperationFilterInput = {
+  eq?: InputMaybe<Scalars['Decimal']['input']>;
+  gt?: InputMaybe<Scalars['Decimal']['input']>;
+  gte?: InputMaybe<Scalars['Decimal']['input']>;
+  in?: InputMaybe<Array<InputMaybe<Scalars['Decimal']['input']>>>;
+  lt?: InputMaybe<Scalars['Decimal']['input']>;
+  lte?: InputMaybe<Scalars['Decimal']['input']>;
+  neq?: InputMaybe<Scalars['Decimal']['input']>;
+  ngt?: InputMaybe<Scalars['Decimal']['input']>;
+  ngte?: InputMaybe<Scalars['Decimal']['input']>;
+  nin?: InputMaybe<Array<InputMaybe<Scalars['Decimal']['input']>>>;
+  nlt?: InputMaybe<Scalars['Decimal']['input']>;
+  nlte?: InputMaybe<Scalars['Decimal']['input']>;
 };
 
 export type FloatOperationFilterInput = {
@@ -270,6 +288,30 @@ export type StockQuoteDto = {
   symbol: Scalars['String']['output'];
 };
 
+export type StockQuoteDtoFilterInput = {
+  and?: InputMaybe<Array<StockQuoteDtoFilterInput>>;
+  change?: InputMaybe<DecimalOperationFilterInput>;
+  currentPrice?: InputMaybe<DecimalOperationFilterInput>;
+  highPrice?: InputMaybe<DecimalOperationFilterInput>;
+  lowPrice?: InputMaybe<DecimalOperationFilterInput>;
+  openPrice?: InputMaybe<DecimalOperationFilterInput>;
+  or?: InputMaybe<Array<StockQuoteDtoFilterInput>>;
+  percentChange?: InputMaybe<DecimalOperationFilterInput>;
+  previousClosePrice?: InputMaybe<DecimalOperationFilterInput>;
+  symbol?: InputMaybe<StringOperationFilterInput>;
+};
+
+export type StockQuoteDtoSortInput = {
+  change?: InputMaybe<SortEnumType>;
+  currentPrice?: InputMaybe<SortEnumType>;
+  highPrice?: InputMaybe<SortEnumType>;
+  lowPrice?: InputMaybe<SortEnumType>;
+  openPrice?: InputMaybe<SortEnumType>;
+  percentChange?: InputMaybe<SortEnumType>;
+  previousClosePrice?: InputMaybe<SortEnumType>;
+  symbol?: InputMaybe<SortEnumType>;
+};
+
 export type StringOperationFilterInput = {
   and?: InputMaybe<Array<StringOperationFilterInput>>;
   contains?: InputMaybe<Scalars['String']['input']>;
@@ -378,7 +420,7 @@ export type GetWatchlistAssetsQueryVariables = Exact<{
 }>;
 
 
-export type GetWatchlistAssetsQuery = { __typename?: 'Query', watchlistAssets?: { __typename?: 'WatchlistAssetsCollectionSegment', totalCount: number, items?: Array<{ __typename?: 'AssetDto', id: any, symbol: string, name: string, type?: AssetType | null, lastPrice?: number | null }> | null } | null };
+export type GetWatchlistAssetsQuery = { __typename?: 'Query', watchlistAssets?: { __typename?: 'WatchlistAssetsCollectionSegment', totalCount: number, items?: Array<{ __typename?: 'AssetDto', id: any, symbol: string, name: string, type?: AssetType | null, lastPrice?: number | null, quote?: { __typename?: 'StockQuoteDto', symbol: string, currentPrice?: any | null, change?: any | null, percentChange?: any | null } | null }> | null } | null };
 
 export type OnStockPriceUpdatedSubscriptionVariables = Exact<{ [key: string]: never; }>;
 
@@ -608,6 +650,12 @@ export const GetWatchlistAssetsDocument = gql`
       name
       type
       lastPrice
+      quote {
+        symbol
+        currentPrice
+        change
+        percentChange
+      }
     }
   }
 }
