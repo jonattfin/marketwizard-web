@@ -21,8 +21,22 @@
           "imageUrl": "https://images.unsplash.com/photo-1611974789855-9c2a0a7236a3",
           "createdAt": "2025-09-14T04:38:19.526Z",
           "unrealizedGain": 0,
-          "totalValue": 0,
-          "portfolioAssets": [],
+          "totalValue": 1500,
+          "portfolioAssets": [
+            {
+              "asset": {
+                "id": "6dbc65c2-d9b7-42e2-8fa2-b0ff654b6745",
+                "symbol": "AAPL",
+                "name": "AAPL",
+                "lastPrice": null,
+                "priceHistories": [],
+                "__typename": "Asset"
+              },
+              "numberOfShares": 10,
+              "pricePerShare": 150,
+              "__typename": "PortfolioAsset"
+            }
+          ],
           "__typename": "GetPortfolioDto"
         },
         {
@@ -32,8 +46,35 @@
           "imageUrl": "https://images.unsplash.com/photo-1611974789855-9c2a0a7236a3",
           "createdAt": "2025-09-14T04:38:04.276Z",
           "unrealizedGain": 0,
-          "totalValue": 0,
-          "portfolioAssets": [],
+          "totalValue": 3000,
+          "portfolioAssets": [
+            {
+              "asset": {
+                "id": "95270984-1570-4e31-8e88-4e7d3cd25015",
+                "symbol": "NVDA",
+                "name": "NVDA",
+                "lastPrice": null,
+                "priceHistories": [],
+                "__typename": "Asset"
+              },
+              "numberOfShares": 10,
+              "pricePerShare": 200,
+              "__typename": "PortfolioAsset"
+            },
+            {
+              "asset": {
+                "id": "66a5ae85-ff10-4806-9eff-a67cab19b4fc",
+                "symbol": "AMZN",
+                "name": "AMZN",
+                "lastPrice": null,
+                "priceHistories": [],
+                "__typename": "Asset"
+              },
+              "numberOfShares": 10,
+              "pricePerShare": 100,
+              "__typename": "PortfolioAsset"
+            }
+          ],
           "__typename": "GetPortfolioDto"
         }
       ],

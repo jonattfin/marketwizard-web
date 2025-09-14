@@ -1,0 +1,37 @@
+{
+  "data": {
+    "portfolioById": {
+      "id": "01994684-10f4-7074-ba7d-5312c4568041",
+      "name": "Balanced Bundle Portfolio ",
+      "description": "This portfolio is designed for investment goals with a medium-term horizon. It is best for investors seeking relatively higher returns while being willing to accept modest risk.",
+      "imageUrl": "https://images.unsplash.com/photo-1611974789855-9c2a0a7236a3",
+      "totalValue": 3000,
+      "unrealizedGain": 0,
+      "portfolioAssets": [
+        {
+          "asset": {
+            "id": "95270984-1570-4e31-8e88-4e7d3cd25015",
+            "symbol": "NVDA",
+            "name": "NVDA",
+            "__typename": "Asset"
+          },
+          "numberOfShares": 10,
+          "pricePerShare": 200,
+          "__typename": "PortfolioAsset"
+        },
+        {
+          "asset": {
+            "id": "66a5ae85-ff10-4806-9eff-a67cab19b4fc",
+            "symbol": "AMZN",
+            "name": "AMZN",
+            "__typename": "Asset"
+          },
+          "numberOfShares": 10,
+          "pricePerShare": 100,
+          "__typename": "PortfolioAsset"
+        }
+      ],
+      "__typename": "GetPortfolioDto"
+    }
+  }
+}

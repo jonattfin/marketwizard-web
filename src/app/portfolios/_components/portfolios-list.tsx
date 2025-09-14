@@ -5,7 +5,6 @@ import React, {useCallback, useMemo, useState} from 'react';
 import Loading from "@/shared/loading";
 
 import PortfoliosListComponent from "@/app/portfolios/_components/portfolio-list-component";
-import {Portfolio} from "@/api/types";
 import {
   useAddPortfolioMutation,
   useDeletePortfolioMutation,
@@ -30,13 +29,13 @@ export default function PortfoliosList() {
     await deletePortfolio({variables: {portfolioId: id}, refetchQueries: "active"});
   }, [deletePortfolio]);
 
-  const onPortfolioUpdate = useCallback(async (portfolio: Portfolio) => {
+  const onPortfolioUpdate = useCallback(async (id: string, name: string, description: string, imageUrl: string) => {
     await updatePortfolio({
       variables: {
-        id: portfolio.id,
-        name: portfolio.name,
-        description: portfolio.description,
-        imageUrl: portfolio.imageUrl,
+        id,
+        name,
+        description,
+        imageUrl,
         userId: DEFAULT_USER_ID,
       },
       refetchQueries: "active"

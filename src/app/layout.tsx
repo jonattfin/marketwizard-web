@@ -15,6 +15,9 @@ import apolloClient from "@/app/apolloClient";
 import AppMenu from "@/shared/app-menu";
 import Watchlist from "@/shared/watchlist";
 import {Box, Grid, GridItem} from "@chakra-ui/react";
+import {ThemeContext} from "@emotion/react";
+import {useState} from "react";
+import {styled} from "storybook/theming";
 
 const geistSans = Geist({
   variable: "--font-geist-sans",
@@ -26,12 +29,16 @@ const geistMono = Geist_Mono({
   subsets: ["latin"],
 });
 
+const StyledContainer = styled(Box)`
+    min-height: 100vh;
+`
 
 export default function RootLayout({
                                      children,
                                    }: Readonly<{
   children: React.ReactNode;
 }>) {
+  const [theme, setTheme] = useState<"dark" | "light">("dark");
 
   return (
     <html lang="en" suppressHydrationWarning>
@@ -45,28 +52,32 @@ export default function RootLayout({
     <ApolloProvider client={apolloClient}>
       <body className={`${geistSans.variable} ${geistMono.variable}`}>
       <Provider>
-        <Theme appearance="dark">
-          <header>
-          </header>
-          <main>
-            <Grid templateColumns="repeat(4, 1fr)" gap="6">
-              <GridItem colSpan={3}>
-                <Box padding="20px">
-                  <AppMenu/>
-                  <div>&nbsp;</div>
-                  {children}
-                </Box>
-              </GridItem>
-              <GridItem>
-                <Watchlist/>
-              </GridItem>
-            </Grid>
-          </main>
-          <footer>
-          </footer>
-          <Analytics/>
-          <SpeedInsights/>
-        </Theme>
+        <ThemeContext value={theme}>
+          <Theme appearance={theme}>
+            <header>
+            </header>
+            <main>
+              <Grid templateColumns="repeat(4, 1fr)" gap="6">
+                <GridItem colSpan={3}>
+                  <Box padding="20px">
+                    <AppMenu theme={theme} setTheme={(theme) => setTheme(theme)}/>
+                    <div>&nbsp;</div>
+                    <StyledContainer>
+                      {children}
+                    </StyledContainer>
+                  </Box>
+                </GridItem>
+                <GridItem>
+                  <Watchlist/>
+                </GridItem>
+              </Grid>
+            </main>
+            <footer>
+            </footer>
+            <Analytics/>
+            <SpeedInsights/>
+          </Theme>
+        </ThemeContext>
       </Provider>
       </body>
     </ApolloProvider>

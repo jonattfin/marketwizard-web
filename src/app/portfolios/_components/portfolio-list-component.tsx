@@ -7,15 +7,15 @@ import {LuChevronLeft, LuChevronRight} from "react-icons/lu";
 import {Toaster, toaster} from "@/components/ui/toaster";
 
 import PortfoliosCards from "@/app/portfolios/_components/portfolios-cards";
-import {Portfolio} from "@/api/types";
 import {PAGE_SIZE} from "@/app/constants";
+import {PortfolioSummaryDto} from "@/graphql/_generated/graphql";
 
 export type PortfoliosListComponentProps = {
-  portfolios: Portfolio[];
+  portfolios: PortfolioSummaryDto[];
   totalCount: number;
   onPortfolioAdd?: (name: string, description: string, imageUrl: string) => Promise<void>;
   onPortfolioDelete?: (id: string) => Promise<void>;
-  onPortfolioUpdate?: (portfolio: Portfolio) => Promise<void>;
+  onPortfolioUpdate?: (id: string, name: string, description: string, imageUrl: string) => Promise<void>;
   page: number;
   onPageChange: (page: number) => void;
 }
@@ -72,13 +72,13 @@ export default function PortfoliosListComponent(
     }
   }
 
-  const handleUpdatePortfolio = async (portfolio: Portfolio) => {
+  const handleUpdatePortfolio = async (id: string, name: string, description: string, imageUrl: string) => {
     try {
       if (!onPortfolioUpdate) {
         return;
       }
 
-      await onPortfolioUpdate(portfolio);
+      await onPortfolioUpdate(id, name, description, imageUrl);
 
       toaster.create({
         title: "Portfolio updated",

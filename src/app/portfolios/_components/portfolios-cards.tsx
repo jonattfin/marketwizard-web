@@ -1,4 +1,3 @@
-import {Portfolio} from "@/api/types";
 
 import React from "react";
 import dayjs from "dayjs";
@@ -6,12 +5,13 @@ import {Button, Card, Image, Text, Heading, Grid, Link as ChakraLink, FormatNumb
 import CreatePortfolio from "@/app/portfolios/_components/create-portfolio";
 import Link from "next/link";
 import UpdatePortfolio from "@/app/portfolios/_components/update-portfolio";
+import {PortfolioSummaryDto} from "@/graphql/_generated/graphql";
 
 export type PortfoliosCardsProps = {
-  readonly portfolios: Portfolio[];
+  readonly portfolios: PortfolioSummaryDto[];
   onAddPortfolio: (name: string, description: string, image: string) => Promise<void>;
   onDeletePortfolio: (id: string) => Promise<void>;
-  onUpdatePortfolio: (portfolio: Portfolio) => Promise<void>;
+  onUpdatePortfolio: (id: string, name: string, description:string, imageUrl: string) => Promise<void>;
 }
 
 export default function PortfoliosCards({
@@ -41,8 +41,8 @@ export default function PortfoliosCards({
 
 type PortfolioCardProps = {
   onDeletePortfolio: (id: string) => Promise<void>;
-  onUpdatePortfolio: (portfolio: Portfolio) => Promise<void>;
-  readonly portfolio: Portfolio;
+  onUpdatePortfolio: (id: string, name: string, description:string, imageUrl: string) => Promise<void>;
+  readonly portfolio: PortfolioSummaryDto;
 }
 
 function PortfolioCard({portfolio, onDeletePortfolio, onUpdatePortfolio}: PortfolioCardProps) {
@@ -70,7 +70,7 @@ function PortfolioCard({portfolio, onDeletePortfolio, onUpdatePortfolio}: Portfo
           Unrealized gain: <FormatNumber value={portfolio?.unrealizedGain || 0} style="currency" currency="USD"/>
         </Text>
         <Text letterSpacing="tight" mt="2">
-          Holdings: {portfolio?.portfolioAssets?.length || 0}
+          Holdings: {portfolio?.holdings || 0}
         </Text>
       </Card.Body>
       <Card.Footer gap="2">

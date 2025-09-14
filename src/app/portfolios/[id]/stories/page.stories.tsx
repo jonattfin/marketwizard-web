@@ -1,22 +1,22 @@
-import type {Meta, StoryObj} from '@storybook/nextjs-vite';
-
-import PortfoliosPage from "@/app/portfolios/page";
-import {GetPortfoliosDocument} from "@/graphql/_generated/graphql";
-
-import jsonData from './data.json';
-import {expect, within} from "storybook/test";
 import {Provider} from "@/components/ui/provider";
+import {Meta, StoryObj} from "@storybook/nextjs-vite";
+import jsonData from './data.json';
+import PortfolioDetails from "@/app/portfolios/[id]/_components/portfolio-details";
+import {GetPortfolioByIdDocument} from "@/graphql/_generated/graphql";
+import {expect, within} from "storybook/test";
+
+const id = "01994684-10f4-7074-ba7d-5312c4568041";
 
 const WithProvider = () => {
   return (
     <Provider>
-      <PortfoliosPage/>
+      <PortfolioDetails id={id}/>
     </Provider>
   )
 }
 
 const meta = {
-  title: 'Portfolios',
+  title: 'Portfolio Details',
   component: WithProvider,
   // This component will have an automatically _generated Autodocs entry: https://storybook.js.org/docs/writing-docs/autodocs
   tags: ['autodocs'],
@@ -36,10 +36,9 @@ export const WithData: Story = {
       mocks: [
         {
           request: {
-            query: GetPortfoliosDocument,
+            query: GetPortfolioByIdDocument,
             variables: {
-              take: 3,
-              skip: 0
+              id
             }
           },
           result: jsonData
@@ -47,21 +46,10 @@ export const WithData: Story = {
       ]
     }
   },
-  play: async ({canvasElement}) => {
+  play: async ({args, canvasElement, step}) => {
     const canvas = within(canvasElement);
 
     const createButton = canvas.getByRole('button', {name: 'Create new portfolio'});
     await expect(createButton).toBeDefined();
-
-    for (const p of jsonData.data.portfolios.items) {
-      const title = await canvas.findAllByTestId(p.id);
-      await expect(title).toBeDefined();
-
-      const updateButton = await canvas.findAllByTestId(`update-btn-${p.id}`);
-      await expect(updateButton).toBeDefined();
-
-      const deleteButton = await canvas.findAllByTestId(`delete-btn-${p.id}`);
-      await expect(deleteButton).toBeDefined();
-    }
   },
 };

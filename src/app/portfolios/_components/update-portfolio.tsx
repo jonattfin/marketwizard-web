@@ -3,11 +3,11 @@
 import {useState} from "react";
 import {Button, CloseButton, Dialog, Field, Input, Portal, Stack, Textarea} from "@chakra-ui/react";
 import {useForm} from "react-hook-form";
-import {Portfolio} from "@/api/types";
+import {PortfolioSummaryDto} from "@/graphql/_generated/graphql";
 
 export type UpdatePortfolioProps = {
-  portfolio: Portfolio;
-  onUpdatePortfolio: (portfolio: Portfolio) => Promise<void>;
+  portfolio: PortfolioSummaryDto;
+  onUpdatePortfolio: (id: string, name: string, description:string, imageUrl: string) => Promise<void>;
 }
 
 interface FormValues {
@@ -35,7 +35,7 @@ export default function UpdatePortfolio({portfolio, onUpdatePortfolio}: UpdatePo
   const onSubmit = handleSubmit(async (data) => {
     const {name, description, imageUrl} = data;
 
-    await onUpdatePortfolio({id: portfolio?.id, name, description, imageUrl});
+    await onUpdatePortfolio(portfolio.id, name, description, imageUrl);
 
     setOpen(false);
     reset();

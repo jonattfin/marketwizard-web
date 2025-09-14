@@ -6,6 +6,15 @@ query GetPortfolioById($id: UUID!) {
     imageUrl
     totalValue
     unrealizedGain
+    assets {
+      symbol
+      numberOfShares
+      pricePerShare
+      priceHistory {
+        price
+        date
+      }
+    }
   }
 }
 
@@ -18,21 +27,8 @@ query GetPortfolios($take: Int, $skip: Int) {
       description
       imageUrl
       createdAt
-      unrealizedGain
       totalValue
-      portfolioAssets {
-        asset {
-          id
-          symbol
-          name
-          lastPrice
-          priceHistories {
-            price
-          }
-        }
-        numberOfShares
-        pricePerShare
-      }
+      unrealizedGain
     }
   }
 }
@@ -76,24 +72,6 @@ mutation UpdatePortfolio(
     }
   ) {
     id
-  }
-}
-
-query GetPortfolioPerformanceById($id: UUID!) {
-  portfolioById(portfolioId: $id) {
-    id
-    portfolioAssets {
-      type
-      numberOfShares
-      pricePerShare
-      asset {
-        symbol
-        priceHistories {
-          price
-          date
-        }
-      }
-    }
   }
 }
 

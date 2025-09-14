@@ -5,10 +5,6 @@ export default async function PortfolioPage({params}: Readonly<{
 }>) {
   const {id} = await params;
 
-  if (!id) {
-    return;
-  }
-
   return (
     <PortfolioDetails id={id}></PortfolioDetails>
   )

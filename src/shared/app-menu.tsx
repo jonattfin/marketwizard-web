@@ -11,10 +11,17 @@ import {
   Kbd,
   Menu,
   Portal,
+  Switch
 } from "@chakra-ui/react"
 import {LuInfo, LuSearch} from "react-icons/lu";
+import {FaMoon, FaSun} from "react-icons/fa"
 
-export default function AppMenu() {
+export type AppMenuType = {
+  theme: string;
+  setTheme: (theme: "dark" | "light") => void;
+}
+
+export default function AppMenu({theme, setTheme}: AppMenuType) {
   return (
     <>
       <Flex gap={10}>
@@ -35,8 +42,20 @@ export default function AppMenu() {
         </Center>
         <div>&nbsp;</div>
         <div>&nbsp;</div>
-        <div>&nbsp;</div>
-        <div>&nbsp;</div>
+        <div>
+          <Switch.Root colorPalette="orange" checked={theme === "dark"} onCheckedChange={(e) => {
+            setTheme(e.checked ? "dark" : "light");
+          }}>
+            <Switch.HiddenInput/>
+            <Switch.Control>
+              <Switch.Thumb/>
+              <Switch.Indicator fallback={<Icon as={FaMoon} color="gray.400"/>}>
+                <Icon as={FaSun} color="yellow.400"/>
+              </Switch.Indicator>
+            </Switch.Control>
+          </Switch.Root>
+
+        </div>
         <div>
           <Avatar.Root>
             <Avatar.Fallback name="John Doe"/>

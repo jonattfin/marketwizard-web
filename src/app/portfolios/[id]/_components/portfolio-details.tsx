@@ -1,14 +1,13 @@
 'use client';
 
-import {Breadcrumb, Image} from "@chakra-ui/react"
+import {Blockquote, Breadcrumb, Button, Flex, FormatNumber, Heading, Text} from "@chakra-ui/react"
 
-import PortfolioTabs from './portfolio-tabs';
 import Loading from "@/shared/loading";
-import {Heading} from "@chakra-ui/react";
 import {usePortfolio} from "@/graphql/hooks";
+import PortfolioTabs from "./portfolio-tabs";
 
 export type PortfolioDetailsProps = {
-  id: string
+  id: string | undefined
 }
 
 export default function PortfolioDetails({id}: Readonly<PortfolioDetailsProps>) {
@@ -30,10 +29,33 @@ export default function PortfolioDetails({id}: Readonly<PortfolioDetailsProps>) 
           </Breadcrumb.Item>
         </Breadcrumb.List>
       </Breadcrumb.Root>
-      <Heading>{portfolio.description}</Heading>
-      <Image src={portfolio.imageUrl} height={320}></Image>
       <div>&nbsp;</div>
-      <PortfolioTabs portfolioId={portfolio.id}/>
+      <Flex direction="column">
+        <Flex gap="4" justify="flex-start">
+          <Heading>{portfolio.name}</Heading>
+        </Flex>
+        <div>&nbsp;</div>
+        <Flex gap="4" justify="flex-end">
+          <Button variant="outline" colorPalette={"green"}>Add transaction</Button>
+        </Flex>
+        <Text textStyle="md">
+          Portfolio value: <FormatNumber value={portfolio.totalValue || 0} style="currency" currency="USD"/>
+        </Text>
+        <Text textStyle="md">
+          Unrealized gain: <FormatNumber value={portfolio.unrealizedGain || 0} style="currency" currency="USD"/>
+        </Text>
+
+      </Flex>
+      <div>&nbsp;</div>
+      <Blockquote.Root>
+        <Blockquote.Content>
+          {portfolio.description}
+        </Blockquote.Content>
+      </Blockquote.Root>
+      <div>&nbsp;</div>
+
+      <div>&nbsp;</div>
+      <PortfolioTabs portfolio={portfolio}/>
     </>
   );
 }
