@@ -32,8 +32,6 @@ const PortfolioOverview = ({portfolio}: PortfolioOverviewProps) => {
     series
   })
 
-  // @ts-ignore
-  // @ts-ignore
   return (
     <>
       <Chart.Root maxH="sm" chart={chart}>
@@ -79,8 +77,8 @@ const PortfolioOverview = ({portfolio}: PortfolioOverviewProps) => {
 }
 
 function buildChartData(portfolio: PortfolioDetailsDto) {
-  const series: any[] = [];
-  const data: any[] = []
+  const series: unknown[] = [];
+  const data: unknown[] = []
 
   const combinedAssets: CombinedAsset[] = [];
 

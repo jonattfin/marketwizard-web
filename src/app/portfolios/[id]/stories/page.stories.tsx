@@ -46,7 +46,7 @@ export const WithData: Story = {
       ]
     }
   },
-  play: async ({args, canvasElement, step}) => {
+  play: async ({canvasElement}) => {
     const canvas = within(canvasElement);
 
     const createButton = canvas.getByRole('button', {name: 'Create new portfolio'});

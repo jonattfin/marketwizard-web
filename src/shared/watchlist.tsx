@@ -47,7 +47,7 @@ const Watchlist = () => {
   return (
     <StyledCard>
       <StyledGroup grow>
-        <div>Watchlist</div>
+        <div>Watchlist [{totalCount}]</div>
         <div>&nbsp;</div>
         <Group>
           <Icon size={"lg"} color={"grey"}>
