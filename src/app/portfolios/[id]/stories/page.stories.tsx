@@ -4,13 +4,18 @@ import jsonData from './data.json';
 import PortfolioDetails from "@/app/portfolios/[id]/_components/portfolio-details";
 import {GetPortfolioByIdDocument} from "@/graphql/_generated/graphql";
 import {expect, within} from "storybook/test";
+import {Box, Theme} from "@chakra-ui/react"
 
 const id = "01994684-10f4-7074-ba7d-5312c4568041";
 
 const WithProvider = () => {
   return (
     <Provider>
-      <PortfolioDetails id={id}/>
+      <Theme appearance={"dark"}>
+        <Box padding="50px">
+          <PortfolioDetails id={id}/>
+        </Box>
+      </Theme>
     </Provider>
   )
 }
@@ -49,7 +54,7 @@ export const WithData: Story = {
   play: async ({canvasElement}) => {
     const canvas = within(canvasElement);
 
-    const createButton = canvas.getByRole('button', {name: 'Create new portfolio'});
-    await expect(createButton).toBeDefined();
+    const addTransactionButton = canvas.getByTestId('btn-add-transaction');
+    await expect(addTransactionButton).toBeDefined();
   },
 };

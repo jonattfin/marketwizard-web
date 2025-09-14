@@ -1,37 +1,116 @@
 {
-  "data": {
-    "portfolioById": {
-      "id": "01994684-10f4-7074-ba7d-5312c4568041",
-      "name": "Balanced Bundle Portfolio ",
-      "description": "This portfolio is designed for investment goals with a medium-term horizon. It is best for investors seeking relatively higher returns while being willing to accept modest risk.",
-      "imageUrl": "https://images.unsplash.com/photo-1611974789855-9c2a0a7236a3",
-      "totalValue": 3000,
-      "unrealizedGain": 0,
-      "portfolioAssets": [
-        {
-          "asset": {
-            "id": "95270984-1570-4e31-8e88-4e7d3cd25015",
-            "symbol": "NVDA",
-            "name": "NVDA",
-            "__typename": "Asset"
-          },
-          "numberOfShares": 10,
-          "pricePerShare": 200,
-          "__typename": "PortfolioAsset"
-        },
-        {
-          "asset": {
-            "id": "66a5ae85-ff10-4806-9eff-a67cab19b4fc",
-            "symbol": "AMZN",
-            "name": "AMZN",
-            "__typename": "Asset"
-          },
-          "numberOfShares": 10,
-          "pricePerShare": 100,
-          "__typename": "PortfolioAsset"
+    "data": {
+        "portfolioById": {
+            "id": "01994684-10f4-7074-ba7d-5312c4568041",
+            "name": "Balanced Bundle Portfolio ",
+            "description": "This portfolio is designed for investment goals with a medium-term horizon. It is best for investors seeking relatively higher returns while being willing to accept modest risk.",
+            "imageUrl": "https://images.unsplash.com/photo-1611974789855-9c2a0a7236a3",
+            "totalValue": 3000,
+            "unrealizedGain": 100,
+            "assets": [
+                {
+                    "symbol": "NVDA",
+                    "numberOfShares": 10,
+                    "pricePerShare": 200,
+                    "priceHistory": [
+                        {
+                            "price": 160,
+                            "date": "2025-09-14T13:03:06.326Z",
+                            "__typename": "AssetPriceHistoryDto"
+                        },
+                        {
+                            "price": 130,
+                            "date": "2025-01-14T13:01:56.912Z",
+                            "__typename": "AssetPriceHistoryDto"
+                        },
+                        {
+                            "price": 120,
+                            "date": "2025-02-14T13:02:11.545Z",
+                            "__typename": "AssetPriceHistoryDto"
+                        },
+                        {
+                            "price": 125,
+                            "date": "2025-03-14T13:02:25.442Z",
+                            "__typename": "AssetPriceHistoryDto"
+                        },
+                        {
+                            "price": 135,
+                            "date": "2025-04-14T13:02:32.528Z",
+                            "__typename": "AssetPriceHistoryDto"
+                        },
+                        {
+                            "price": 140,
+                            "date": "2025-05-14T13:02:39.391Z",
+                            "__typename": "AssetPriceHistoryDto"
+                        },
+                        {
+                            "price": 145,
+                            "date": "2025-06-14T13:02:51.981Z",
+                            "__typename": "AssetPriceHistoryDto"
+                        },
+                        {
+                            "price": 150,
+                            "date": "2025-07-14T13:02:56.091Z",
+                            "__typename": "AssetPriceHistoryDto"
+                        },
+                        {
+                            "price": 155,
+                            "date": "2025-08-14T13:03:00.751Z",
+                            "__typename": "AssetPriceHistoryDto"
+                        }
+                    ],
+                    "__typename": "PortfolioDetailsAssetDto"
+                },
+                {
+                    "symbol": "AMZN",
+                    "numberOfShares": 10,
+                    "pricePerShare": 100,
+                    "priceHistory": [
+                        {
+                            "price": 110,
+                            "date": "2025-02-14T17:31:30.099Z",
+                            "__typename": "AssetPriceHistoryDto"
+                        },
+                        {
+                            "price": 104,
+                            "date": "2025-03-14T17:31:35.136Z",
+                            "__typename": "AssetPriceHistoryDto"
+                        },
+                        {
+                            "price": 120,
+                            "date": "2025-04-14T17:31:40.299Z",
+                            "__typename": "AssetPriceHistoryDto"
+                        },
+                        {
+                            "price": 130,
+                            "date": "2025-05-14T17:31:45.458Z",
+                            "__typename": "AssetPriceHistoryDto"
+                        },
+                        {
+                            "price": 115,
+                            "date": "2025-06-14T17:31:50.088Z",
+                            "__typename": "AssetPriceHistoryDto"
+                        },
+                        {
+                            "price": 140,
+                            "date": "2025-07-14T17:31:54.357Z",
+                            "__typename": "AssetPriceHistoryDto"
+                        },
+                        {
+                            "price": 150,
+                            "date": "2025-08-14T17:31:58.405Z",
+                            "__typename": "AssetPriceHistoryDto"
+                        },
+                        {
+                            "price": 100,
+                            "date": "2025-01-14T13:01:56.912Z",
+                            "__typename": "AssetPriceHistoryDto"
+                        }
+                    ],
+                    "__typename": "PortfolioDetailsAssetDto"
+                }
+            ],
+            "__typename": "PortfolioDetailsDto"
         }
-      ],
-      "__typename": "GetPortfolioDto"
     }
-  }
 }

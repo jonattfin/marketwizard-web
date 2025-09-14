@@ -6,11 +6,16 @@ import {GetPortfoliosDocument} from "@/graphql/_generated/graphql";
 import jsonData from './data.json';
 import {expect, within} from "storybook/test";
 import {Provider} from "@/components/ui/provider";
+import {Box, Theme} from "@chakra-ui/react";
 
 const WithProvider = () => {
   return (
     <Provider>
-      <PortfoliosPage/>
+      <Theme appearance={"dark"}>
+        <Box padding="50px">
+          <PortfoliosPage/>
+        </Box>
+      </Theme>
     </Provider>
   )
 }

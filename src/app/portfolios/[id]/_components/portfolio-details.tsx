@@ -36,7 +36,7 @@ export default function PortfolioDetails({id}: Readonly<PortfolioDetailsProps>) 
         </Flex>
         <div>&nbsp;</div>
         <Flex gap="4" justify="flex-end">
-          <Button variant="outline" colorPalette={"green"}>Add transaction</Button>
+          <Button variant="outline" colorPalette={"green"} data-testid={"btn-add-transaction"}>Add transaction</Button>
         </Flex>
         <Text textStyle="md">
           Portfolio value: <FormatNumber value={portfolio.totalValue || 0} style="currency" currency="USD"/>
