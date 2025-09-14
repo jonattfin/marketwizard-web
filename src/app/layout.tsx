@@ -53,6 +53,7 @@ export default function RootLayout({
               <GridItem colSpan={3}>
                 <Box padding="20px">
                   <AppMenu/>
+                  <div>&nbsp;</div>
                   {children}
                 </Box>
               </GridItem>
@@ -62,29 +63,6 @@ export default function RootLayout({
             </Grid>
           </main>
           <footer>
-            <div>&nbsp;</div>
-            <div>&nbsp;</div>
-            <div>&nbsp;</div>
-            <div>&nbsp;</div>
-            <div>&nbsp;</div>
-            <div>&nbsp;</div>
-            <div>&nbsp;</div>
-            <div>&nbsp;</div>
-            <div>&nbsp;</div>
-            <div>&nbsp;</div>
-            <div>&nbsp;</div>
-            <div>&nbsp;</div>
-            <div>&nbsp;</div>
-            <div>&nbsp;</div>
-            <div>&nbsp;</div>
-            <div>&nbsp;</div>
-            <div>&nbsp;</div>
-            <div>&nbsp;</div>
-            <div>&nbsp;</div>
-            <div>&nbsp;</div>
-            <div>&nbsp;</div>
-            <div>&nbsp;</div>
-            <div>&nbsp;</div>
           </footer>
           <Analytics/>
           <SpeedInsights/>

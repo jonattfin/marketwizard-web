@@ -1,26 +1,59 @@
 'use client';
 
-import {Button, Center, Flex, HStack, Menu, Portal} from "@chakra-ui/react"
+import {
+  Avatar,
+  Button,
+  Center,
+  Flex,
+  HStack, Icon,
+  Input,
+  InputGroup,
+  Kbd,
+  Menu,
+  Portal,
+} from "@chakra-ui/react"
+import {LuInfo, LuSearch} from "react-icons/lu";
 
 export default function AppMenu() {
   return (
-    <Center>
-      <Flex>
-        <HStack wrap="wrap" gap="6">
-          {["Products", "Community", "Markets", "Brokers", "More"].map(renderMenu)}
-        </HStack>
+    <>
+      <Flex gap={10}>
+        <Button size="xs" variant="ghost">
+          <Icon color={"grey"}>
+            <LuInfo/>
+          </Icon>
+        </Button>
+        <InputGroup flex="1" startElement={<LuSearch/>} endElement={<Kbd>⌘K</Kbd>}>
+          <Input placeholder="Search"/>
+        </InputGroup>
+        <Center>
+          <Flex>
+            <HStack wrap="wrap" gap="6">
+              {["Products", "Community", "Markets", "Brokers", "More"].map(renderMenu)}
+            </HStack>
+          </Flex>
+        </Center>
+        <div>&nbsp;</div>
+        <div>&nbsp;</div>
+        <div>&nbsp;</div>
+        <div>&nbsp;</div>
+        <div>
+          <Avatar.Root>
+            <Avatar.Fallback name="John Doe"/>
+          </Avatar.Root>
+        </div>
       </Flex>
-    </Center>
+    </>
   )
 }
 
 function renderMenu(name: string = "Products") {
-  const palette = name == "Products"? "yellow": "blue"
+  const palette = name == "Products" ? "yellow" : "blue"
 
   return (
     <Menu.Root key={name}>
       <Menu.Trigger asChild>
-        <Button variant="subtle" colorPalette={palette}>
+        <Button variant="ghost" colorPalette={palette}>
           {name}
         </Button>
       </Menu.Trigger>
@@ -36,5 +69,3 @@ function renderMenu(name: string = "Products") {
     </Menu.Root>
   )
 }
-
-

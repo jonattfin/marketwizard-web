@@ -388,6 +388,8 @@ export type StringOperationFilterInput = {
 
 export type Subscription = {
   __typename?: 'Subscription';
+  onPortfolioDeleted: Scalars['UUID']['output'];
+  onPortfolioUpdated: Scalars['UUID']['output'];
   onStockPriceUpdated: Array<StockQuote>;
 };
 
@@ -547,7 +549,7 @@ export type GetWatchlistAssetsQuery = { __typename?: 'Query', watchlistAssets?: 
 export type OnStockPriceUpdatedSubscriptionVariables = Exact<{ [key: string]: never; }>;
 
 
-export type OnStockPriceUpdatedSubscription = { __typename?: 'Subscription', onStockPriceUpdated: Array<{ __typename?: 'StockQuote', symbol: string, currentPrice?: any | null, highPrice?: any | null, lowPrice?: any | null, previousClosePrice?: any | null, openPrice?: any | null }> };
+export type OnStockPriceUpdatedSubscription = { __typename?: 'Subscription', onStockPriceUpdated: Array<{ __typename?: 'StockQuote', symbol: string, currentPrice?: any | null, change?: any | null, percentChange?: any | null }> };
 
 
 export const GetPortfolioByIdDocument = gql`
@@ -597,7 +599,7 @@ export type GetPortfolioByIdSuspenseQueryHookResult = ReturnType<typeof useGetPo
 export type GetPortfolioByIdQueryResult = Apollo.QueryResult<GetPortfolioByIdQuery, GetPortfolioByIdQueryVariables>;
 export const GetPortfoliosDocument = gql`
     query GetPortfolios($take: Int, $skip: Int) {
-  portfolios(take: $take, skip: $skip, order: [{name: DESC}]) {
+  portfolios(take: $take, skip: $skip, order: [{createdAt: DESC}]) {
     totalCount
     items {
       id
@@ -870,10 +872,8 @@ export const OnStockPriceUpdatedDocument = gql`
   onStockPriceUpdated {
     symbol
     currentPrice
-    highPrice
-    lowPrice
-    previousClosePrice
-    openPrice
+    change
+    percentChange
   }
 }
     `;

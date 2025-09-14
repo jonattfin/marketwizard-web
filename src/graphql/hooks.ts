@@ -16,16 +16,14 @@ export function useStockQuotes() {
     const stockQuote: StockQuote = {
       symbol: quote.symbol,
       currentPrice: quote.currentPrice,
-      highPrice: quote.highPrice,
-      lowPrice: quote.lowPrice,
-      openPrice: quote.openPrice,
-      previousClosePrice: quote.previousClosePrice
+      change: quote.change,
+      percentChange: quote.percentChange,
     }
 
     return stockQuote;
   })
 
-  return {stockQuotes, loading, error};
+  return {stockQuotes: stockQuotes || [], loading, error};
 }
 
 export function useWatchlistAssets() {
@@ -61,18 +59,18 @@ export function useWatchlistAssets() {
 }
 
 export const usePortfolio = (id: String) => {
-  const {data} = useGetPortfolioByIdQuery({
+  const {data, loading, error} = useGetPortfolioByIdQuery({
     variables: {
       id
     },
   });
 
   const portfolio = mapPortfolioData(data);
-  return {portfolio};
+  return {portfolio, loading, error};
 }
 
 export const usePortfolios = (pageNumber: number) => {
-  const {data} = useGetPortfoliosQuery({
+  const {data, loading, error} = useGetPortfoliosQuery({
     variables: {
       skip: (pageNumber - 1) * PAGE_SIZE,
       take: PAGE_SIZE,
@@ -80,7 +78,7 @@ export const usePortfolios = (pageNumber: number) => {
   });
 
   const {portfolios, totalCount} = mapPortfoliosData(data);
-  return {portfolios, totalCount};
+  return {portfolios, totalCount, loading, error};
 }
 
 function mapPortfoliosData(query: GetPortfoliosQuery | undefined) {

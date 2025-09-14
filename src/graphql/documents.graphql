@@ -10,7 +10,7 @@ query GetPortfolioById($id: UUID!) {
 }
 
 query GetPortfolios($take: Int, $skip: Int) {
-  portfolios(take: $take, skip: $skip, order: [{ name: DESC }]) {
+  portfolios(take: $take, skip: $skip, order: [{ createdAt: DESC }]) {
     totalCount
     items {
       id
@@ -114,10 +114,8 @@ subscription OnStockPriceUpdated {
   onStockPriceUpdated {
     symbol
     currentPrice
-    highPrice
-    lowPrice
-    previousClosePrice
-    openPrice
+    change
+    percentChange
   }
 }
 

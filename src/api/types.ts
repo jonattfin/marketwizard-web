@@ -34,8 +34,6 @@ export type Asset = {
 export type StockQuote = {
   symbol: string;
   currentPrice: number;
-  highPrice: number;
-  lowPrice: number;
-  openPrice: number;
-  previousClosePrice: number;
+  change: number;
+  percentChange: number;
 }

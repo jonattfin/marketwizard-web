@@ -1,181 +1,121 @@
 "use client"
 
-import {HStack, IconButton, TreeView, createTreeCollection, useTreeViewContext, TreeCollection} from "@chakra-ui/react"
-import {LuFile, LuFolder, LuPlus, LuTrash} from "react-icons/lu"
-import {Suspense, useEffect, useState} from "react";
+import {Card, FormatNumber, Group, Icon, Table, Tag} from "@chakra-ui/react"
+import {LuBookPlus, LuHand, LuGrip, LuInfo} from "react-icons/lu"
+
+import {useMemo} from "react";
 import {Asset, StockQuote} from "@/api/types";
-import Loading from "@/shared/loading";
 import {useStockQuotes, useWatchlistAssets} from "@/graphql/hooks";
+import {styled} from "storybook/theming";
+
+const StyledCard = styled(Card.Root)`
+    height: 100%;
+`;
+
+const StyledGroup = styled(Group)`
+    padding: 10px;
+`
+
+type WatchlistItem = {
+  symbol: string;
+  last: number | undefined;
+  change: number | undefined;
+  percentChange: number | undefined;
+}
 
 const Watchlist = () => {
-  const {watchlistAssets, totalCount} = useWatchlistAssets();
-  const {stockQuotes, loading, error} = useStockQuotes();
+  const {watchlistAssets, totalCount, error: watchlistError} = useWatchlistAssets();
+  const {stockQuotes, error} = useStockQuotes();
 
-  const [collection, setCollection] = useState<TreeCollection<Node>>(createCollection(watchlistAssets, []));
+  const data = useMemo(() => createData(watchlistAssets, stockQuotes)
+    , [watchlistAssets, stockQuotes])
 
-  useEffect(() => {
-    if (loading) {
-      console.log("Loading...");
+  if (error || watchlistError) return `Error ${error}`;
+
+  const renderTag = (value: number | undefined) => {
+    if (!value) {
+      return "--";
     }
 
-    if (error) {
-      console.error(error);
-    }
-
-    if (stockQuotes) {
-      setCollection(createCollection(watchlistAssets, stockQuotes));
-    }
-
-  }, [watchlistAssets, stockQuotes, loading, error]);
-
-
-  const removeNode = (props: TreeNodeProps) => {
-    setCollection(collection.remove([props.indexPath]))
-  }
-
-  const addNode = (props: TreeNodeProps) => {
-    const {node, indexPath} = props
-    if (!collection.isBranchNode(node)) return
-    const children = [
-      {
-        id: `untitled-${Date.now()}`,
-        name: `untitled-${node.children?.length}.tsx`,
-      },
-      ...(node.children || []),
-    ]
-    setCollection(collection.replace(indexPath, {...node, children}))
+    return (
+      <Tag.Root size="md" colorPalette={value > 0 ? "green" : "orange"}>
+        <Tag.Label><FormatNumber value={value}/></Tag.Label>
+      </Tag.Root>
+    )
   }
 
   return (
-    <Suspense fallback={<Loading/>}>
-      <div>&nbsp;</div>
-      <TreeView.Root collection={collection} maxW="sm" colorPalette={"yellow"} variant="subtle">
-        <TreeView.Label>Watchlist [{totalCount}]</TreeView.Label>
-        <TreeView.Tree>
-          <TreeView.Node
-            indentGuide={<TreeView.BranchIndentGuide/>}
-            render={({node, nodeState, indexPath}) =>
-              nodeState.isBranch ? (
-                <TreeView.BranchControl role="">
-                  <LuFolder/>
-                  <TreeView.BranchText>{node.name}</TreeView.BranchText>
-                  <TreeNodeActions
-                    node={node}
-                    indexPath={indexPath}
-                    onRemove={removeNode}
-                    onAdd={addNode}
-                  />
-                </TreeView.BranchControl>
-              ) : (
-                <TreeView.Item>
-                  <LuFile/>
-                  <TreeView.ItemText>{node.name}</TreeView.ItemText>
-                  <TreeNodeActions
-                    node={node}
-                    indexPath={indexPath}
-                    onRemove={removeNode}
-                    onAdd={addNode}
-                  />
-                </TreeView.Item>
-              )
-            }
-          />
-        </TreeView.Tree>
-      </TreeView.Root>
-    </Suspense>
+    <StyledCard>
+      <StyledGroup grow>
+        <div>Watchlist</div>
+        <div>&nbsp;</div>
+        <Group>
+          <Icon size={"lg"} color={"grey"}>
+            <LuBookPlus/>
+          </Icon>
+          <Icon size={"lg"} color={"grey"}>
+            <LuHand/>
+          </Icon>
+          <Icon size={"lg"} color={"grey"}>
+            <LuGrip/>
+          </Icon>
+        </Group>
+      </StyledGroup>
+      <Table.Root size="sm" interactive>
+        <Table.Header>
+          <Table.Row>
+            <Table.ColumnHeader>Symbol</Table.ColumnHeader>
+            <Table.ColumnHeader>Last</Table.ColumnHeader>
+            <Table.ColumnHeader>Chg</Table.ColumnHeader>
+            <Table.ColumnHeader>Chg%</Table.ColumnHeader>
+          </Table.Row>
+        </Table.Header>
+        <Table.Body>
+          {data.map((item) => (
+            <Table.Row key={item.symbol}>
+              <Table.Cell>
+                <Group>
+                  <Icon color="grey">
+                    <LuInfo/>
+                  </Icon>
+                  <div>
+                    {item.symbol}
+                  </div>
+                </Group>
+              </Table.Cell>
+              <Table.Cell>
+                {item.last && (
+                  <FormatNumber value={item.last} style="currency" currency="USD"/>
+                )}
+              </Table.Cell>
+              <Table.Cell>
+                {renderTag(item.change)}
+              </Table.Cell>
+              <Table.Cell>
+                {renderTag(item.percentChange)}
+              </Table.Cell>
+            </Table.Row>
+          ))}
+        </Table.Body>
+      </Table.Root>
+    </StyledCard>
   )
 }
 
-interface TreeNodeProps extends TreeView.NodeProviderProps<Node> {
-  onRemove?: (props: TreeView.NodeProviderProps<Node>) => void
-  onAdd?: (props: TreeView.NodeProviderProps<Node>) => void
-}
+function createData(watchlistAssets: Asset[], stockQuotes: StockQuote[]): WatchlistItem[] {
+  const assetSymbols = watchlistAssets.map((asset: Asset) => asset.symbol);
+  const filteredStockQuotes = stockQuotes.filter(s => assetSymbols.includes(s.symbol));
 
-const TreeNodeActions = (props: TreeNodeProps) => {
-  const {onRemove, onAdd, node} = props
-  const tree = useTreeViewContext()
-  const isBranch = tree.collection.isBranchNode(node)
-  return (
-    <HStack
-      gap="0.5"
-      position="absolute"
-      right="0"
-      top="0"
-      scale="0.8"
-      css={{
-        opacity: 0,
-        "[role=treeitem]:hover &": {opacity: 1},
-      }}
-    >
-      <IconButton
-        size="xs"
-        variant="ghost"
-        aria-label="Remove node"
-        onClick={(e) => {
-          e.stopPropagation()
-          onRemove?.(props)
-        }}
-      >
-        <LuTrash/>
-      </IconButton>
-      {isBranch && (
-        <IconButton
-          size="xs"
-          variant="ghost"
-          aria-label="Add node"
-          onClick={(e) => {
-            e.stopPropagation()
-            onAdd?.(props)
-            tree.expand([node.id])
-          }}
-        >
-          <LuPlus/>
-        </IconButton>
-      )}
-    </HStack>
-  )
-}
+  return assetSymbols.map((symbol) => {
+    const stockQuote = filteredStockQuotes.find(q => q.symbol === symbol);
 
-interface Node {
-  id: string
-  name: string
-  children?: Node[]
-  childrenCount?: number
-}
-
-function createCollection(watchlistAssets: Asset[], stocksQuote: StockQuote[]) {
-  const children: Node[] = [];
-
-  ["STOCK", "ETF", "CRYPTO"].forEach(node => {
-    const createChildren = (): Node[] => {
-      const currentAssets = watchlistAssets.filter(asset => asset.type === node);
-
-      return currentAssets.map(asset => {
-        const price = stocksQuote.find(stock => stock.symbol === asset.symbol)?.currentPrice || 'n/a';
-
-        return {
-          id: asset.id,
-          name: `${asset.name} - Price: ${price}`,
-        }
-      })
+    return {
+      symbol: symbol,
+      last: stockQuote?.currentPrice,
+      change: stockQuote?.change,
+      percentChange: stockQuote?.percentChange
     }
-
-    children.push({
-      id: node,
-      name: node,
-      children: createChildren(),
-    },)
-  })
-
-  return createTreeCollection<Node>({
-    nodeToValue: (node) => node.id,
-    nodeToString: (node) => node.name,
-    rootNode: {
-      id: "ROOT",
-      name: "",
-      children
-    },
-  })
+  });
 }
 
 export default Watchlist;
