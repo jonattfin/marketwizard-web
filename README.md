@@ -115,4 +115,3 @@ This project is licensed under the MIT License.
 
 ***
 
-Would you like me to also include **example `.env` variables** (for GraphQL endpoint, API keys, etc.) in the README setup instructions?
