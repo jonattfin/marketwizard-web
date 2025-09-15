@@ -10,7 +10,6 @@ import {
   useDeletePortfolioMutation,
   useUpdatePortfolioMutation
 } from "@/graphql/_generated/graphql";
-import {DEFAULT_USER_ID} from "@/app/constants";
 import {usePortfolios} from "@/graphql/hooks";
 
 export default function PortfoliosList() {
@@ -22,11 +21,13 @@ export default function PortfoliosList() {
   const [updatePortfolio] = useUpdatePortfolioMutation();
 
   const onPortfolioAdd = useCallback(async (name: string, description: string, imageUrl: string) => {
-    await addPortfolio({variables: {name, description, imageUrl, userId: DEFAULT_USER_ID}, refetchQueries: "active"});
+    await addPortfolio({variables: {name, description, imageUrl}, refetchQueries: "active"});
+    setPage(1);
   }, [addPortfolio]);
 
   const onPortfolioDelete = useCallback(async (id: string) => {
     await deletePortfolio({variables: {portfolioId: id}, refetchQueries: "active"});
+    setPage(1);
   }, [deletePortfolio]);
 
   const onPortfolioUpdate = useCallback(async (id: string, name: string, description: string, imageUrl: string) => {
@@ -36,7 +37,6 @@ export default function PortfoliosList() {
         name,
         description,
         imageUrl,
-        userId: DEFAULT_USER_ID,
       },
       refetchQueries: "active"
     });

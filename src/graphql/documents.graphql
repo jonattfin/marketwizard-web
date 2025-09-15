@@ -37,14 +37,12 @@ mutation addPortfolio(
   $name: String!
   $description: String!
   $imageUrl: String!
-  $userId: UUID!
 ) {
   addPortfolio(
     portfolioInput: {
       name: $name
       description: $description
       imageUrl: $imageUrl
-      userId: $userId
     }
   ) {
     id
@@ -60,7 +58,6 @@ mutation UpdatePortfolio(
   $name: String!
   $description: String!
   $imageUrl: String!
-  $userId: UUID!
 ) {
   updatePortfolio(
     portfolioInput: {
@@ -68,15 +65,14 @@ mutation UpdatePortfolio(
       name: $name
       description: $description
       imageUrl: $imageUrl
-      userId: $userId
     }
   ) {
     id
   }
 }
 
-query GetWatchlistAssets($userId: UUID!) {
-  watchlistAssets(userId: $userId) {
+query GetWatchlistAssets {
+  watchlistAssets {
     totalCount
     items {
       id

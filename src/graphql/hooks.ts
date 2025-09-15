@@ -2,7 +2,7 @@ import {
   useGetPortfoliosQuery,
   useGetPortfolioByIdQuery,useGetWatchlistAssetsQuery, useOnStockPriceUpdatedSubscription
 } from "./_generated/graphql";
-import {DEFAULT_USER_ID, PAGE_SIZE} from "@/app/constants";
+import {PAGE_SIZE} from "@/app/constants";
 
 export function useStockQuotes() {
   const {data, loading, error} = useOnStockPriceUpdatedSubscription();
@@ -13,9 +13,7 @@ export function useStockQuotes() {
 export function useWatchlistAssets() {
 
   const {data, loading, error} = useGetWatchlistAssetsQuery({
-    variables: {
-      userId: DEFAULT_USER_ID
-    }
+    variables: {}
   })
 
   const totalCount = data?.watchlistAssets?.totalCount || 0

@@ -24,7 +24,6 @@ export type AddPortfolioInputDtoInput = {
   description: Scalars['String']['input'];
   imageUrl: Scalars['String']['input'];
   name: Scalars['String']['input'];
-  userId: Scalars['UUID']['input'];
 };
 
 export type AddPortfolioOutputDto = {
@@ -267,7 +266,6 @@ export type QueryWatchlistAssetsArgs = {
   order?: InputMaybe<Array<AssetDtoSortInput>>;
   skip?: InputMaybe<Scalars['Int']['input']>;
   take?: InputMaybe<Scalars['Int']['input']>;
-  userId: Scalars['UUID']['input'];
   where?: InputMaybe<AssetDtoFilterInput>;
 };
 
@@ -339,7 +337,6 @@ export type UpdatePortfolioInputDtoInput = {
   id: Scalars['UUID']['input'];
   imageUrl: Scalars['String']['input'];
   name: Scalars['String']['input'];
-  userId: Scalars['UUID']['input'];
 };
 
 export type UpdatePortfolioOutputDto = {
@@ -391,7 +388,6 @@ export type AddPortfolioMutationVariables = Exact<{
   name: Scalars['String']['input'];
   description: Scalars['String']['input'];
   imageUrl: Scalars['String']['input'];
-  userId: Scalars['UUID']['input'];
 }>;
 
 
@@ -409,15 +405,12 @@ export type UpdatePortfolioMutationVariables = Exact<{
   name: Scalars['String']['input'];
   description: Scalars['String']['input'];
   imageUrl: Scalars['String']['input'];
-  userId: Scalars['UUID']['input'];
 }>;
 
 
 export type UpdatePortfolioMutation = { __typename?: 'Mutation', updatePortfolio: { __typename?: 'UpdatePortfolioOutputDto', id: any } };
 
-export type GetWatchlistAssetsQueryVariables = Exact<{
-  userId: Scalars['UUID']['input'];
-}>;
+export type GetWatchlistAssetsQueryVariables = Exact<{ [key: string]: never; }>;
 
 
 export type GetWatchlistAssetsQuery = { __typename?: 'Query', watchlistAssets?: { __typename?: 'WatchlistAssetsCollectionSegment', totalCount: number, items?: Array<{ __typename?: 'AssetDto', id: any, symbol: string, name: string, type?: AssetType | null, lastPrice?: number | null, quote?: { __typename?: 'StockQuoteDto', symbol: string, currentPrice?: any | null, change?: any | null, percentChange?: any | null } | null }> | null } | null };
@@ -533,9 +526,9 @@ export type GetPortfoliosLazyQueryHookResult = ReturnType<typeof useGetPortfolio
 export type GetPortfoliosSuspenseQueryHookResult = ReturnType<typeof useGetPortfoliosSuspenseQuery>;
 export type GetPortfoliosQueryResult = Apollo.QueryResult<GetPortfoliosQuery, GetPortfoliosQueryVariables>;
 export const AddPortfolioDocument = gql`
-    mutation addPortfolio($name: String!, $description: String!, $imageUrl: String!, $userId: UUID!) {
+    mutation addPortfolio($name: String!, $description: String!, $imageUrl: String!) {
   addPortfolio(
-    portfolioInput: {name: $name, description: $description, imageUrl: $imageUrl, userId: $userId}
+    portfolioInput: {name: $name, description: $description, imageUrl: $imageUrl}
   ) {
     id
   }
@@ -559,7 +552,6 @@ export type AddPortfolioMutationFn = Apollo.MutationFunction<AddPortfolioMutatio
  *      name: // value for 'name'
  *      description: // value for 'description'
  *      imageUrl: // value for 'imageUrl'
- *      userId: // value for 'userId'
  *   },
  * });
  */
@@ -602,9 +594,9 @@ export type DeletePortfolioMutationHookResult = ReturnType<typeof useDeletePortf
 export type DeletePortfolioMutationResult = Apollo.MutationResult<DeletePortfolioMutation>;
 export type DeletePortfolioMutationOptions = Apollo.BaseMutationOptions<DeletePortfolioMutation, DeletePortfolioMutationVariables>;
 export const UpdatePortfolioDocument = gql`
-    mutation UpdatePortfolio($id: UUID!, $name: String!, $description: String!, $imageUrl: String!, $userId: UUID!) {
+    mutation UpdatePortfolio($id: UUID!, $name: String!, $description: String!, $imageUrl: String!) {
   updatePortfolio(
-    portfolioInput: {id: $id, name: $name, description: $description, imageUrl: $imageUrl, userId: $userId}
+    portfolioInput: {id: $id, name: $name, description: $description, imageUrl: $imageUrl}
   ) {
     id
   }
@@ -629,7 +621,6 @@ export type UpdatePortfolioMutationFn = Apollo.MutationFunction<UpdatePortfolioM
  *      name: // value for 'name'
  *      description: // value for 'description'
  *      imageUrl: // value for 'imageUrl'
- *      userId: // value for 'userId'
  *   },
  * });
  */
@@ -641,8 +632,8 @@ export type UpdatePortfolioMutationHookResult = ReturnType<typeof useUpdatePortf
 export type UpdatePortfolioMutationResult = Apollo.MutationResult<UpdatePortfolioMutation>;
 export type UpdatePortfolioMutationOptions = Apollo.BaseMutationOptions<UpdatePortfolioMutation, UpdatePortfolioMutationVariables>;
 export const GetWatchlistAssetsDocument = gql`
-    query GetWatchlistAssets($userId: UUID!) {
-  watchlistAssets(userId: $userId) {
+    query GetWatchlistAssets {
+  watchlistAssets {
     totalCount
     items {
       id
@@ -673,11 +664,10 @@ export const GetWatchlistAssetsDocument = gql`
  * @example
  * const { data, loading, error } = useGetWatchlistAssetsQuery({
  *   variables: {
- *      userId: // value for 'userId'
  *   },
  * });
  */
-export function useGetWatchlistAssetsQuery(baseOptions: Apollo.QueryHookOptions<GetWatchlistAssetsQuery, GetWatchlistAssetsQueryVariables> & ({ variables: GetWatchlistAssetsQueryVariables; skip?: boolean; } | { skip: boolean; }) ) {
+export function useGetWatchlistAssetsQuery(baseOptions?: Apollo.QueryHookOptions<GetWatchlistAssetsQuery, GetWatchlistAssetsQueryVariables>) {
         const options = {...defaultOptions, ...baseOptions}
         return Apollo.useQuery<GetWatchlistAssetsQuery, GetWatchlistAssetsQueryVariables>(GetWatchlistAssetsDocument, options);
       }
