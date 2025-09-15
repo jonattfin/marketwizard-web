@@ -1,36 +1,118 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+# Portfolio Manager
+
+A modern web application to manage and analyze investment portfolios. Built with **Next.js** and **React**, styled with **Chakra UI**, and powered by **Apollo GraphQL** for efficient data fetching. T
+he project emphasizes scalability, design consistency, and developer productivity with tools like **Storybook** and **pnpm**.
+
+***
+
+## Features
+
+- 📊 Manage and track investments across multiple portfolios
+- ⚡ Fast client-side navigation with Next.js
+- 🎨 Styled consistently with Chakra UI
+- 🔗 Apollo Client integration with auto-generated GraphQL schema and types
+- 🧩 Component-driven development using Storybook
+- 🧪 Interaction testing for UI reliability
+
+***
+
+## Tech Stack
+
+- **Framework**: [Next.js](https://nextjs.org/) (React 19, App Router enabled)
+- **UI Library**: [Chakra UI](https://chakra-ui.com/)
+- **GraphQL**: [Apollo Client](https://www.apollographql.com/docs/react/)
+- **Codegen**: [GraphQL Code Generator](https://www.graphql-code-generator.com/)
+- **Component Development**: [Storybook](https://storybook.js.org/)
+- **Testing**: Storybook Interactions, React Testing Library (optional)
+- **Package Manager**: [pnpm](https://pnpm.io/)
+
+***
 
 ## Getting Started
 
-First, run the development server:
+### Prerequisites
+
+- Node.js >= 18
+- pnpm >= 8
+
+
+### Installation
 
 ```bash
-npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
+pnpm install
 ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+### Development Server
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+Run the app in development mode at [http://localhost:3000](http://localhost:3000):
 
-## Learn More
+```bash
+pnpm dev
+```
 
-To learn more about Next.js, take a look at the following resources:
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+### Build for Production
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
+```bash
+pnpm build
+pnpm start
+```
 
-## Deploy on Vercel
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
+***
 
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+## GraphQL Code Generation
+
+The schema and typed hooks are automatically generated via GraphQL Code Generator.
+
+- Update `.graphql` files under `src/graphql/`
+- Generate types and hooks:
+
+```bash
+pnpm generate:schema
+```
+
+Generated files will be placed in `src/graphql/_generated`.
+
+***
+
+## Storybook
+
+Run Storybook to develop and test components in isolation:
+
+```bash
+pnpm storybook
+```
+
+
+***
+
+## Project Scripts
+
+| Command | Description |
+| :-- | :-- |
+| `pnpm dev` | Start Next.js dev server |
+| `pnpm build` | Build for production |
+| `pnpm start` | Start production server |
+| `pnpm generate:schema` | Generate GraphQL schema/types |
+| `pnpm storybook` | Run Storybook UI explorer |
+
+
+## Contributing
+
+1. Fork the repository
+2. Create a new branch: `git checkout -b feature/my-feature`
+3. Commit your changes: `git commit -m "Add my feature"`
+4. Push the branch: `git push origin feature/my-feature`
+5. Open a pull request
+
+***
+
+## License
+
+This project is licensed under the MIT License.
+
+***
+
+Would you like me to also include **example `.env` variables** (for GraphQL endpoint, API keys, etc.) in the README setup instructions?
