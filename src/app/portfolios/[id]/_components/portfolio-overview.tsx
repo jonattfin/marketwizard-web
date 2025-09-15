@@ -82,8 +82,10 @@ function buildChartData(portfolio: PortfolioDetailsDto) {
 
   const combinedAssets: CombinedAsset[] = [];
 
+  const colors = ["teal.solid", "green.solid", "blue.solid", "purple.solid", "orange.solid"];
+
   portfolio.assets.forEach((asset, index) => {
-    series.push({name: asset.symbol, color: index === 0 ? "teal.solid" : "orange.solid"});
+    series.push({name: asset.symbol, color: colors[index] || "grey.solid"});
 
     asset.priceHistory.forEach(price => {
       combinedAssets.push({

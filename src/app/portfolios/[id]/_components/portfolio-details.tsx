@@ -39,7 +39,7 @@ export default function PortfolioDetails({id}: Readonly<PortfolioDetailsProps>) 
           <Button variant="outline" colorPalette={"green"} data-testid={"btn-add-transaction"}>Add transaction</Button>
         </Flex>
         <Text textStyle="md">
-          Portfolio value: <FormatNumber value={portfolio.totalValue || 0} style="currency" currency="USD"/>
+          Portfolio value: <FormatNumber value={(portfolio?.totalValue || 0) + (portfolio?.unrealizedGain || 0)} style="currency" currency="USD"/>
         </Text>
         <Text textStyle="md">
           Unrealized gain: <FormatNumber value={portfolio.unrealizedGain || 0} style="currency" currency="USD"/>

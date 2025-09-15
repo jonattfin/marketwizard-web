@@ -63,14 +63,11 @@ function PortfolioCard({portfolio, onDeletePortfolio, onUpdatePortfolio}: Portfo
           <br/>
           {portfolio.description}
         </Card.Description>
-        <Text letterSpacing="tight" mt="2">
-          Total value: <FormatNumber value={portfolio?.totalValue || 0} style="currency" currency="USD"/>
+        <Text letterSpacing="tight" mt="1">
+          Total value: <FormatNumber value={(portfolio?.totalValue || 0) + (portfolio?.unrealizedGain || 0)} style="currency" currency="USD"/>
         </Text>
         <Text letterSpacing="tight" mt="2">
           Unrealized gain: <FormatNumber value={portfolio?.unrealizedGain || 0} style="currency" currency="USD"/>
-        </Text>
-        <Text letterSpacing="tight" mt="2">
-          Holdings: {portfolio?.holdings || 0}
         </Text>
       </Card.Body>
       <Card.Footer gap="2">
