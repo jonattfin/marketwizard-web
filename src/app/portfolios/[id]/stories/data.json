@@ -1,116 +1,155 @@
 {
-    "data": {
-        "portfolioById": {
-            "id": "01994684-10f4-7074-ba7d-5312c4568041",
-            "name": "Balanced Bundle Portfolio ",
-            "description": "This portfolio is designed for investment goals with a medium-term horizon. It is best for investors seeking relatively higher returns while being willing to accept modest risk.",
-            "imageUrl": "https://images.unsplash.com/photo-1611974789855-9c2a0a7236a3",
-            "totalValue": 3000,
-            "unrealizedGain": 100,
-            "assets": [
-                {
-                    "symbol": "NVDA",
-                    "numberOfShares": 10,
-                    "pricePerShare": 200,
-                    "priceHistory": [
-                        {
-                            "price": 160,
-                            "date": "2025-09-14T13:03:06.326Z",
-                            "__typename": "AssetPriceHistoryDto"
-                        },
-                        {
-                            "price": 130,
-                            "date": "2025-01-14T13:01:56.912Z",
-                            "__typename": "AssetPriceHistoryDto"
-                        },
-                        {
-                            "price": 120,
-                            "date": "2025-02-14T13:02:11.545Z",
-                            "__typename": "AssetPriceHistoryDto"
-                        },
-                        {
-                            "price": 125,
-                            "date": "2025-03-14T13:02:25.442Z",
-                            "__typename": "AssetPriceHistoryDto"
-                        },
-                        {
-                            "price": 135,
-                            "date": "2025-04-14T13:02:32.528Z",
-                            "__typename": "AssetPriceHistoryDto"
-                        },
-                        {
-                            "price": 140,
-                            "date": "2025-05-14T13:02:39.391Z",
-                            "__typename": "AssetPriceHistoryDto"
-                        },
-                        {
-                            "price": 145,
-                            "date": "2025-06-14T13:02:51.981Z",
-                            "__typename": "AssetPriceHistoryDto"
-                        },
-                        {
-                            "price": 150,
-                            "date": "2025-07-14T13:02:56.091Z",
-                            "__typename": "AssetPriceHistoryDto"
-                        },
-                        {
-                            "price": 155,
-                            "date": "2025-08-14T13:03:00.751Z",
-                            "__typename": "AssetPriceHistoryDto"
-                        }
-                    ],
-                    "__typename": "PortfolioDetailsAssetDto"
-                },
-                {
-                    "symbol": "AMZN",
-                    "numberOfShares": 10,
-                    "pricePerShare": 100,
-                    "priceHistory": [
-                        {
-                            "price": 110,
-                            "date": "2025-02-14T17:31:30.099Z",
-                            "__typename": "AssetPriceHistoryDto"
-                        },
-                        {
-                            "price": 104,
-                            "date": "2025-03-14T17:31:35.136Z",
-                            "__typename": "AssetPriceHistoryDto"
-                        },
-                        {
-                            "price": 120,
-                            "date": "2025-04-14T17:31:40.299Z",
-                            "__typename": "AssetPriceHistoryDto"
-                        },
-                        {
-                            "price": 130,
-                            "date": "2025-05-14T17:31:45.458Z",
-                            "__typename": "AssetPriceHistoryDto"
-                        },
-                        {
-                            "price": 115,
-                            "date": "2025-06-14T17:31:50.088Z",
-                            "__typename": "AssetPriceHistoryDto"
-                        },
-                        {
-                            "price": 140,
-                            "date": "2025-07-14T17:31:54.357Z",
-                            "__typename": "AssetPriceHistoryDto"
-                        },
-                        {
-                            "price": 150,
-                            "date": "2025-08-14T17:31:58.405Z",
-                            "__typename": "AssetPriceHistoryDto"
-                        },
-                        {
-                            "price": 100,
-                            "date": "2025-01-14T13:01:56.912Z",
-                            "__typename": "AssetPriceHistoryDto"
-                        }
-                    ],
-                    "__typename": "PortfolioDetailsAssetDto"
-                }
-            ],
-            "__typename": "PortfolioDetailsDto"
+  "data": {
+    "portfolioById": {
+      "id": "c45a4d8c-0e3f-4876-90aa-c50263252da9",
+      "name": "High Growth Portfolio",
+      "description": "This portfolio is designed for investment goals with a long-term horizon. It is best for investors focusing on high-growth potential with the ability to withstand higher market swings.",
+      "imageUrl": "https://images.unsplash.com/photo-1611974789855-9c2a0a7236a3",
+      "totalValue": 1400,
+      "unrealizedGain": 1050,
+      "assets": [
+        {
+          "symbol": "ORCL",
+          "numberOfShares": 5,
+          "pricePerShare": 100,
+          "priceHistory": [
+            {
+              "price": 300,
+              "date": "2025-06-15T16:09:18.390Z",
+              "__typename": "AssetPriceHistoryDto"
+            },
+            {
+              "price": 150,
+              "date": "2025-09-15T16:09:07.148Z",
+              "__typename": "AssetPriceHistoryDto"
+            },
+            {
+              "price": 250,
+              "date": "2025-08-15T16:09:09.924Z",
+              "__typename": "AssetPriceHistoryDto"
+            },
+            {
+              "price": 320,
+              "date": "2025-07-15T16:09:14.275Z",
+              "__typename": "AssetPriceHistoryDto"
+            }
+          ],
+          "__typename": "PortfolioDetailsAssetDto"
+        },
+        {
+          "symbol": "AAPL",
+          "numberOfShares": 2,
+          "pricePerShare": 100,
+          "priceHistory": [
+            {
+              "price": 190,
+              "date": "2025-09-15T16:03:36.194Z",
+              "__typename": "AssetPriceHistoryDto"
+            },
+            {
+              "price": 170,
+              "date": "2025-06-15T16:03:48.115Z",
+              "__typename": "AssetPriceHistoryDto"
+            },
+            {
+              "price": 120,
+              "date": "2025-07-15T16:03:42.460Z",
+              "__typename": "AssetPriceHistoryDto"
+            },
+            {
+              "price": 150,
+              "date": "2025-08-15T16:03:38.939Z",
+              "__typename": "AssetPriceHistoryDto"
+            }
+          ],
+          "__typename": "PortfolioDetailsAssetDto"
+        },
+        {
+          "symbol": "NVDA",
+          "numberOfShares": 2,
+          "pricePerShare": 100,
+          "priceHistory": [
+            {
+              "price": 270,
+              "date": "2025-09-15T16:06:26.395Z",
+              "__typename": "AssetPriceHistoryDto"
+            },
+            {
+              "price": 190,
+              "date": "2025-06-15T16:06:43.315Z",
+              "__typename": "AssetPriceHistoryDto"
+            },
+            {
+              "price": 220,
+              "date": "2025-07-15T16:06:37.382Z",
+              "__typename": "AssetPriceHistoryDto"
+            },
+            {
+              "price": 250,
+              "date": "2025-08-15T16:06:32.224Z",
+              "__typename": "AssetPriceHistoryDto"
+            }
+          ],
+          "__typename": "PortfolioDetailsAssetDto"
+        },
+        {
+          "symbol": "MSFT",
+          "numberOfShares": 1,
+          "pricePerShare": 100,
+          "priceHistory": [
+            {
+              "price": 100,
+              "date": "2025-06-15T16:02:00.287Z",
+              "__typename": "AssetPriceHistoryDto"
+            },
+            {
+              "price": 140,
+              "date": "2025-09-15T16:01:48.560Z",
+              "__typename": "AssetPriceHistoryDto"
+            },
+            {
+              "price": 120,
+              "date": "2025-08-15T16:01:50.857Z",
+              "__typename": "AssetPriceHistoryDto"
+            },
+            {
+              "price": 160,
+              "date": "2025-07-15T16:01:55.625Z",
+              "__typename": "AssetPriceHistoryDto"
+            }
+          ],
+          "__typename": "PortfolioDetailsAssetDto"
+        },
+        {
+          "symbol": "AMD",
+          "numberOfShares": 4,
+          "pricePerShare": 100,
+          "priceHistory": [
+            {
+              "price": 160,
+              "date": "2025-09-15T16:08:23.753Z",
+              "__typename": "AssetPriceHistoryDto"
+            },
+            {
+              "price": 60,
+              "date": "2025-07-15T16:08:29.978Z",
+              "__typename": "AssetPriceHistoryDto"
+            },
+            {
+              "price": 100,
+              "date": "2025-08-15T16:08:26.240Z",
+              "__typename": "AssetPriceHistoryDto"
+            },
+            {
+              "price": 70,
+              "date": "2025-06-15T16:08:33.499Z",
+              "__typename": "AssetPriceHistoryDto"
+            }
+          ],
+          "__typename": "PortfolioDetailsAssetDto"
         }
+      ],
+      "__typename": "PortfolioDetailsDto"
     }
+  }
 }
