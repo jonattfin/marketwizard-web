@@ -1,3 +1,5 @@
+'use client';
+
 import {StockDto} from "@/graphql/_generated/graphql";
 import {ValuationChart} from "@/app/stocks/[symbol]/_components/overview";
 import {Button, Card, createListCollection, Flex, Listbox} from "@chakra-ui/react";
@@ -15,8 +17,8 @@ export function createValuation(stock?: StockDto) {
         </Flex>
       </Card.Body>
       <Card.Footer justifyContent="flex-end">
-        <Button size="xs" variant="outline">Data</Button>
-        <Button size="xs" variant="outline">Learn</Button>
+        <Button size="xs" variant="outline" colorPalette={"blue"}>Data</Button>
+        <Button size="xs" variant="outline" colorPalette={"blue"}>Learn</Button>
       </Card.Footer>
     </Card.Root>
   )

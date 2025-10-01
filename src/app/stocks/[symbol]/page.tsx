@@ -1,5 +1,3 @@
-'use client';
-
 import StockDetails from "@/app/stocks/[symbol]/_components/stock-details";
 
 export default async function StockPage({params}: Readonly<{

@@ -14,7 +14,7 @@ export type StockDetailsProps = {
 
 export default function StockDetails({symbol}: StockDetailsProps) {
   const {stock, loading, error} = useStock(symbol);
-  const [value, setValue] = useState<string[]>([])
+  const [value, setValue] = useState<string[]>(["Company Overview"])
 
   if (loading) return <Loading/>;
   if (error || !stock) return `Page ${error}`;
