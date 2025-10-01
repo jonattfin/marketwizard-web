@@ -99,4 +99,14 @@ subscription OnStockPriceUpdated {
   }
 }
 
+query GetStockBySymbol($symbol: String!) {
+  stockBySymbol(stockSymbol: $symbol) {
+    name
+    description
+    currentPrice
+    marketCap
+    symbol
+  }
+}
+
 

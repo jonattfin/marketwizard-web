@@ -1,5 +1,6 @@
 import {FormatNumber, Table} from "@chakra-ui/react"
 import {PortfolioDetailsDto} from "@/graphql/_generated/graphql";
+import Link from "next/link";
 
 type PortfolioHoldingsProps = {
   portfolio: PortfolioDetailsDto
@@ -18,7 +19,9 @@ const PortfolioHoldings = ({portfolio}: PortfolioHoldingsProps) => {
       <Table.Body>
         {portfolio.assets.map((asset) => (
           <Table.Row key={asset.symbol}>
-            <Table.Cell>{asset.symbol}</Table.Cell>
+            <Table.Cell>
+              <Link href={`/stocks/${asset.symbol}`}>{asset.symbol}</Link>
+            </Table.Cell>
             <Table.Cell>{asset.numberOfShares}</Table.Cell>
             <Table.Cell textAlign="end">
               <FormatNumber value={asset.pricePerShare} style="currency" currency="USD" />

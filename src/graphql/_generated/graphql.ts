@@ -245,6 +245,7 @@ export type Query = {
   __typename?: 'Query';
   portfolioById?: Maybe<PortfolioDetailsDto>;
   portfolios?: Maybe<PortfoliosCollectionSegment>;
+  stockBySymbol?: Maybe<StockDto>;
   watchlistAssets?: Maybe<WatchlistAssetsCollectionSegment>;
 };
 
@@ -262,6 +263,11 @@ export type QueryPortfoliosArgs = {
 };
 
 
+export type QueryStockBySymbolArgs = {
+  stockSymbol: Scalars['String']['input'];
+};
+
+
 export type QueryWatchlistAssetsArgs = {
   order?: InputMaybe<Array<AssetDtoSortInput>>;
   skip?: InputMaybe<Scalars['Int']['input']>;
@@ -273,6 +279,16 @@ export enum SortEnumType {
   Asc = 'ASC',
   Desc = 'DESC'
 }
+
+export type StockDto = {
+  __typename?: 'StockDto';
+  currentPrice?: Maybe<Scalars['Float']['output']>;
+  description?: Maybe<Scalars['String']['output']>;
+  imageUrl?: Maybe<Scalars['String']['output']>;
+  marketCap?: Maybe<Scalars['Float']['output']>;
+  name?: Maybe<Scalars['String']['output']>;
+  symbol: Scalars['String']['output'];
+};
 
 export type StockQuoteDto = {
   __typename?: 'StockQuoteDto';
@@ -419,6 +435,13 @@ export type OnStockPriceUpdatedSubscriptionVariables = Exact<{ [key: string]: ne
 
 
 export type OnStockPriceUpdatedSubscription = { __typename?: 'Subscription', onStockPriceUpdated: Array<{ __typename?: 'StockQuoteDto', symbol: string, currentPrice?: any | null, change?: any | null, percentChange?: any | null }> };
+
+export type GetStockBySymbolQueryVariables = Exact<{
+  symbol: Scalars['String']['input'];
+}>;
+
+
+export type GetStockBySymbolQuery = { __typename?: 'Query', stockBySymbol?: { __typename?: 'StockDto', name?: string | null, description?: string | null, currentPrice?: number | null, marketCap?: number | null, symbol: string } | null };
 
 
 export const GetPortfolioByIdDocument = gql`
@@ -715,3 +738,47 @@ export function useOnStockPriceUpdatedSubscription(baseOptions?: Apollo.Subscrip
       }
 export type OnStockPriceUpdatedSubscriptionHookResult = ReturnType<typeof useOnStockPriceUpdatedSubscription>;
 export type OnStockPriceUpdatedSubscriptionResult = Apollo.SubscriptionResult<OnStockPriceUpdatedSubscription>;
+export const GetStockBySymbolDocument = gql`
+    query GetStockBySymbol($symbol: String!) {
+  stockBySymbol(stockSymbol: $symbol) {
+    name
+    description
+    currentPrice
+    marketCap
+    symbol
+  }
+}
+    `;
+
+/**
+ * __useGetStockBySymbolQuery__
+ *
+ * To run a query within a React component, call `useGetStockBySymbolQuery` and pass it any options that fit your needs.
+ * When your component renders, `useGetStockBySymbolQuery` returns an object from Apollo Client that contains loading, error, and data properties
+ * you can use to render your UI.
+ *
+ * @param baseOptions options that will be passed into the query, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options;
+ *
+ * @example
+ * const { data, loading, error } = useGetStockBySymbolQuery({
+ *   variables: {
+ *      symbol: // value for 'symbol'
+ *   },
+ * });
+ */
+export function useGetStockBySymbolQuery(baseOptions: Apollo.QueryHookOptions<GetStockBySymbolQuery, GetStockBySymbolQueryVariables> & ({ variables: GetStockBySymbolQueryVariables; skip?: boolean; } | { skip: boolean; }) ) {
+        const options = {...defaultOptions, ...baseOptions}
+        return Apollo.useQuery<GetStockBySymbolQuery, GetStockBySymbolQueryVariables>(GetStockBySymbolDocument, options);
+      }
+export function useGetStockBySymbolLazyQuery(baseOptions?: Apollo.LazyQueryHookOptions<GetStockBySymbolQuery, GetStockBySymbolQueryVariables>) {
+          const options = {...defaultOptions, ...baseOptions}
+          return Apollo.useLazyQuery<GetStockBySymbolQuery, GetStockBySymbolQueryVariables>(GetStockBySymbolDocument, options);
+        }
+export function useGetStockBySymbolSuspenseQuery(baseOptions?: Apollo.SkipToken | Apollo.SuspenseQueryHookOptions<GetStockBySymbolQuery, GetStockBySymbolQueryVariables>) {
+          const options = baseOptions === Apollo.skipToken ? baseOptions : {...defaultOptions, ...baseOptions}
+          return Apollo.useSuspenseQuery<GetStockBySymbolQuery, GetStockBySymbolQueryVariables>(GetStockBySymbolDocument, options);
+        }
+export type GetStockBySymbolQueryHookResult = ReturnType<typeof useGetStockBySymbolQuery>;
+export type GetStockBySymbolLazyQueryHookResult = ReturnType<typeof useGetStockBySymbolLazyQuery>;
+export type GetStockBySymbolSuspenseQueryHookResult = ReturnType<typeof useGetStockBySymbolSuspenseQuery>;
+export type GetStockBySymbolQueryResult = Apollo.QueryResult<GetStockBySymbolQuery, GetStockBySymbolQueryVariables>;

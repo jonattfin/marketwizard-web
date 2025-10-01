@@ -1,6 +1,6 @@
 import {
   useGetPortfoliosQuery,
-  useGetPortfolioByIdQuery,useGetWatchlistAssetsQuery, useOnStockPriceUpdatedSubscription
+  useGetPortfolioByIdQuery, useGetWatchlistAssetsQuery, useOnStockPriceUpdatedSubscription, useGetStockBySymbolQuery
 } from "./_generated/graphql";
 import {PAGE_SIZE} from "@/app/constants";
 
@@ -42,4 +42,15 @@ export const usePortfolios = (pageNumber: number) => {
   });
 
   return {portfolios: data?.portfolios?.items || [], totalCount: data?.portfolios?.totalCount || 0, loading, error};
+}
+
+export const useStock = (symbol: string) => {
+  const {data, loading, error} = useGetStockBySymbolQuery({
+    variables: {
+      symbol
+    },
+    skip: !symbol
+  });
+
+  return {stock: data?.stockBySymbol, loading, error};
 }
