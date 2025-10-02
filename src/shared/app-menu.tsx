@@ -9,8 +9,6 @@ import {
   Input,
   InputGroup,
   Kbd,
-  Menu,
-  Portal,
   Switch
 } from "@chakra-ui/react"
 import {LuInfo, LuSearch} from "react-icons/lu";
@@ -68,8 +66,6 @@ export default function AppMenu({theme, setTheme}: AppMenuType) {
 }
 
 function renderLink(name: string = "Dashboard") {
-  const palette = name == "Dashboard" ? "yellow" : "blue"
-
   let link = "";
   if (name === "Portfolios") {
     link = name.toLowerCase();

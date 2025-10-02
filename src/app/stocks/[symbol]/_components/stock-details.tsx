@@ -6,7 +6,7 @@ import {Avatar, Button, Card, createListCollection, Flex, Listbox, Stack} from "
 import {Suspense, useState} from "react";
 
 import {createCompanyOverview} from "@/app/stocks/[symbol]/_components/overview";
-// import {createValuation} from "@/app/stocks/[symbol]/_components/valuation";
+import {createValuation} from "@/app/stocks/[symbol]/_components/valuation";
 
 export type StockDetailsProps = {
   symbol: string;
@@ -17,7 +17,7 @@ export default function StockDetails({symbol}: StockDetailsProps) {
   const [value, setValue] = useState<string[]>(["Company Overview"])
 
   return (
-    <Suspense fallback={<Loading />}>
+    <Suspense fallback={<Loading/>}>
       <Card.Root variant={"subtle"}>
         <Card.Body gap="2">
           <Avatar.Root size="lg" shape="rounded">
@@ -48,17 +48,18 @@ export default function StockDetails({symbol}: StockDetailsProps) {
         <div>&nbsp;</div>
         <Stack separator={<div>&nbsp;</div>}>
           {createCompanyOverview(stock)}
-          {/*{createValuation(stock)}*/}
+          {createValuation()}
         </Stack>
       </Flex>
     </Suspense>
-
   )
 }
 
 function createCollection(value: string[], setValue: (value: string[]) => void) {
-  const values = ["Company Overview", "Valuation", "Future Growth", "Past Performance",
-    "Financial Health", "Dividend", "Management", "Ownership"];
+  const values = [
+    "Company Overview", "Valuation", "Future Growth", "Past Performance",
+    "Financial Health", "Dividend", "Management", "Ownership"
+  ];
 
   const collection = createListCollection({
     items: values.map(v => ({
@@ -68,9 +69,9 @@ function createCollection(value: string[], setValue: (value: string[]) => void) 
   })
 
   return (
-    <Listbox.Root collection={collection} width="320px" value={value} variant={"subtle"}
-                  onValueChange={(details) => setValue(details.value)}>
-      {/*<Listbox.Label>Company Overview</Listbox.Label>*/}
+    <Listbox.Root
+      collection={collection} width="320px" value={value} variant={"subtle"}
+      onValueChange={(details) => setValue(details.value)}>
       <Listbox.Content border={0}>
         {collection.items.map((item) => (
           <Listbox.Item item={item} key={item.value}>

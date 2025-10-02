@@ -9,17 +9,10 @@ import {
   Stack,
   DataList,
   Highlight,
-  Box,
-  Stat,
-  Span,
-  FormatNumber,
-  Badge
 } from "@chakra-ui/react";
 import {LuCircleCheck, LuMessageCircleWarning} from "react-icons/lu";
 import {Chart, useChart} from "@chakra-ui/charts";
 import {
-  Area,
-  AreaChart,
   Bar,
   BarChart,
   CartesianGrid, Line, LineChart,
@@ -33,7 +26,11 @@ import {
 
 import {random} from "@es-toolkit/es-toolkit";
 
-export function createCompanyOverview(stock?: StockDto) {
+export type CompanyOverviewProps = {
+  stock?: StockDto;
+}
+
+export function createCompanyOverview({stock}: CompanyOverviewProps) {
   return (
     <Stack>
       <Card.Root variant={"subtle"}>
@@ -44,7 +41,7 @@ export function createCompanyOverview(stock?: StockDto) {
               <div>{stock?.description}</div>
               <div>&nbsp;</div>
               <div>
-                {createRewardsSection()}
+                <RewardsSection/>
               </div>
               <div>
                 <Button size="xs" variant="outline" colorPalette={"blue"}>See all risk checks</Button>
@@ -58,18 +55,18 @@ export function createCompanyOverview(stock?: StockDto) {
           <Button size="xs" variant="outline" colorPalette={"blue"}>Learn</Button>
         </Card.Footer>
       </Card.Root>
-      {createCommunityFairValuesSection(stock)}
-      {createCompetitorsSection(stock)}
-      {createPriceHistorySection(stock)}
-      {createAboutSection(stock)}
-      {createFundamentalsSection(stock)}
+      <CommunityFairValuesSection stock={stock}/>
+      <CompetitorsSection stock={stock}/>
+      <PriceHistorySection/>
+      <AboutSection stock={stock}/>
+      <FundamentalsSection stock={stock}/>
     </Stack>
   )
 }
 
-function createCommunityFairValuesSection(stock?: StockDto) {
+function CommunityFairValuesSection({stock}: CompanyOverviewProps) {
 
-  const createNarrativeGraph = () => {
+  const CreateNarrativeGraph = () => {
     const chart = useChart({
       data: [
         {allocation: 60, type: "Stock"},
@@ -116,7 +113,7 @@ function createCommunityFairValuesSection(stock?: StockDto) {
             <div>&nbsp;</div>
           </Stack>
         </Flex>
-        {createNarrativeGraph()}
+        <CreateNarrativeGraph/>
       </Card.Body>
       <Card.Footer justifyContent="flex-end">
         <Button size="xs" variant="outline" colorPalette={"blue"}>Data</Button>
@@ -126,7 +123,7 @@ function createCommunityFairValuesSection(stock?: StockDto) {
   );
 }
 
-function createCompetitorsSection(stock?: StockDto) {
+function CompetitorsSection({stock}: CompanyOverviewProps) {
   return (
     <Card.Root variant={"subtle"}>
       <Card.Header>{stock?.name} Competitors</Card.Header>
@@ -144,7 +141,7 @@ function createCompetitorsSection(stock?: StockDto) {
   )
 }
 
-function createAboutSection(stock?: StockDto) {
+function AboutSection({stock}: CompanyOverviewProps) {
   const stats = [
     {label: "Founded", value: "1994"},
     {label: "Employees", value: "1556000"},
@@ -180,7 +177,7 @@ function createAboutSection(stock?: StockDto) {
   )
 }
 
-function createPriceHistorySection(stock?: StockDto) {
+function PriceHistorySection() {
   const chart = useChart({
     data: [
       {sale: 10, month: "January"},
@@ -235,16 +232,7 @@ function createPriceHistorySection(stock?: StockDto) {
   );
 }
 
-function createFundamentalsSection(stock?: StockDto) {
-  const stats = [
-    {label: "Founded", value: "1994"},
-    {label: "Employees", value: "1556000"},
-    {label: "CEO", value: "Andy Jassy"},
-    {label: "Website", value: "https://www.aboutamazon.com/"},
-  ]
-
-  const showMore = true;
-
+function FundamentalsSection({stock}: CompanyOverviewProps) {
   return (
     <Card.Root variant={"subtle"}>
       <Card.Header>{stock?.name} Fundamentals Summary</Card.Header>
@@ -270,7 +258,7 @@ function createFundamentalsSection(stock?: StockDto) {
   )
 }
 
-function createRewardsSection() {
+function RewardsSection() {
   return (
     <div>
       {"Rewards".toUpperCase()}
