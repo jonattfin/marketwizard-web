@@ -2,35 +2,57 @@
 
 import {useStock} from "@/graphql/hooks";
 import Loading from "@/shared/loading";
-import {Container, createListCollection, Flex, Listbox, Stack} from "@chakra-ui/react";
-import {useState} from "react";
+import {Avatar, Button, Card, createListCollection, Flex, Listbox, Stack} from "@chakra-ui/react";
+import {Suspense, useState} from "react";
 
 import {createCompanyOverview} from "@/app/stocks/[symbol]/_components/overview";
-import {createValuation} from "@/app/stocks/[symbol]/_components/valuation";
+// import {createValuation} from "@/app/stocks/[symbol]/_components/valuation";
 
 export type StockDetailsProps = {
   symbol: string;
 }
 
 export default function StockDetails({symbol}: StockDetailsProps) {
-  const {stock, loading, error} = useStock(symbol);
+  const {stock} = useStock(symbol);
   const [value, setValue] = useState<string[]>(["Company Overview"])
 
-  if (loading) return <Loading/>;
-  if (error || !stock) return `Page ${error}`;
-
   return (
-    <Flex>
-      <div>
-        {createCollection(value, setValue)}
-      </div>
-      <Container>
+    <Suspense fallback={<Loading />}>
+      <Card.Root variant={"subtle"}>
+        <Card.Body gap="2">
+          <Avatar.Root size="lg" shape="rounded">
+            <Avatar.Fallback name={stock?.symbol}/>
+          </Avatar.Root>
+          <Card.Title mb="2">{stock?.name}</Card.Title>
+          <Card.Description>
+            {stock?.description}
+          </Card.Description>
+        </Card.Body>
+        <Card.Footer justifyContent="flex-start">
+          <Stack>
+            <Flex>
+              <Button variant="outline" colorPalette={"blue"}>Holding</Button>
+              <div>&nbsp;</div>
+              <Button variant="outline" colorPalette={"blue"}>Watching</Button>
+            </Flex>
+            <div>Updated 1d ago</div>
+          </Stack>
+        </Card.Footer>
+      </Card.Root>
+      <div>&nbsp;</div>
+      <Flex>
+        <div>
+          {createCollection(value, setValue)}
+        </div>
+        <div>&nbsp;</div>
+        <div>&nbsp;</div>
         <Stack separator={<div>&nbsp;</div>}>
           {createCompanyOverview(stock)}
-          {createValuation(stock)}
+          {/*{createValuation(stock)}*/}
         </Stack>
-      </Container>
-    </Flex>
+      </Flex>
+    </Suspense>
+
   )
 }
 
@@ -46,10 +68,10 @@ function createCollection(value: string[], setValue: (value: string[]) => void) 
   })
 
   return (
-    <Listbox.Root collection={collection} width="320px" value={value}
+    <Listbox.Root collection={collection} width="320px" value={value} variant={"subtle"}
                   onValueChange={(details) => setValue(details.value)}>
       {/*<Listbox.Label>Company Overview</Listbox.Label>*/}
-      <Listbox.Content>
+      <Listbox.Content border={0}>
         {collection.items.map((item) => (
           <Listbox.Item item={item} key={item.value}>
             <Listbox.ItemText>{item.label}</Listbox.ItemText>

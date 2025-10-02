@@ -1,17 +1,42 @@
 'use client';
 
 import {StockDto} from "@/graphql/_generated/graphql";
-import {Button, Card, Flex, List, Stack, DataList} from "@chakra-ui/react";
-import {LuCircleCheck, LuCircleDashed} from "react-icons/lu";
+import {
+  Button,
+  Card,
+  Flex,
+  List,
+  Stack,
+  DataList,
+  Highlight,
+  Box,
+  Stat,
+  Span,
+  FormatNumber,
+  Badge
+} from "@chakra-ui/react";
+import {LuCircleCheck, LuMessageCircleWarning} from "react-icons/lu";
 import {Chart, useChart} from "@chakra-ui/charts";
-import {Bar, BarChart, CartesianGrid, PolarAngleAxis, PolarGrid, Radar, RadarChart, XAxis, YAxis} from "recharts";
+import {
+  Area,
+  AreaChart,
+  Bar,
+  BarChart,
+  CartesianGrid, Line, LineChart,
+  PolarAngleAxis,
+  PolarGrid,
+  Radar,
+  RadarChart, Tooltip,
+  XAxis,
+  YAxis
+} from "recharts";
 
 import {random} from "@es-toolkit/es-toolkit";
 
 export function createCompanyOverview(stock?: StockDto) {
   return (
     <Stack>
-      <Card.Root>
+      <Card.Root variant={"subtle"}>
         <Card.Header>Company Overview</Card.Header>
         <Card.Body>
           <Flex>
@@ -20,6 +45,9 @@ export function createCompanyOverview(stock?: StockDto) {
               <div>&nbsp;</div>
               <div>
                 {createRewardsSection()}
+              </div>
+              <div>
+                <Button size="xs" variant="outline" colorPalette={"blue"}>See all risk checks</Button>
               </div>
             </Stack>
             <ValuationChart/>
@@ -32,7 +60,9 @@ export function createCompanyOverview(stock?: StockDto) {
       </Card.Root>
       {createCommunityFairValuesSection(stock)}
       {createCompetitorsSection(stock)}
+      {createPriceHistorySection(stock)}
       {createAboutSection(stock)}
+      {createFundamentalsSection(stock)}
     </Stack>
   )
 }
@@ -75,19 +105,18 @@ function createCommunityFairValuesSection(stock?: StockDto) {
   }
 
   return (
-    <Card.Root>
+    <Card.Root variant={"subtle"}>
       <Card.Header>{stock?.symbol} Community fair values</Card.Header>
       <Card.Body>
         <Flex>
           <Stack>
-            <div>{stock?.description}</div>
-            <div>&nbsp;</div>
-            <div>
-              {/*{createNarrativeGraph()}*/}
+            <div>See what 2630 others think this stock is worth. Follow their fair value or set your own to get
+              alerts.
             </div>
+            <div>&nbsp;</div>
           </Stack>
-          <ValuationChart/>
         </Flex>
+        {createNarrativeGraph()}
       </Card.Body>
       <Card.Footer justifyContent="flex-end">
         <Button size="xs" variant="outline" colorPalette={"blue"}>Data</Button>
@@ -99,7 +128,7 @@ function createCommunityFairValuesSection(stock?: StockDto) {
 
 function createCompetitorsSection(stock?: StockDto) {
   return (
-    <Card.Root>
+    <Card.Root variant={"subtle"}>
       <Card.Header>{stock?.name} Competitors</Card.Header>
       <Card.Body>
         <Flex>
@@ -126,7 +155,7 @@ function createAboutSection(stock?: StockDto) {
   const showMore = true;
 
   return (
-    <Card.Root>
+    <Card.Root variant={"subtle"}>
       <Card.Header>About the company</Card.Header>
       <Card.Body>
         {showMore && (
@@ -151,29 +180,138 @@ function createAboutSection(stock?: StockDto) {
   )
 }
 
+function createPriceHistorySection(stock?: StockDto) {
+  const chart = useChart({
+    data: [
+      {sale: 10, month: "January"},
+      {sale: 95, month: "February"},
+      {sale: 87, month: "March"},
+      {sale: 88, month: "May"},
+      {sale: 65, month: "June"},
+      {sale: 90, month: "August"},
+    ],
+    series: [{name: "sale", color: "teal.solid"}],
+  })
+
+  return (
+    <Card.Root variant={"subtle"}>
+      <Card.Header>Price History &amp; Performance</Card.Header>
+      <Card.Body>
+        <Chart.Root maxH="sm" chart={chart}>
+          <LineChart data={chart.data}>
+            <CartesianGrid stroke={chart.color("border")} vertical={false}/>
+            <XAxis
+              axisLine={false}
+              dataKey={chart.key("month")}
+              tickFormatter={(value) => value.slice(0, 3)}
+              stroke={chart.color("border")}
+            />
+            <YAxis
+              axisLine={false}
+              tickLine={false}
+              tickMargin={10}
+              stroke={chart.color("border")}
+            />
+            <Tooltip
+              animationDuration={100}
+              cursor={false}
+              content={<Chart.Tooltip/>}
+            />
+            {chart.series.map((item) => (
+              <Line
+                key={item.name}
+                isAnimationActive={false}
+                dataKey={chart.key(item.name)}
+                stroke={chart.color(item.color)}
+                strokeWidth={2}
+                dot={false}
+              />
+            ))}
+          </LineChart>
+        </Chart.Root>
+      </Card.Body>
+    </Card.Root>
+
+  );
+}
+
+function createFundamentalsSection(stock?: StockDto) {
+  const stats = [
+    {label: "Founded", value: "1994"},
+    {label: "Employees", value: "1556000"},
+    {label: "CEO", value: "Andy Jassy"},
+    {label: "Website", value: "https://www.aboutamazon.com/"},
+  ]
+
+  const showMore = true;
+
+  return (
+    <Card.Root variant={"subtle"}>
+      <Card.Header>{stock?.name} Fundamentals Summary</Card.Header>
+      <Card.Body>
+        <Flex>
+          <div>
+
+          </div>
+          <div>
+            <Stack>
+              <Highlight query="33.3x" styles={{px: "0.5", bg: "orange.subtle", color: "orange.fg"}}>P/E ratio
+                33.3x</Highlight>
+              <Highlight query="3.5x" styles={{px: "0.5", bg: "orange.subtle", color: "orange.fg"}}>P/S ratio
+                3.5x</Highlight>
+            </Stack>
+          </div>
+        </Flex>
+      </Card.Body>
+      <Card.Footer justifyContent="flex-end">
+        <Button size="xs" variant="outline" colorPalette={"blue"}>Data</Button>
+      </Card.Footer>
+    </Card.Root>
+  )
+}
 
 function createRewardsSection() {
   return (
-    <List.Root gap="2" variant="plain" align="center">
-      <List.Item>
-        <List.Indicator asChild color="green.500">
-          <LuCircleCheck/>
-        </List.Indicator>
-        Lorem ipsum dolor sit amet, consectetur adipisicing elit
-      </List.Item>
-      <List.Item>
-        <List.Indicator asChild color="green.500">
-          <LuCircleCheck/>
-        </List.Indicator>
-        Assumenda, quia temporibus eveniet a libero incidunt suscipit
-      </List.Item>
-      <List.Item>
-        <List.Indicator asChild color="green.500">
-          <LuCircleDashed/>
-        </List.Indicator>
-        Quidem, ipsam illum quis sed voluptatum quae eum fugit earum
-      </List.Item>
-    </List.Root>
+    <div>
+      {"Rewards".toUpperCase()}
+      <List.Root gap="2" variant="plain" align="center">
+        <List.Item>
+          <List.Indicator asChild color="green.500">
+            <LuCircleCheck/>
+          </List.Indicator>
+          Trading at 17.5% below our estimate of its fair value
+        </List.Item>
+        <List.Item>
+          <List.Indicator asChild color="green.500">
+            <LuCircleCheck/>
+          </List.Indicator>
+          Earnings are forecast to grow 15.25% per year
+        </List.Item>
+        <List.Item>
+          <List.Indicator asChild color="green.500">
+            <LuCircleCheck/>
+          </List.Indicator>
+          Earnings grew by 59% over the past year
+        </List.Item>
+        <List.Item>
+          <List.Indicator asChild color="green.500">
+            <LuCircleCheck/>
+          </List.Indicator>
+          Analysts in good agreement that stock price will rise by 20.6%
+        </List.Item>
+
+      </List.Root>
+      <div>&nbsp;</div>
+      {"Risk Analysis".toUpperCase()}
+      <List.Root gap="2" variant="plain" align="center">
+        <List.Item>
+          <List.Indicator asChild color="red.500">
+            <LuMessageCircleWarning/>
+          </List.Indicator>
+          High level of non-cash earnings
+        </List.Item>
+      </List.Root>
+    </div>
   )
 }
 
