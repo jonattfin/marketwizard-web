@@ -15,6 +15,7 @@ import {
 } from "@chakra-ui/react"
 import {LuInfo, LuSearch} from "react-icons/lu";
 import {FaMoon, FaSun} from "react-icons/fa"
+import Link from "next/link";
 
 export type AppMenuType = {
   theme: string;
@@ -30,16 +31,16 @@ export default function AppMenu({theme, setTheme}: AppMenuType) {
             <LuInfo/>
           </Icon>
         </Button>
-        <InputGroup flex="1" startElement={<LuSearch/>} endElement={<Kbd>⌘K</Kbd>}>
-          <Input placeholder="Search"/>
-        </InputGroup>
         <Center>
           <Flex>
             <HStack wrap="wrap" gap="6">
-              {["Products", "Community", "Markets", "Brokers", "More"].map(renderMenu)}
+              {["Dashboard", "Portfolios", "Watchlist", "Community", "Discover", "Screener"].map(renderLink)}
             </HStack>
           </Flex>
         </Center>
+        <InputGroup flex="1" startElement={<LuSearch/>} endElement={<Kbd>⌘K</Kbd>}>
+          <Input placeholder="Search"/>
+        </InputGroup>
         <div>&nbsp;</div>
         <div>&nbsp;</div>
         <div>
@@ -66,25 +67,19 @@ export default function AppMenu({theme, setTheme}: AppMenuType) {
   )
 }
 
-function renderMenu(name: string = "Products") {
-  const palette = name == "Products" ? "yellow" : "blue"
+function renderLink(name: string = "Dashboard") {
+  const palette = name == "Dashboard" ? "yellow" : "blue"
+
+  let link = "";
+  if (name === "Portfolios") {
+    link = name.toLowerCase();
+  }
 
   return (
-    <Menu.Root key={name}>
-      <Menu.Trigger asChild>
-        <Button variant="ghost" colorPalette={palette}>
-          {name}
-        </Button>
-      </Menu.Trigger>
-      <Portal>
-        <Menu.Positioner>
-          <Menu.Content>
-            <Menu.Item value="new-txt">Screeners</Menu.Item>
-            <Menu.Item value="new-file">Calendars</Menu.Item>
-            <Menu.Item value="new-win">Portfolios</Menu.Item>
-          </Menu.Content>
-        </Menu.Positioner>
-      </Portal>
-    </Menu.Root>
+    <Button variant="ghost">
+      <Link key={name} href={`/${link}`}>
+        {name}
+      </Link>
+    </Button>
   )
 }
