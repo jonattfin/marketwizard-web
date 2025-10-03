@@ -24,13 +24,13 @@ import {
   YAxis
 } from "recharts";
 
-import {random} from "@es-toolkit/es-toolkit";
+import {random} from "es-toolkit";
 
-export type CompanyOverviewProps = {
+export type CompanyOverviewType = {
   stock?: StockDto;
 }
 
-export function createCompanyOverview({stock}: CompanyOverviewProps) {
+export function createCompanyOverview({stock}: CompanyOverviewType) {
   return (
     <Stack>
       <Card.Root variant={"subtle"}>
@@ -64,7 +64,7 @@ export function createCompanyOverview({stock}: CompanyOverviewProps) {
   )
 }
 
-function CommunityFairValuesSection({stock}: CompanyOverviewProps) {
+function CommunityFairValuesSection({stock}: CompanyOverviewType) {
 
   const CreateNarrativeGraph = () => {
     const chart = useChart({
@@ -123,7 +123,7 @@ function CommunityFairValuesSection({stock}: CompanyOverviewProps) {
   );
 }
 
-function CompetitorsSection({stock}: CompanyOverviewProps) {
+function CompetitorsSection({stock}: CompanyOverviewType) {
   return (
     <Card.Root variant={"subtle"}>
       <Card.Header>{stock?.name} Competitors</Card.Header>
@@ -141,7 +141,7 @@ function CompetitorsSection({stock}: CompanyOverviewProps) {
   )
 }
 
-function AboutSection({stock}: CompanyOverviewProps) {
+function AboutSection({stock}: CompanyOverviewType) {
   const stats = [
     {label: "Founded", value: "1994"},
     {label: "Employees", value: "1556000"},
@@ -232,7 +232,7 @@ function PriceHistorySection() {
   );
 }
 
-function FundamentalsSection({stock}: CompanyOverviewProps) {
+function FundamentalsSection({stock}: CompanyOverviewType) {
   return (
     <Card.Root variant={"subtle"}>
       <Card.Header>{stock?.name} Fundamentals Summary</Card.Header>

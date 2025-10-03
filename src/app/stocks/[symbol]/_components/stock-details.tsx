@@ -13,11 +13,13 @@ export type StockDetailsProps = {
 }
 
 export default function StockDetails({symbol}: StockDetailsProps) {
-  const {stock} = useStock(symbol);
+  const {stock, loading} = useStock(symbol);
   const [value, setValue] = useState<string[]>(["Company Overview"])
 
+  if (loading) return <Loading/>;
+
   return (
-    <Suspense fallback={<Loading/>}>
+    <>
       <Card.Root variant={"subtle"}>
         <Card.Body gap="2">
           <Avatar.Root size="lg" shape="rounded">
@@ -40,18 +42,16 @@ export default function StockDetails({symbol}: StockDetailsProps) {
         </Card.Footer>
       </Card.Root>
       <div>&nbsp;</div>
-      <Flex>
+      <Flex gap="4">
         <div>
           {createCollection(value, setValue)}
         </div>
-        <div>&nbsp;</div>
-        <div>&nbsp;</div>
         <Stack separator={<div>&nbsp;</div>}>
           {createCompanyOverview(stock)}
           {createValuation()}
         </Stack>
       </Flex>
-    </Suspense>
+    </>
   )
 }
 

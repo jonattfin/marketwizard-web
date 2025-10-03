@@ -1,5 +1,5 @@
 import type { Preview } from '@storybook/nextjs-vite';
-import { MockedProvider } from "@apollo/client/testing";
+import {MockedProvider} from "@apollo/client/testing";
 
 const preview: Preview = {
   parameters: {

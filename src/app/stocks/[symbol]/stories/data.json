@@ -1,0 +1,11 @@
+{
+  "data": {
+    "stockBySymbol": {
+      "name": "Amazon",
+      "description": "Amazon.com, Inc. engages in the retail sale of consumer products, advertising, and subscriptions service through online and physical stores in North America and internationally.",
+      "currentPrice": 219.57,
+      "marketCap": 2400000000,
+      "symbol": "AMZN"
+    }
+  }
+}

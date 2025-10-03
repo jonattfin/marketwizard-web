@@ -10,7 +10,7 @@ import PortfoliosCards from "@/app/portfolios/_components/portfolios-cards";
 import {PAGE_SIZE} from "@/app/constants";
 import {PortfolioSummaryDto} from "@/graphql/_generated/graphql";
 
-export type PortfoliosListComponentProps = {
+export type PortfoliosListComponentType = {
   portfolios: PortfolioSummaryDto[];
   totalCount: number;
   onPortfolioAdd?: (name: string, description: string, imageUrl: string) => Promise<void>;
@@ -29,7 +29,7 @@ export default function PortfoliosListComponent(
     onPortfolioUpdate,
     page,
     onPageChange,
-  }: PortfoliosListComponentProps) {
+  }: PortfoliosListComponentType) {
 
   const handleAddPortfolio = async (name: string, description: string, imageUrl: string) => {
     try {

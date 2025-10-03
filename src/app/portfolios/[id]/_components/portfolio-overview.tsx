@@ -12,9 +12,9 @@ import {
   YAxis,
 } from "recharts"
 import {PortfolioDetailsDto} from "@/graphql/_generated/graphql";
-import {groupBy} from "@es-toolkit/es-toolkit";
+import {groupBy} from "es-toolkit";
 
-type PortfolioOverviewProps = {
+type PortfolioOverviewType = {
   portfolio: PortfolioDetailsDto
 }
 
@@ -24,7 +24,7 @@ type CombinedAsset = {
   month: number;
 }
 
-const PortfolioOverview = ({portfolio}: PortfolioOverviewProps) => {
+const PortfolioOverview = ({portfolio}: PortfolioOverviewType) => {
   const {data, series} = buildChartData(portfolio);
 
   const chart = useChart({

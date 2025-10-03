@@ -6,11 +6,11 @@ import Loading from "@/shared/loading";
 import {usePortfolio} from "@/graphql/hooks";
 import PortfolioTabs from "./portfolio-tabs";
 
-export type PortfolioDetailsProps = {
+export type PortfolioDetailsType = {
   id: string | undefined
 }
 
-export default function PortfolioDetails({id}: Readonly<PortfolioDetailsProps>) {
+export default function PortfolioDetails({id}: Readonly<PortfolioDetailsType>) {
   const {portfolio, loading, error} = usePortfolio(id);
 
   if (loading) return <Loading/>;

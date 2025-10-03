@@ -1,6 +1,14 @@
+import {HStack, Skeleton, SkeletonCircle, SkeletonText, Stack} from "@chakra-ui/react";
+
 
 export default function Loading() {
   return (
-     <div>loading...</div>
+     <Stack gap="6" maxW="xs">
+      <HStack width="full">
+        <SkeletonCircle size="10" />
+        <SkeletonText noOfLines={2} />
+      </HStack>
+      <Skeleton height="200px" />
+    </Stack>
   )
 }

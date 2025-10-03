@@ -72,7 +72,7 @@ function renderLink(name: string = "Dashboard") {
   }
 
   return (
-    <Button variant="ghost">
+    <Button variant="ghost" key={name}>
       <Link key={name} href={`/${link}`}>
         {name}
       </Link>

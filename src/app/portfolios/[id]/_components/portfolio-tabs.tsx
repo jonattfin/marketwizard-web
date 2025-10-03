@@ -7,11 +7,11 @@ import PortfolioAnalysis from "@/app/portfolios/[id]/_components/portfolio-analy
 import PortfolioHoldings from "@/app/portfolios/[id]/_components/portfolio-holdings";
 import {PortfolioDetailsDto} from "@/graphql/_generated/graphql";
 
-export type PortfolioTabsComponentProps = {
+export type PortfolioTabsComponentType = {
   readonly portfolio: PortfolioDetailsDto;
 }
 
-export default function PortfolioTabsComponent({portfolio}: PortfolioTabsComponentProps) {
+export default function PortfolioTabsComponent({portfolio}: PortfolioTabsComponentType) {
 
   return (
     <Tabs.Root defaultValue="overview">

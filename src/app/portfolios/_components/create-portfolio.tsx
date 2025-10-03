@@ -4,7 +4,7 @@ import {useState} from "react";
 import {Button, CloseButton, Dialog, Field, Input, Portal, Stack, Textarea} from "@chakra-ui/react";
 import {useForm} from "react-hook-form";
 
-export type CreatePortfolioProps = {
+export type CreatePortfolioType = {
   onAddPortfolio: (name: string, description: string, image: string) => Promise<void>;
 }
 
@@ -14,7 +14,7 @@ interface FormValues {
   imageUrl: string
 }
 
-export default function CreatePortfolio({onAddPortfolio}: CreatePortfolioProps) {
+export default function CreatePortfolio({onAddPortfolio}: CreatePortfolioType) {
   const [open, setOpen] = useState(false)
 
   const {

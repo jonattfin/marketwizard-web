@@ -49,7 +49,6 @@ export const useStock = (symbol: string) => {
     variables: {
       symbol
     },
-    skip: !symbol
   });
 
   return {stock: data?.stockBySymbol, loading, error};

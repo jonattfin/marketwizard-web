@@ -5,7 +5,7 @@ import {Button, CloseButton, Dialog, Field, Input, Portal, Stack, Textarea} from
 import {useForm} from "react-hook-form";
 import {PortfolioSummaryDto} from "@/graphql/_generated/graphql";
 
-export type UpdatePortfolioProps = {
+export type UpdatePortfolioType = {
   portfolio: PortfolioSummaryDto;
   onUpdatePortfolio: (id: string, name: string, description:string, imageUrl: string) => Promise<void>;
 }
@@ -16,7 +16,7 @@ interface FormValues {
   imageUrl: string
 }
 
-export default function UpdatePortfolio({portfolio, onUpdatePortfolio}: UpdatePortfolioProps) {
+export default function UpdatePortfolio({portfolio, onUpdatePortfolio}: UpdatePortfolioType) {
   const [open, setOpen] = useState(false)
 
   const {

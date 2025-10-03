@@ -7,7 +7,7 @@ import Link from "next/link";
 import UpdatePortfolio from "@/app/portfolios/_components/update-portfolio";
 import {PortfolioSummaryDto} from "@/graphql/_generated/graphql";
 
-export type PortfoliosCardsProps = {
+export type PortfoliosCardsType = {
   readonly portfolios: PortfolioSummaryDto[];
   onAddPortfolio: (name: string, description: string, image: string) => Promise<void>;
   onDeletePortfolio: (id: string) => Promise<void>;
@@ -19,7 +19,7 @@ export default function PortfoliosCards({
                                           onDeletePortfolio,
                                           onAddPortfolio,
                                           onUpdatePortfolio
-                                        }: PortfoliosCardsProps) {
+                                        }: PortfoliosCardsType) {
   return (
     <>
       <Heading>Portfolios</Heading>
@@ -39,13 +39,13 @@ export default function PortfoliosCards({
   );
 }
 
-type PortfolioCardProps = {
+type PortfolioCardType = {
   onDeletePortfolio: (id: string) => Promise<void>;
   onUpdatePortfolio: (id: string, name: string, description:string, imageUrl: string) => Promise<void>;
   readonly portfolio: PortfolioSummaryDto;
 }
 
-function PortfolioCard({portfolio, onDeletePortfolio, onUpdatePortfolio}: PortfolioCardProps) {
+function PortfolioCard({portfolio, onDeletePortfolio, onUpdatePortfolio}: PortfolioCardType) {
   return (
     <Card.Root overflow="hidden">
       <Image
