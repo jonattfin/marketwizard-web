@@ -25,6 +25,8 @@ import {
 } from "recharts";
 
 import {random} from "es-toolkit";
+import {COMPANY_OVERVIEW} from "@/app/stocks/[symbol]/_components/Menu";
+import {useState} from "react";
 
 export type CompanyOverviewType = {
   stock?: StockDto;
@@ -33,7 +35,7 @@ export type CompanyOverviewType = {
 export function createCompanyOverview({stock}: CompanyOverviewType) {
   return (
     <Stack>
-      <Card.Root variant={"subtle"}>
+      <Card.Root variant={"subtle"} id={COMPANY_OVERVIEW}>
         <Card.Header>Company Overview</Card.Header>
         <Card.Body>
           <Flex>
@@ -69,10 +71,10 @@ function CommunityFairValuesSection({stock}: CompanyOverviewType) {
   const CreateNarrativeGraph = () => {
     const chart = useChart({
       data: [
-        {allocation: 60, type: "Stock"},
-        {allocation: 45, type: "Crypto"},
-        {allocation: 12, type: "ETF"},
-        {allocation: 4, type: "Cash"},
+        {allocation: 60, type: "60"},
+        {allocation: 45, type: "45"},
+        {allocation: 12, type: "12"},
+        {allocation: 4, type: "4"},
       ],
       series: [{name: "allocation", color: "teal.solid"}],
     })
@@ -142,14 +144,14 @@ function CompetitorsSection({stock}: CompanyOverviewType) {
 }
 
 function AboutSection({stock}: CompanyOverviewType) {
+  const [showMore, setShowMore] = useState(true);
+
   const stats = [
     {label: "Founded", value: "1994"},
     {label: "Employees", value: "1556000"},
     {label: "CEO", value: "Andy Jassy"},
     {label: "Website", value: "https://www.aboutamazon.com/"},
   ]
-
-  const showMore = true;
 
   return (
     <Card.Root variant={"subtle"}>
@@ -171,7 +173,9 @@ function AboutSection({stock}: CompanyOverviewType) {
         )}
       </Card.Body>
       <Card.Footer justifyContent="flex-start">
-        <Button size="xs" variant="outline" colorPalette={"blue"}>Show less</Button>
+        <Button size="xs" variant="outline" colorPalette={"blue"} onClick={() => setShowMore(!showMore)}>
+          {showMore ? "Show Less": "Show More"}
+        </Button>
       </Card.Footer>
     </Card.Root>
   )

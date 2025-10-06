@@ -1,11 +1,12 @@
 'use client';
 
 import {ValuationChart} from "@/app/stocks/[symbol]/_components/overview";
-import {Button, Card, createListCollection, Flex, Listbox} from "@chakra-ui/react";
+import {Button, Card, createListCollection, Flex, Listbox, Stack} from "@chakra-ui/react";
+import {COMPANY_VALUATION} from "@/app/stocks/[symbol]/_components/Menu";
 
 export function createValuation() {
   return (
-    <Card.Root>
+    <Card.Root variant={"subtle"} id={COMPANY_VALUATION}>
       <Card.Header>Valuation</Card.Header>
       <Card.Body>
         Is AMZN undervalued compared to its fair value, analyst forecasts and its price relative to the market?
