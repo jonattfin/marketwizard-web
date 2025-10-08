@@ -9,8 +9,8 @@ import {
   useAddPortfolioMutation,
   useDeletePortfolioMutation,
   useUpdatePortfolioMutation
-} from "@/graphql/_generated/graphql";
-import {usePortfolios} from "@/graphql/hooks";
+} from "@/api/graphql/_generated/graphql";
+import {usePortfolios} from "@/api/hooks";
 
 export default function PortfoliosList() {
   const [page, setPage] = useState(1);

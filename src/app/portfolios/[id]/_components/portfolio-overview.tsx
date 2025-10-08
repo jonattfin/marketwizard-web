@@ -11,7 +11,7 @@ import {
   XAxis,
   YAxis,
 } from "recharts"
-import {PortfolioDetailsDto} from "@/graphql/_generated/graphql";
+import {PortfolioDetailsDto} from "@/api/graphql/_generated/graphql";
 import {groupBy} from "es-toolkit";
 
 type PortfolioOverviewType = {

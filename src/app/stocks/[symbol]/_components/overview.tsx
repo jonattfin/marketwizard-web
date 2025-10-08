@@ -1,6 +1,6 @@
 'use client';
 
-import {StockDto} from "@/graphql/_generated/graphql";
+import {StockDto} from "@/api/graphql/_generated/graphql";
 import {
   Button,
   Card,

@@ -2,7 +2,7 @@ import {Provider} from "@/components/ui/provider";
 import {Meta, StoryObj} from "@storybook/nextjs-vite";
 import jsonData from './data.json';
 import PortfolioDetails from "@/app/portfolios/[id]/_components/portfolio-details";
-import {GetPortfolioByIdDocument} from "@/graphql/_generated/graphql";
+import {GetPortfolioByIdDocument} from "@/api/graphql/_generated/graphql";
 import {expect, within} from "storybook/test";
 import {Box, Theme} from "@chakra-ui/react"
 

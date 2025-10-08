@@ -8,7 +8,7 @@ import {Toaster, toaster} from "@/components/ui/toaster";
 
 import PortfoliosCards from "@/app/portfolios/_components/portfolios-cards";
 import {PAGE_SIZE} from "@/app/constants";
-import {PortfolioSummaryDto} from "@/graphql/_generated/graphql";
+import {PortfolioSummaryDto} from "@/api/graphql/_generated/graphql";
 
 export type PortfoliosListComponentType = {
   portfolios: PortfolioSummaryDto[];

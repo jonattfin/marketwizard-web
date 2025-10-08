@@ -4,9 +4,9 @@ import {Card, FormatNumber, Group, Icon, Table, Tag} from "@chakra-ui/react"
 import {LuBookPlus, LuHand, LuGrip, LuInfo} from "react-icons/lu"
 
 import {useMemo} from "react";
-import {useStockQuotes, useWatchlistAssets} from "@/graphql/hooks";
+import {useStockQuotes, useWatchlistAssets} from "@/api/hooks";
 import {styled} from "storybook/theming";
-import {AssetDto, StockQuoteDto} from "@/graphql/_generated/graphql";
+import {AssetDto, StockQuoteDto} from "@/api/graphql/_generated/graphql";
 
 const StyledCard = styled(Card.Root)`
     height: 100%;

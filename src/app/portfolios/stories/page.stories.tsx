@@ -1,7 +1,7 @@
 import type {Meta, StoryObj} from '@storybook/nextjs-vite';
 
 import PortfoliosPage from "@/app/portfolios/page";
-import {GetPortfoliosDocument} from "@/graphql/_generated/graphql";
+import {GetPortfoliosDocument} from "@/api/graphql/_generated/graphql";
 
 import jsonData from './data.json';
 import {expect, within} from "storybook/test";

@@ -1,6 +1,6 @@
 'use client';
 
-import {useStock} from "@/graphql/hooks";
+import {useStock} from "@/api/hooks";
 import Loading from "@/shared/loading";
 import {Avatar, Button, Card, Container, Flex, Stack} from "@chakra-ui/react";
 

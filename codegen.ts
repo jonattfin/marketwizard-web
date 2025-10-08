@@ -5,7 +5,7 @@ const config: CodegenConfig = {
   schema: "http://localhost:5196/graphql",
   documents: './**/*.graphql',
   generates: {
-    "src/graphql/_generated/graphql.ts": {
+    "src/api/graphql/_generated/graphql.ts": {
       plugins: ['typescript', 'typescript-operations', 'typescript-react-apollo'],
       config: {
         withHooks: true

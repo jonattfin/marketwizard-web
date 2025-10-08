@@ -1,5 +1,5 @@
 import {FormatNumber, Table} from "@chakra-ui/react"
-import {PortfolioDetailsDto} from "@/graphql/_generated/graphql";
+import {PortfolioDetailsDto} from "@/api/graphql/_generated/graphql";
 import Link from "next/link";
 
 type PortfolioHoldingsProps = {

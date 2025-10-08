@@ -3,7 +3,7 @@
 import {Blockquote, Breadcrumb, Button, Flex, FormatNumber, Heading, Text} from "@chakra-ui/react"
 
 import Loading from "@/shared/loading";
-import {usePortfolio} from "@/graphql/hooks";
+import {usePortfolio} from "@/api/hooks";
 import PortfolioTabs from "./portfolio-tabs";
 
 export type PortfolioDetailsType = {

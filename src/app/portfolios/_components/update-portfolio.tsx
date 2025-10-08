@@ -3,7 +3,7 @@
 import {useState} from "react";
 import {Button, CloseButton, Dialog, Field, Input, Portal, Stack, Textarea} from "@chakra-ui/react";
 import {useForm} from "react-hook-form";
-import {PortfolioSummaryDto} from "@/graphql/_generated/graphql";
+import {PortfolioSummaryDto} from "@/api/graphql/_generated/graphql";
 
 export type UpdatePortfolioType = {
   portfolio: PortfolioSummaryDto;

@@ -1,7 +1,7 @@
 import {
   useGetPortfoliosQuery,
   useGetPortfolioByIdQuery, useGetWatchlistAssetsQuery, useOnStockPriceUpdatedSubscription, useGetStockBySymbolQuery
-} from "./_generated/graphql";
+} from "@/api/graphql/_generated/graphql";
 import {PAGE_SIZE} from "@/app/constants";
 
 export function useStockQuotes() {
@@ -11,13 +11,11 @@ export function useStockQuotes() {
 }
 
 export function useWatchlistAssets() {
-
   const {data, loading, error} = useGetWatchlistAssetsQuery({
     variables: {}
   })
 
   const totalCount = data?.watchlistAssets?.totalCount || 0
-
 
   return {watchlistAssets: data?.watchlistAssets?.items || [], totalCount, loading, error};
 }

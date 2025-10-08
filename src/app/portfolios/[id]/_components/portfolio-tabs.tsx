@@ -5,7 +5,7 @@ import {LuFolder, LuSquareCheck, LuUser} from "react-icons/lu";
 import PortfolioOverview from "@/app/portfolios/[id]/_components/portfolio-overview";
 import PortfolioAnalysis from "@/app/portfolios/[id]/_components/portfolio-analysis";
 import PortfolioHoldings from "@/app/portfolios/[id]/_components/portfolio-holdings";
-import {PortfolioDetailsDto} from "@/graphql/_generated/graphql";
+import {PortfolioDetailsDto} from "@/api/graphql/_generated/graphql";
 
 export type PortfolioTabsComponentType = {
   readonly portfolio: PortfolioDetailsDto;

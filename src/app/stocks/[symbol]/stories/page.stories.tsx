@@ -1,7 +1,7 @@
 import type {Meta, StoryObj} from '@storybook/nextjs-vite';
 
 import StockPage from "@/app/stocks/[symbol]/_components/stock-details";
-import {GetStockBySymbolDocument} from "@/graphql/_generated/graphql";
+import {GetStockBySymbolDocument} from "@/api/graphql/_generated/graphql";
 
 import jsonData from './data.json';
 import {expect, within} from "storybook/test";
