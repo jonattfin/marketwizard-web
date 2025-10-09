@@ -12,10 +12,8 @@ export function createValuation() {
         Is AMZN undervalued compared to its fair value, analyst forecasts and its price relative to the market?
         <div>&nbsp;</div>
         <Flex justify="space-between">
-          <div>{createValuationCollection()}</div>
-          <Container maxWidth={"300px"}>
-            <ValuationChart/>
-          </Container>
+          {createValuationCollection()}
+          <ValuationChart/>
         </Flex>
       </Card.Body>
       <Card.Footer justifyContent="flex-end">
