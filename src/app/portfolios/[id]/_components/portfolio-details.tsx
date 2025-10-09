@@ -3,7 +3,7 @@
 import {Blockquote, Breadcrumb, Button, Flex, FormatNumber, Heading, Text} from "@chakra-ui/react"
 
 import Loading from "@/shared/loading";
-import {usePortfolio} from "@/api/hooks";
+import hooks from "@/api/hooks";
 import PortfolioTabs from "./portfolio-tabs";
 
 export type PortfolioDetailsType = {
@@ -11,7 +11,7 @@ export type PortfolioDetailsType = {
 }
 
 export default function PortfolioDetails({id}: Readonly<PortfolioDetailsType>) {
-  const {portfolio, loading, error} = usePortfolio(id);
+  const {portfolio, loading, error} = hooks.usePortfolio(id);
 
   if (loading) return <Loading/>;
   if (error || !portfolio) return `Page ${error}`;

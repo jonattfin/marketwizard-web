@@ -1,6 +1,6 @@
 'use client';
 
-import {useStock} from "@/api/hooks";
+import hooks from "@/api/hooks";
 import Loading from "@/shared/loading";
 import {Avatar, Button, Card, Container, Flex, Stack} from "@chakra-ui/react";
 
@@ -13,7 +13,7 @@ export type StockDetailsProps = {
 }
 
 export default function StockDetails({symbol}: StockDetailsProps) {
-  const {stock, loading} = useStock(symbol);
+  const {stock, loading} = hooks.useStock(symbol);
 
   if (loading) return <Loading/>;
 

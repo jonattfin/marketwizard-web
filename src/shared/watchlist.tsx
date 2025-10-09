@@ -4,9 +4,9 @@ import {Card, FormatNumber, Group, Icon, Table, Tag} from "@chakra-ui/react"
 import {LuBookPlus, LuHand, LuGrip, LuInfo} from "react-icons/lu"
 
 import {useMemo} from "react";
-import {useStockQuotes, useWatchlistAssets} from "@/api/hooks";
+import hooks from "@/api/hooks";
 import {styled} from "storybook/theming";
-import {AssetDto, StockQuoteDto} from "@/api/graphql/_generated/graphql";
+import {AssetDto, StockQuoteDto} from "@/api/types";
 
 const StyledCard = styled(Card.Root)`
     height: 100%;
@@ -24,8 +24,8 @@ type WatchlistItem = {
 }
 
 const Watchlist = () => {
-  const {watchlistAssets, totalCount, error: watchlistError} = useWatchlistAssets();
-  const {stockQuotes, error} = useStockQuotes();
+  const {watchlistAssets, totalCount, error: watchlistError} = hooks.useWatchlistAssets();
+  const {stockQuotes, error} = hooks.useStockQuotes();
 
   const data = useMemo(() => createData(watchlistAssets, stockQuotes)
     , [watchlistAssets, stockQuotes]);
@@ -103,8 +103,8 @@ const Watchlist = () => {
 }
 
 function createData(watchlistAssets: AssetDto[], stockQuotes: StockQuoteDto[]): WatchlistItem[] {
-  return watchlistAssets.map((asset) => {
-    const stockQuote = stockQuotes.find(q => q.symbol === asset.symbol) || asset.quote;
+  return watchlistAssets?.map((asset) => {
+    const stockQuote = stockQuotes?.find(q => q.symbol === asset.symbol) || asset.quote;
 
     return {
       symbol: asset.symbol,

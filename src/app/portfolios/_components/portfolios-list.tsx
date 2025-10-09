@@ -10,11 +10,11 @@ import {
   useDeletePortfolioMutation,
   useUpdatePortfolioMutation
 } from "@/api/graphql/_generated/graphql";
-import {usePortfolios} from "@/api/hooks";
+import hooks from "@/api/hooks";
 
 export default function PortfoliosList() {
   const [page, setPage] = useState(1);
-  const {portfolios, totalCount, loading, error} = usePortfolios(page);
+  const {portfolios, totalCount, loading, error} = hooks.usePortfolios(page);
 
   const [addPortfolio] = useAddPortfolioMutation();
   const [deletePortfolio] = useDeletePortfolioMutation();

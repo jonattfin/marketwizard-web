@@ -1,6 +1,5 @@
 'use client';
 
-import {StockDto} from "@/api/graphql/_generated/graphql";
 import {
   Button,
   Card,
@@ -27,9 +26,10 @@ import {
 import {random} from "es-toolkit";
 import {COMPANY_OVERVIEW} from "@/app/stocks/[symbol]/_components/Menu";
 import {useState} from "react";
+import {StockDto} from "@/api/types";
 
 export type CompanyOverviewType = {
-  stock?: StockDto;
+  stock?: StockDto | null;
 }
 
 export function createCompanyOverview({stock}: CompanyOverviewType) {

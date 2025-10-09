@@ -1,9 +1,9 @@
 import {FormatNumber, Table} from "@chakra-ui/react"
-import {PortfolioDetailsDto} from "@/api/graphql/_generated/graphql";
 import Link from "next/link";
+import {PortfolioSummaryDto} from "@/api/types";
 
 type PortfolioHoldingsProps = {
-  portfolio: PortfolioDetailsDto
+  portfolio: PortfolioSummaryDto;
 }
 
 const PortfolioHoldings = ({portfolio}: PortfolioHoldingsProps) => {
@@ -17,7 +17,7 @@ const PortfolioHoldings = ({portfolio}: PortfolioHoldingsProps) => {
         </Table.Row>
       </Table.Header>
       <Table.Body>
-        {portfolio.assets.map((asset) => (
+        {portfolio.assets?.map((asset) => (
           <Table.Row key={asset.symbol}>
             <Table.Cell>
               <Link href={`/stocks/${asset.symbol}`}>{asset.symbol}</Link>

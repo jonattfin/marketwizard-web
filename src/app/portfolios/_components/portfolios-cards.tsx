@@ -5,7 +5,7 @@ import {Button, Card, Image, Text, Heading, Grid, Link as ChakraLink, FormatNumb
 import CreatePortfolio from "@/app/portfolios/_components/create-portfolio";
 import Link from "next/link";
 import UpdatePortfolio from "@/app/portfolios/_components/update-portfolio";
-import {PortfolioSummaryDto} from "@/api/graphql/_generated/graphql";
+import {PortfolioSummaryDto} from "@/api/types";
 
 export type PortfoliosCardsType = {
   readonly portfolios: PortfolioSummaryDto[];

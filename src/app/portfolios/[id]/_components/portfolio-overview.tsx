@@ -11,11 +11,11 @@ import {
   XAxis,
   YAxis,
 } from "recharts"
-import {PortfolioDetailsDto} from "@/api/graphql/_generated/graphql";
 import {groupBy} from "es-toolkit";
+import {PortfolioSummaryDto} from "@/api/types";
 
 type PortfolioOverviewType = {
-  portfolio: PortfolioDetailsDto
+  portfolio: PortfolioSummaryDto
 }
 
 type CombinedAsset = {
@@ -76,7 +76,7 @@ const PortfolioOverview = ({portfolio}: PortfolioOverviewType) => {
   )
 }
 
-function buildChartData(portfolio: PortfolioDetailsDto) {
+function buildChartData(portfolio: PortfolioSummaryDto) {
   const series: unknown[] = [];
   const data: unknown[] = []
 
@@ -84,10 +84,10 @@ function buildChartData(portfolio: PortfolioDetailsDto) {
 
   const colors = ["teal.solid", "green.solid", "blue.solid", "purple.solid", "orange.solid"];
 
-  portfolio.assets.forEach((asset, index) => {
+  portfolio.assets?.forEach((asset, index) => {
     series.push({name: asset.symbol, color: colors[index] || "grey.solid"});
 
-    asset.priceHistory.forEach(price => {
+    asset.priceHistory?.forEach(price => {
       combinedAssets.push({
         symbol: asset.symbol,
         price: price.price,

@@ -5,10 +5,10 @@ import {LuFolder, LuSquareCheck, LuUser} from "react-icons/lu";
 import PortfolioOverview from "@/app/portfolios/[id]/_components/portfolio-overview";
 import PortfolioAnalysis from "@/app/portfolios/[id]/_components/portfolio-analysis";
 import PortfolioHoldings from "@/app/portfolios/[id]/_components/portfolio-holdings";
-import {PortfolioDetailsDto} from "@/api/graphql/_generated/graphql";
+import {PortfolioSummaryDto} from "@/api/types";
 
 export type PortfolioTabsComponentType = {
-  readonly portfolio: PortfolioDetailsDto;
+  readonly portfolio: PortfolioSummaryDto;
 }
 
 export default function PortfolioTabsComponent({portfolio}: PortfolioTabsComponentType) {

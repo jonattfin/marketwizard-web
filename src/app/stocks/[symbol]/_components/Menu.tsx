@@ -28,7 +28,7 @@ export default function CompanyMenu() {
       <Card.Body gap="2">
         <List.Root gap="2" variant="plain">
           {collection.items.map((item) => (
-            <List.Item>
+            <List.Item key={item.value}>
               <Button variant="ghost" width={"100%"} asChild>
                 <Link key={item.value} href={`#${item.value}`}>{item.label}</Link>
               </Button>
