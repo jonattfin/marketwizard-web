@@ -27,14 +27,6 @@ export type UseStockType = {
   stock?: StockDto | null;
 } & BaseType;
 
-export interface IApiHooks {
-  useStockQuotes(): UseStockQuotesType;
-  useWatchlistAssets(): UseWatchListAssetsType;
-  usePortfolio(id: string | undefined): UsePortfolioType;
-  usePortfolios(pageNumber: number): UsePortfoliosType;
-  useStock(symbol: string): UseStockType;
-}
-
 export enum AssetType {
   Stock,
   ETF,
@@ -94,6 +86,25 @@ export type StockDto = {
   marketCap?: number | null;
   symbol?: string;
 };
+
+export type AddPortfolioType = {
+  name: string;
+  description: string;
+  imageUrl: string;
+}
+
+export type UpdatePortfolioType = {
+  id: string;
+  name: string;
+  description: string;
+  imageUrl: string;
+}
+
+export type DeletePortfolioType = {
+  portfolioId: string;
+}
+
+
 
 
 

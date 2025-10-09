@@ -1,5 +1,6 @@
 import {
-  AssetDto,
+  AddPortfolioType,
+  AssetDto, DeletePortfolioType, UpdatePortfolioType,
   UsePortfoliosType,
   UsePortfolioType,
   UseStockQuotesType,
@@ -7,9 +8,10 @@ import {
   UseWatchListAssetsType
 } from "@/api/types";
 import {
+  useAddPortfolioMutation, useDeletePortfolioMutation,
   useGetPortfolioByIdQuery, useGetPortfoliosQuery, useGetStockBySymbolQuery,
   useGetWatchlistAssetsQuery,
-  useOnStockPriceUpdatedSubscription
+  useOnStockPriceUpdatedSubscription, useUpdatePortfolioMutation
 } from "@/api/graphql/_generated/graphql";
 import {PAGE_SIZE} from "@/app/constants";
 
@@ -32,7 +34,7 @@ export const usePortfolio = (id: string | undefined): UsePortfolioType => {
       assets: data?.portfolioById?.assets
     },
     loading,
-    ...(error && { error: { message: error.message } }),
+    ...(error && {error: {message: error.message}}),
   }
 }
 
@@ -48,7 +50,7 @@ export const usePortfolios = (pageNumber: number): UsePortfoliosType => {
     portfolios: data?.portfolios?.items || [],
     totalCount: data?.portfolios?.totalCount || 0,
     loading,
-    ...(error && { error: { message: error.message } }),
+    ...(error && {error: {message: error.message}}),
   }
 }
 
@@ -62,7 +64,7 @@ export const useStock = (symbol: string): UseStockType => {
   return {
     stock: data?.stockBySymbol,
     loading,
-    ...(error && { error: { message: error.message } }),
+    ...(error && {error: {message: error.message}}),
   }
 }
 
@@ -96,6 +98,36 @@ export const useWatchlistAssets = (): UseWatchListAssetsType => {
     }),
     totalCount: data?.watchlistAssets?.totalCount || 0,
     loading,
-    ...(error && { error: { message: error.message } }),
+    ...(error && {error: {message: error.message}}),
   }
+}
+
+export const useAddPortfolio = () => {
+  const [addPortfolio] = useAddPortfolioMutation();
+
+  return [
+    async ({name, description, imageUrl}: AddPortfolioType): Promise<void> => {
+      await addPortfolio({variables: {name, description, imageUrl}, refetchQueries: "active"})
+    }
+  ]
+}
+
+export const useDeletePortfolio = () => {
+  const [deletePortfolio] = useDeletePortfolioMutation();
+
+  return [
+    async ({portfolioId}: DeletePortfolioType): Promise<void> => {
+      await deletePortfolio({variables: {portfolioId}, refetchQueries: "active"})
+    }
+  ]
+}
+
+export const useUpdatePortfolio = () => {
+  const [updatePortfolio] = useUpdatePortfolioMutation();
+
+  return [
+    async ({id, name, description, imageUrl}: UpdatePortfolioType): Promise<void> => {
+      await updatePortfolio({variables: {id, name, description, imageUrl}, refetchQueries: "active"})
+    }
+  ]
 }
