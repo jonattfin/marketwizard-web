@@ -103,9 +103,3 @@ export type UpdatePortfolioType = {
 export type DeletePortfolioType = {
   portfolioId: string;
 }
-
-
-
-
-
-

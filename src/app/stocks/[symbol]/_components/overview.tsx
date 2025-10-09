@@ -10,20 +10,7 @@ import {
   Highlight,
 } from "@chakra-ui/react";
 import {LuCircleCheck, LuMessageCircleWarning} from "react-icons/lu";
-import {Chart, useChart} from "@chakra-ui/charts";
-import {
-  Bar,
-  BarChart,
-  CartesianGrid, Line, LineChart,
-  PolarAngleAxis,
-  PolarGrid,
-  Radar,
-  RadarChart, Tooltip,
-  XAxis,
-  YAxis
-} from "recharts";
 
-import {random} from "es-toolkit";
 import {COMPANY_OVERVIEW} from "@/app/stocks/[symbol]/_components/Menu";
 import {useState} from "react";
 import {StockDto} from "@/api/types";
@@ -69,38 +56,7 @@ export function createCompanyOverview({stock}: CompanyOverviewType) {
 function CommunityFairValuesSection({stock}: CompanyOverviewType) {
 
   const CreateNarrativeGraph = () => {
-    const chart = useChart({
-      data: [
-        {allocation: 60, type: "60"},
-        {allocation: 45, type: "45"},
-        {allocation: 12, type: "12"},
-        {allocation: 4, type: "4"},
-      ],
-      series: [{name: "allocation", color: "teal.solid"}],
-    })
-
-    return (
-      <Chart.Root maxH="sm" chart={chart}>
-        <BarChart data={chart.data}>
-          <CartesianGrid stroke={chart.color("border.muted")} vertical={false}/>
-          <XAxis axisLine={false} tickLine={false} dataKey={chart.key("type")}/>
-          <YAxis
-            axisLine={false}
-            tickLine={false}
-            domain={[0, 100]}
-            tickFormatter={(value) => `${value}%`}
-          />
-          {chart.series.map((item) => (
-            <Bar
-              key={item.name}
-              isAnimationActive={false}
-              dataKey={chart.key(item.name)}
-              fill={chart.color(item.color)}
-            />
-          ))}
-        </BarChart>
-      </Chart.Root>
-    );
+    return <div>&nbsp;</div>
   }
 
   return (
@@ -182,54 +138,11 @@ function AboutSection({stock}: CompanyOverviewType) {
 }
 
 function PriceHistorySection() {
-  const chart = useChart({
-    data: [
-      {sale: 10, month: "January"},
-      {sale: 95, month: "February"},
-      {sale: 87, month: "March"},
-      {sale: 88, month: "May"},
-      {sale: 65, month: "June"},
-      {sale: 90, month: "August"},
-    ],
-    series: [{name: "sale", color: "teal.solid"}],
-  })
-
   return (
     <Card.Root variant={"subtle"}>
       <Card.Header>Price History &amp; Performance</Card.Header>
       <Card.Body>
-        <Chart.Root maxH="sm" chart={chart}>
-          <LineChart data={chart.data}>
-            <CartesianGrid stroke={chart.color("border")} vertical={false}/>
-            <XAxis
-              axisLine={false}
-              dataKey={chart.key("month")}
-              tickFormatter={(value) => value.slice(0, 3)}
-              stroke={chart.color("border")}
-            />
-            <YAxis
-              axisLine={false}
-              tickLine={false}
-              tickMargin={10}
-              stroke={chart.color("border")}
-            />
-            <Tooltip
-              animationDuration={100}
-              cursor={false}
-              content={<Chart.Tooltip/>}
-            />
-            {chart.series.map((item) => (
-              <Line
-                key={item.name}
-                isAnimationActive={false}
-                dataKey={chart.key(item.name)}
-                stroke={chart.color(item.color)}
-                strokeWidth={2}
-                dot={false}
-              />
-            ))}
-          </LineChart>
-        </Chart.Root>
+
       </Card.Body>
     </Card.Root>
 
@@ -308,35 +221,7 @@ function RewardsSection() {
 }
 
 export const ValuationChart = () => {
-  const chart = useChart({
-    data: [
-      {windows: random(50, 100), month: "Value"},
-      {windows: random(50, 100), month: "Future"},
-      {windows: random(50, 100), month: "Past"},
-      {windows: random(50, 100), month: "Health"},
-      {windows: random(50, 100), month: "Dividend"},
-    ],
-    series: [{name: "windows", color: "teal.solid"}],
-  })
-
   return (
-    <Chart.Root maxW="sm" chart={chart} mx="auto">
-      <RadarChart data={chart.data}>
-        <PolarGrid stroke={chart.color("border")}/>
-        <PolarAngleAxis dataKey={chart.key("month")}/>
-        {chart.series.map((item) => (
-          <Radar
-            dot={{fillOpacity: 1}}
-            isAnimationActive={false}
-            key={item.name}
-            name={item.name}
-            dataKey={chart.key(item.name)}
-            stroke={chart.color(item.color)}
-            fill={chart.color(item.color)}
-            fillOpacity={0.2}
-          />
-        ))}
-      </RadarChart>
-    </Chart.Root>
+    <>valuation chart</>
   )
 }
