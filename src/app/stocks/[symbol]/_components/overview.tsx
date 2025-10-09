@@ -7,13 +7,14 @@ import {
   List,
   Stack,
   DataList,
-  Highlight,
+  Highlight, Container,
 } from "@chakra-ui/react";
 import {LuCircleCheck, LuMessageCircleWarning} from "react-icons/lu";
 
 import {COMPANY_OVERVIEW} from "@/app/stocks/[symbol]/_components/Menu";
 import {useState} from "react";
 import {StockDto} from "@/api/types";
+
 
 export type CompanyOverviewType = {
   stock?: StockDto | null;
@@ -36,7 +37,9 @@ export function createCompanyOverview({stock}: CompanyOverviewType) {
                 <Button size="xs" variant="outline" colorPalette={"blue"}>See all risk checks</Button>
               </div>
             </Stack>
-            <ValuationChart/>
+            <Container maxWidth={"300px"}>
+              <ValuationChart/>
+            </Container>
           </Flex>
         </Card.Body>
         <Card.Footer justifyContent="flex-end">
@@ -56,7 +59,9 @@ export function createCompanyOverview({stock}: CompanyOverviewType) {
 function CommunityFairValuesSection({stock}: CompanyOverviewType) {
 
   const CreateNarrativeGraph = () => {
-    return <div>&nbsp;</div>
+    return (
+      <div></div>
+    )
   }
 
   return (
@@ -71,7 +76,9 @@ function CommunityFairValuesSection({stock}: CompanyOverviewType) {
             <div>&nbsp;</div>
           </Stack>
         </Flex>
-        <CreateNarrativeGraph/>
+        <Container height={300}>
+          <CreateNarrativeGraph/>
+        </Container>
       </Card.Body>
       <Card.Footer justifyContent="flex-end">
         <Button size="xs" variant="outline" colorPalette={"blue"}>Data</Button>
@@ -86,14 +93,13 @@ function CompetitorsSection({stock}: CompanyOverviewType) {
     <Card.Root variant={"subtle"}>
       <Card.Header>{stock?.name} Competitors</Card.Header>
       <Card.Body>
-        <Flex>
-          <ValuationChart/>
-          <ValuationChart/>
-          <ValuationChart/>
+        <Flex height={300} maxWidth={"xl"} justify="space-between">
           <ValuationChart/>
         </Flex>
       </Card.Body>
       <Card.Footer justifyContent="flex-end">
+        <Button size="xs" variant="outline" colorPalette={"blue"}>Data</Button>
+        <Button size="xs" variant="outline" colorPalette={"blue"}>Learn</Button>
       </Card.Footer>
     </Card.Root>
   )
@@ -130,7 +136,7 @@ function AboutSection({stock}: CompanyOverviewType) {
       </Card.Body>
       <Card.Footer justifyContent="flex-start">
         <Button size="xs" variant="outline" colorPalette={"blue"} onClick={() => setShowMore(!showMore)}>
-          {showMore ? "Show Less": "Show More"}
+          {showMore ? "Show Less" : "Show More"}
         </Button>
       </Card.Footer>
     </Card.Root>
@@ -222,6 +228,6 @@ function RewardsSection() {
 
 export const ValuationChart = () => {
   return (
-    <>valuation chart</>
+   <>valuation chart</>
   )
 }
