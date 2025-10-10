@@ -11,9 +11,21 @@ import {
 } from "@chakra-ui/react";
 import {LuCircleCheck, LuMessageCircleWarning} from "react-icons/lu";
 import {Chart, useChart} from "@chakra-ui/charts"
-import {PolarAngleAxis, PolarGrid, Radar, RadarChart, Tooltip} from "recharts"
-import {Bar, BarChart, CartesianGrid, Cell, XAxis, YAxis} from "recharts"
-import {Area, AreaChart} from "recharts"
+import {
+  PolarAngleAxis,
+  PolarGrid,
+  Radar,
+  RadarChart,
+  Tooltip,
+  Area,
+  AreaChart,
+  Bar,
+  BarChart,
+  CartesianGrid,
+  Cell,
+  XAxis,
+  YAxis
+} from "recharts"
 
 import {COMPANY_OVERVIEW} from "@/app/stocks/[symbol]/_components/Menu";
 import {useState} from "react";

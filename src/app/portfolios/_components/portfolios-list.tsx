@@ -51,7 +51,7 @@ export default function PortfoliosList() {
   }), [portfolios, totalCount, onPortfolioAdd, onPortfolioDelete, onPortfolioUpdate, onPageChange, page]);
 
   if (loading) return <Loading/>;
-  if (error) return `Page ${error}`;
+  if (error) return `Page ${JSON.stringify(error)}`;
 
   return (
     <PortfoliosListComponent {...props} />

@@ -1,7 +1,6 @@
 'use client';
 
 import {Geist, Geist_Mono} from "next/font/google";
-import {Theme} from "@chakra-ui/react"
 
 import {ApolloProvider} from '@apollo/client';
 import {Provider} from "@/components/ui/provider";
@@ -14,7 +13,7 @@ import "./globals.css";
 import apolloClient from "@/app/apolloClient";
 import AppMenu from "@/shared/app-menu";
 import Watchlist from "@/shared/watchlist";
-import {Box, Grid, GridItem} from "@chakra-ui/react";
+import {Box, Grid, GridItem, Theme} from "@chakra-ui/react";
 import {ThemeContext} from "@emotion/react";
 import {useState} from "react";
 import {styled} from "storybook/theming";

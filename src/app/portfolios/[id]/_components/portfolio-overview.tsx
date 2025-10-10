@@ -1,6 +1,5 @@
 "use client"
 
-
 import { Chart, useChart } from "@chakra-ui/charts"
 import {
   CartesianGrid,
@@ -14,13 +13,13 @@ import {
   YAxis,
 } from "recharts"
 
-import {PortfolioSummaryDto} from "@/api/types";
+// import {PortfolioSummaryDto} from "@/api/types";
 
-type PortfolioOverviewType = {
-  portfolio: PortfolioSummaryDto
-}
+// type PortfolioOverviewType = {
+//   portfolio: PortfolioSummaryDto
+// }
 
-const PortfolioOverview = ({}: PortfolioOverviewType) => {
+const PortfolioOverview = () => {
   const chart = useChart({
     data: [
       { thisYear: 10, lastYear: 4, month: "January" },

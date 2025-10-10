@@ -42,8 +42,7 @@ export default function UpdatePortfolio({portfolio, onUpdatePortfolio}: UpdatePo
   })
 
   return (
-    <>
-      <Dialog.Root lazyMount open={open} onOpenChange={(e) => setOpen(e.open)}>
+    <Dialog.Root lazyMount open={open} onOpenChange={(e) => setOpen(e.open)}>
         <Dialog.Trigger asChild>
           <Button variant="outline" colorPalette={"orange"} data-testid={`update-btn-${portfolio.id}`}>Update portfolio</Button>
         </Dialog.Trigger>
@@ -86,6 +85,5 @@ export default function UpdatePortfolio({portfolio, onUpdatePortfolio}: UpdatePo
           </Dialog.Positioner>
         </Portal>
       </Dialog.Root>
-    </>
   )
 }

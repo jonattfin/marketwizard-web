@@ -30,7 +30,7 @@ const Watchlist = () => {
   const data = useMemo(() => createData(watchlistAssets, stockQuotes)
     , [watchlistAssets, stockQuotes]);
 
-  if (error || watchlistError) return `Error ${error}`;
+  if (error || watchlistError) return `Error ${JSON.stringify(error)}`;
 
   const renderTag = (value: number | undefined) => {
     if (!value) {
