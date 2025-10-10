@@ -73,38 +73,6 @@ export function createCompanyOverview({stock}: CompanyOverviewType) {
 }
 
 function CommunityFairValuesSection({stock}: CompanyOverviewType) {
-
-  const CreateNarrativeGraph = () => {
-    const chart = useChart({
-      data: [
-        {allocation: 60, type: "Stock", color: "red.solid"},
-        {allocation: 45, type: "Crypto", color: "blue.solid"},
-        {allocation: 12, type: "ETF", color: "green.solid"},
-        {allocation: 4, type: "Cash", color: "yellow.solid"},
-      ],
-    })
-
-    return (
-      <Chart.Root maxH="sm" chart={chart}>
-        <BarChart data={chart.data}>
-          <CartesianGrid stroke={chart.color("border.muted")} vertical={false}/>
-          <XAxis axisLine={false} tickLine={false} dataKey={chart.key("type")}/>
-          <YAxis
-            axisLine={false}
-            tickLine={false}
-            domain={[0, 100]}
-            tickFormatter={(value) => `${value}%`}
-          />
-          <Bar isAnimationActive={false} dataKey={chart.key("allocation")}>
-            {chart.data.map((item) => (
-              <Cell key={item.type} fill={chart.color(item.color)}/>
-            ))}
-          </Bar>
-        </BarChart>
-      </Chart.Root>
-    )
-  }
-
   return (
     <Card.Root variant={"subtle"}>
       <Card.Header>{stock?.symbol} Community fair values</Card.Header>
@@ -117,7 +85,7 @@ function CommunityFairValuesSection({stock}: CompanyOverviewType) {
             <div>&nbsp;</div>
           </Stack>
         </Flex>
-        <CreateNarrativeGraph/>
+        <NarrativeGraph/>
       </Card.Body>
       <Card.Footer justifyContent="flex-end">
         <Button size="xs" variant="outline" colorPalette={"blue"}>Data</Button>
@@ -125,6 +93,38 @@ function CommunityFairValuesSection({stock}: CompanyOverviewType) {
       </Card.Footer>
     </Card.Root>
   );
+}
+
+
+function NarrativeGraph() {
+  const chart = useChart({
+    data: [
+      {allocation: 60, type: "Stock", color: "red.solid"},
+      {allocation: 45, type: "Crypto", color: "blue.solid"},
+      {allocation: 12, type: "ETF", color: "green.solid"},
+      {allocation: 4, type: "Cash", color: "yellow.solid"},
+    ],
+  })
+
+  return (
+    <Chart.Root maxH="sm" chart={chart}>
+      <BarChart data={chart.data}>
+        <CartesianGrid stroke={chart.color("border.muted")} vertical={false}/>
+        <XAxis axisLine={false} tickLine={false} dataKey={chart.key("type")}/>
+        <YAxis
+          axisLine={false}
+          tickLine={false}
+          domain={[0, 100]}
+          tickFormatter={(value) => `${value}%`}
+        />
+        <Bar isAnimationActive={false} dataKey={chart.key("allocation")}>
+          {chart.data.map((item) => (
+            <Cell key={item.type} fill={chart.color(item.color)}/>
+          ))}
+        </Bar>
+      </BarChart>
+    </Chart.Root>
+  )
 }
 
 function CompetitorsSection({stock}: CompanyOverviewType) {
