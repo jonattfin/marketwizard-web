@@ -74,9 +74,7 @@ export const useStockQuotes = (): UseStockQuotesType => {
   return {
     stockQuotes: data?.onStockPriceUpdated,
     loading,
-    error: {
-      message: error?.message
-    }
+    ...(error && {error: {message: error.message}}),
   }
 }
 
