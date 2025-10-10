@@ -18,6 +18,11 @@ import {Box, Grid, GridItem} from "@chakra-ui/react";
 import {ThemeContext} from "@emotion/react";
 import {useState} from "react";
 import {styled} from "storybook/theming";
+import {
+  QueryClient,
+  QueryClientProvider,
+} from '@tanstack/react-query';
+import {ReactQueryDevtools} from '@tanstack/react-query-devtools'
 
 const geistSans = Geist({
   variable: "--font-geist-sans",
@@ -31,7 +36,9 @@ const geistMono = Geist_Mono({
 
 const StyledContainer = styled(Box)`
     min-height: 100vh;
-`
+`;
+
+const queryClient = new QueryClient()
 
 export default function RootLayout({
                                      children,
@@ -48,40 +55,41 @@ export default function RootLayout({
         href="https://fonts.googleapis.com/icon?family=Material+Icons"
       />
     </head>
-
-    <ApolloProvider client={apolloClient}>
-      <body className={`${geistSans.variable} ${geistMono.variable}`}>
-      <Provider>
-        <ThemeContext value={theme}>
-          <Theme appearance={theme}>
-            <header>
-            </header>
-            <main>
-              <Grid templateColumns="repeat(4, 1fr)" gap="6">
-                <GridItem colSpan={3}>
-                  <Box padding="20px">
-                    <AppMenu theme={theme} setTheme={(theme) => setTheme(theme)}/>
-                    <div>&nbsp;</div>
-                    <StyledContainer>
-                      {children}
-                    </StyledContainer>
-                  </Box>
-                </GridItem>
-                <GridItem>
-                  <Watchlist/>
-                </GridItem>
-              </Grid>
-            </main>
-            <footer>
-            </footer>
-            <Analytics/>
-            <SpeedInsights/>
-          </Theme>
-        </ThemeContext>
-      </Provider>
-      </body>
-    </ApolloProvider>
-
+    <QueryClientProvider client={queryClient}>
+      <ReactQueryDevtools/>
+      <ApolloProvider client={apolloClient}>
+        <body className={`${geistSans.variable} ${geistMono.variable}`}>
+        <Provider>
+          <ThemeContext value={theme}>
+            <Theme appearance={theme}>
+              <header>
+              </header>
+              <main>
+                <Grid templateColumns="repeat(4, 1fr)" gap="6">
+                  <GridItem colSpan={3}>
+                    <Box padding="20px">
+                      <AppMenu theme={theme} setTheme={(theme) => setTheme(theme)}/>
+                      <div>&nbsp;</div>
+                      <StyledContainer>
+                        {children}
+                      </StyledContainer>
+                    </Box>
+                  </GridItem>
+                  <GridItem>
+                    <Watchlist/>
+                  </GridItem>
+                </Grid>
+              </main>
+              <footer>
+              </footer>
+              <Analytics/>
+              <SpeedInsights/>
+            </Theme>
+          </ThemeContext>
+        </Provider>
+        </body>
+      </ApolloProvider>
+    </QueryClientProvider>
     </html>
   );
 }
