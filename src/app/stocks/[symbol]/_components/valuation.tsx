@@ -1,7 +1,7 @@
 'use client';
 
 import {ValuationChart} from "@/app/stocks/[symbol]/_components/overview";
-import {Button, Card, Container, createListCollection, Flex, Listbox} from "@chakra-ui/react";
+import {Button, Card, createListCollection, Flex, Listbox} from "@chakra-ui/react";
 import {COMPANY_VALUATION} from "@/app/stocks/[symbol]/_components/Menu";
 
 export function createValuation() {

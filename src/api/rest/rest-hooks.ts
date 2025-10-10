@@ -4,7 +4,7 @@ import {useSuspenseQuery} from "@tanstack/react-query";
 const BaseApiUrl = "http://localhost:5196/api"
 
 export const usePortfolio = (id: string | undefined): UsePortfolioType => {
-  const {isPending, error, data, isFetching} = useSuspenseQuery({
+  const {isPending, error, data} = useSuspenseQuery({
     queryKey: [`portfolio_${id}`],
     queryFn: async () => {
       const response = await fetch(
@@ -29,8 +29,8 @@ export const usePortfolio = (id: string | undefined): UsePortfolioType => {
   }
 }
 
-export const usePortfolios = (pageNumber: number): UsePortfoliosType => {
-  const {isPending, error, data, isFetching} = useSuspenseQuery({
+export const usePortfolios = (): UsePortfoliosType => {
+  const {isPending, error, data} = useSuspenseQuery({
     queryKey: ['portfolios'],
     queryFn: async () => {
       const response = await fetch(
@@ -49,7 +49,7 @@ export const usePortfolios = (pageNumber: number): UsePortfoliosType => {
 }
 
 export const useStock = (symbol: string): UseStockType => {
-  const {isPending, error, data, isFetching} = useSuspenseQuery({
+  const {isPending, error, data} = useSuspenseQuery({
     queryKey: [`stock_${symbol}`],
     queryFn: async () => {
       const response = await fetch(

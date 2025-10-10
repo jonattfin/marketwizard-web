@@ -20,7 +20,7 @@ type PortfolioOverviewType = {
   portfolio: PortfolioSummaryDto
 }
 
-const PortfolioOverview = ({portfolio}: PortfolioOverviewType) => {
+const PortfolioOverview = ({}: PortfolioOverviewType) => {
   const chart = useChart({
     data: [
       { thisYear: 10, lastYear: 4, month: "January" },

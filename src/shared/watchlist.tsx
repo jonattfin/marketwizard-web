@@ -27,10 +27,10 @@ const Watchlist = () => {
   const {watchlistAssets, totalCount, error: watchlistError} = hooks.useWatchlistAssets();
   const {stockQuotes, error} = hooks.useStockQuotes();
 
-  if (error || watchlistError) return `Error ${error}`;
-
   const data = useMemo(() => createData(watchlistAssets, stockQuotes)
     , [watchlistAssets, stockQuotes]);
+
+  if (error || watchlistError) return `Error ${error}`;
 
   const renderTag = (value: number | undefined) => {
     if (!value) {
