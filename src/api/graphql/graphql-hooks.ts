@@ -90,6 +90,12 @@ export const useWatchlistAssets = (): UseWatchListAssetsType => {
         id: item?.id,
         name: item?.name,
         lastPrice: item?.lastPrice,
+        quote: {
+          symbol: item?.quote?.symbol,
+          change: item?.quote?.change,
+          percentChange: item?.quote?.percentChange,
+          currentPrice: item?.quote?.currentPrice
+        }
       }
 
       return newItem;

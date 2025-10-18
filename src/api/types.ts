@@ -34,7 +34,7 @@ export enum AssetType {
 }
 
 export type StockQuoteDto = {
-  symbol: string;
+  symbol?: string;
   currentPrice?: number;
   change?: number;
   percentChange?: number;

@@ -2,6 +2,7 @@ import {Button, Card, createListCollection, List, Link} from "@chakra-ui/react";
 
 export const COMPANY_OVERVIEW = "Company Overview";
 export const COMPANY_VALUATION = "Valuation";
+export const SWOT_ANALYSIS = "SWOT Analysis";
 export const FUTURE_GROWTH = "Future Growth";
 export const PAST_PERFORMANCE = "Past Performance";
 export const FINANCIAL_HEALTH = "Financial Health";
@@ -13,7 +14,7 @@ export const Ownership = "Ownership";
 export default function CompanyMenu() {
   const values = [
     COMPANY_OVERVIEW, COMPANY_VALUATION, FUTURE_GROWTH, PAST_PERFORMANCE,
-    FINANCIAL_HEALTH, DIVIDEND, Management, Ownership
+    FINANCIAL_HEALTH, DIVIDEND, Management, Ownership, SWOT_ANALYSIS
   ];
 
   const collection = createListCollection({

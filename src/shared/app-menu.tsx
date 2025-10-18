@@ -6,12 +6,10 @@ import {
   Center,
   Flex,
   HStack, Icon,
-  Input,
-  InputGroup,
-  Kbd,
-  Switch
+  Switch,
+  Separator
 } from "@chakra-ui/react"
-import {LuInfo, LuSearch} from "react-icons/lu";
+
 import {FaMoon, FaSun} from "react-icons/fa"
 import Link from "next/link";
 
@@ -20,59 +18,62 @@ export type AppMenuType = {
   setTheme: (theme: "dark" | "light") => void;
 }
 
+type LinkWithLabel = {
+  label: string;
+  href: string;
+}
+
+const links: LinkWithLabel[] = [
+  {label: "Dashboard", href: "/"},
+  {label: "Portfolios", href: "/portfolios"},
+  {label: "Watchlist", href: "/watchlist"},
+  {label: "SWOT Analysis", href: "/swot-analysis"},
+]
+
 export default function AppMenu({theme, setTheme}: AppMenuType) {
   return (
-    <Flex gap={10}>
-      <Button size="xs" variant="ghost">
-        <Icon color={"grey"}>
-          <LuInfo/>
-        </Icon>
-      </Button>
-      <Center>
+    <>
+      <Flex gap="4" justify="space-between">
         <Flex>
           <HStack wrap="wrap" gap="6">
-            {["Dashboard", "Portfolios", "Watchlist", "Community", "Discover", "Screener"].map(renderLink)}
+            {links.map(renderLink)}
           </HStack>
         </Flex>
-      </Center>
-      <InputGroup flex="1" startElement={<LuSearch/>} endElement={<Kbd>⌘K</Kbd>}>
-        <Input placeholder="Search"/>
-      </InputGroup>
-      <div>&nbsp;</div>
-      <div>&nbsp;</div>
-      <div>
-        <Switch.Root colorPalette="orange" checked={theme === "dark"} onCheckedChange={(e) => {
-          setTheme(e.checked ? "dark" : "light");
-        }}>
-          <Switch.HiddenInput/>
-          <Switch.Control>
-            <Switch.Thumb/>
-            <Switch.Indicator fallback={<Icon as={FaMoon} color="gray.400"/>}>
-              <Icon as={FaSun} color="yellow.400"/>
-            </Switch.Indicator>
-          </Switch.Control>
-        </Switch.Root>
 
-      </div>
-      <div>
-        <Avatar.Root>
-          <Avatar.Fallback name="John Doe"/>
-        </Avatar.Root>
-      </div>
-    </Flex>
+
+        <div>
+          <>
+            <Switch.Root colorPalette="orange" checked={theme === "dark"} onCheckedChange={(e) => {
+              setTheme(e.checked ? "dark" : "light");
+            }}>
+              <Switch.HiddenInput/>
+              <Switch.Control>
+                <Switch.Thumb/>
+                <Switch.Indicator fallback={<Icon as={FaMoon} color="gray.400"/>}>
+                  <Icon as={FaSun} color="yellow.400"/>
+                </Switch.Indicator>
+              </Switch.Control>
+            </Switch.Root>
+            <>&nbsp;</>
+            <>&nbsp;</>
+          </>
+          <Avatar.Root>
+            <Avatar.Fallback name="John Doe"/>
+          </Avatar.Root>
+        </div>
+      </Flex>
+      <div>&nbsp;</div>
+      <Separator/>
+      <div>&nbsp;</div>
+    </>
   )
 }
 
-function renderLink(name: string = "Dashboard") {
-  let link = "";
-  if (name === "Portfolios") {
-    link = name.toLowerCase();
-  }
-
+function renderLink(link: LinkWithLabel) {
   return (
-    <Button variant="ghost" key={name}>
-      <Link key={name} href={`/${link}`}>
-        {name}
+    <Button variant="ghost" key={link.href}>
+      <Link href={`${link.href}`}>
+        {link.label}
       </Link>
     </Button>
   )

@@ -12,8 +12,8 @@ import "./globals.css";
 
 import apolloClient from "@/app/apolloClient";
 import AppMenu from "@/shared/app-menu";
-import Watchlist from "@/shared/watchlist";
-import {Box, Grid, GridItem, Theme} from "@chakra-ui/react";
+import Watchlist from "@/app/watchlist/_components/watchlist";
+import {Box, Container, Grid, GridItem, Theme} from "@chakra-ui/react";
 import {ThemeContext} from "@emotion/react";
 import {useState} from "react";
 import {styled} from "storybook/theming";
@@ -64,20 +64,18 @@ export default function RootLayout({
               <header>
               </header>
               <main>
-                <Grid templateColumns="repeat(4, 1fr)" gap="6">
-                  <GridItem colSpan={3}>
-                    <Box padding="20px">
-                      <AppMenu theme={theme} setTheme={(theme) => setTheme(theme)}/>
-                      <div>&nbsp;</div>
-                      <StyledContainer>
-                        {children}
-                      </StyledContainer>
-                    </Box>
-                  </GridItem>
-                  <GridItem>
-                    <Watchlist/>
-                  </GridItem>
-                </Grid>
+                <Container>
+                  <Box padding="20px">
+                    <AppMenu theme={theme} setTheme={(theme) => setTheme(theme)}/>
+                    <div>&nbsp;</div>
+                    <StyledContainer>
+                      {children}
+                    </StyledContainer>
+                  </Box>
+                  {/*<GridItem>*/}
+                  {/*  <Watchlist/>*/}
+                  {/*</GridItem>*/}
+                </Container>
               </main>
               <footer>
               </footer>
