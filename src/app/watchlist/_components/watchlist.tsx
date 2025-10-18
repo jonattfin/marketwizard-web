@@ -18,6 +18,7 @@ import {useMemo} from "react";
 import hooks from "@/api/hooks";
 import {AssetDto, StockQuoteDto} from "@/api/types";
 import dayjs from "dayjs";
+import Link from "next/link";
 
 type WatchlistItem = {
   symbol: string;
@@ -107,7 +108,7 @@ const Watchlist = () => {
                       <LuInfo/>
                     </Icon>
                     <div>
-                      {item.symbol}
+                      <Link href={`/stocks/${item.symbol}`}>{item.symbol}</Link>
                     </div>
                   </Group>
                 </Table.Cell>
