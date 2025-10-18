@@ -3,7 +3,6 @@
 import {
   Avatar,
   Button,
-  Center,
   Flex,
   HStack, Icon,
   Switch,
@@ -12,6 +11,7 @@ import {
 
 import {FaMoon, FaSun} from "react-icons/fa"
 import Link from "next/link";
+import {useState} from "react";
 
 export type AppMenuType = {
   theme: string;
@@ -31,6 +31,26 @@ const links: LinkWithLabel[] = [
 ]
 
 export default function AppMenu({theme, setTheme}: AppMenuType) {
+  const [activeLink, setActiveLink] = useState<string>("");
+
+  const renderLink = (link: LinkWithLabel) => {
+    let colorPalette = "";
+
+    if (activeLink === link.href) {
+      colorPalette = "orange";
+    }
+
+    return (
+      <Button key={link.href} variant={"ghost"} colorPalette={colorPalette} onClick={() => {
+        setActiveLink(link.href)
+      }}>
+        <Link href={`${link.href}`}>
+          {link.label}
+        </Link>
+      </Button>
+    )
+  }
+
   return (
     <>
       <Flex gap="4" justify="space-between">
@@ -66,15 +86,5 @@ export default function AppMenu({theme, setTheme}: AppMenuType) {
       <Separator/>
       <div>&nbsp;</div>
     </>
-  )
-}
-
-function renderLink(link: LinkWithLabel) {
-  return (
-    <Button variant="ghost" key={link.href}>
-      <Link href={`${link.href}`}>
-        {link.label}
-      </Link>
-    </Button>
   )
 }
