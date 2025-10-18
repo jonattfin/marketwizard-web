@@ -1,11 +1,23 @@
 "use client"
 
-import {Button, Card, FormatNumber, Group, Icon, Table, Tag} from "@chakra-ui/react"
+import {
+  Button,
+  Card,
+  FormatNumber,
+  Group,
+  Icon,
+  Portal,
+  Select,
+  Table,
+  Tag,
+  createListCollection
+} from "@chakra-ui/react"
 import {LuInfo, LuBookPlus} from "react-icons/lu"
 
 import {useMemo} from "react";
 import hooks from "@/api/hooks";
 import {AssetDto, StockQuoteDto} from "@/api/types";
+import dayjs from "dayjs";
 
 type WatchlistItem = {
   symbol: string;
@@ -14,11 +26,16 @@ type WatchlistItem = {
   percentChange: number | undefined;
 }
 
+type DataType = {
+  data: WatchlistItem[];
+  date: Date;
+}
+
 const Watchlist = () => {
   const {watchlistAssets, totalCount, error: watchlistError} = hooks.useWatchlistAssets();
   const {stockQuotes, error} = hooks.useStockQuotes();
 
-  const data = useMemo(() => createData(watchlistAssets, stockQuotes)
+  const {data, date} = useMemo(() => createData(watchlistAssets, stockQuotes)
     , [watchlistAssets, stockQuotes]);
 
   if (error || watchlistError) return `Error ${JSON.stringify(error)}`;
@@ -35,17 +52,45 @@ const Watchlist = () => {
     )
   }
 
-  return (
-    <Card.Root>
-      <Card.Body>
-        <Group grow>
-          <div>Watchlist [{totalCount}/50]</div>
-          <div>&nbsp;</div>
+  const watchlists = createListCollection({
+    items: [
+      {label: "Watchlist", value: "Watchlist"},
+    ],
+  })
 
-        </Group>
+  return (
+    <Card.Root overflow="hidden">
+      <Card.Body>
+        <Select.Root variant={"subtle"} collection={watchlists} maxWidth={"xs"} defaultValue={[watchlists.items[0].value]}>
+          <Select.HiddenSelect/>
+          <Select.Label>Select watchlist</Select.Label>
+          <Select.Control>
+            <Select.Trigger>
+              <Select.ValueText placeholder="Select watchlist"/>
+            </Select.Trigger>
+            <Select.IndicatorGroup>
+              <Select.Indicator/>
+            </Select.IndicatorGroup>
+          </Select.Control>
+          <Portal>
+            <Select.Positioner>
+              <Select.Content>
+                {watchlists.items.map((watchlist) => (
+                  <Select.Item item={watchlist} key={watchlist.value}>
+                    {watchlist.label}
+                    <Select.ItemIndicator/>
+                  </Select.Item>
+                ))}
+              </Select.Content>
+            </Select.Positioner>
+          </Portal>
+        </Select.Root>
+
+        <div>&nbsp;</div>
+        <div>Last updated at: {dayjs(date).format("h:mm:ss A")}</div>
         <div>&nbsp;</div>
         <Table.Root size="sm" interactive>
-          <Table.Header>
+          <Table.Header bg="bg.subtle">
             <Table.Row>
               <Table.ColumnHeader>Symbol</Table.ColumnHeader>
               <Table.ColumnHeader>Last</Table.ColumnHeader>
@@ -91,8 +136,8 @@ const Watchlist = () => {
   )
 }
 
-function createData(watchlistAssets: AssetDto[], stockQuotes: StockQuoteDto[]): WatchlistItem[] {
-  return watchlistAssets?.map((asset) => {
+function createData(watchlistAssets: AssetDto[], stockQuotes: StockQuoteDto[]): DataType {
+  const data = watchlistAssets?.map((asset) => {
     const stockQuote = stockQuotes?.find(q => q.symbol === asset.symbol) || asset.quote;
 
     return {
@@ -102,6 +147,11 @@ function createData(watchlistAssets: AssetDto[], stockQuotes: StockQuoteDto[]): 
       percentChange: stockQuote?.percentChange
     }
   });
+
+  return {
+    data,
+    date: new Date()
+  }
 }
 
 export default Watchlist;
