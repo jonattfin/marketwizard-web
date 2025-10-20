@@ -4,12 +4,12 @@ import {
   UsePortfoliosType,
   UsePortfolioType,
   UseStockQuotesType,
-  UseStockType,
+  UseStockType, UseSwotAnalysisType,
   UseWatchListAssetsType
 } from "@/api/types";
 import {
   useAddPortfolioMutation, useDeletePortfolioMutation,
-  useGetPortfolioByIdQuery, useGetPortfoliosQuery, useGetStockBySymbolQuery,
+  useGetPortfolioByIdQuery, useGetPortfoliosQuery, useGetStockBySymbolQuery, useGetSwotAnalysisQuery,
   useGetWatchlistAssetsQuery,
   useOnStockPriceUpdatedSubscription, useUpdatePortfolioMutation
 } from "@/api/graphql/_generated/graphql";
@@ -134,4 +134,25 @@ export const useUpdatePortfolio = () => {
       await updatePortfolio({variables: {id, name, description, imageUrl}, refetchQueries: "active"})
     }
   ]
+}
+
+
+export const useSwotAnalysis = (companyName: string): UseSwotAnalysisType => {
+  const {data, loading, error} = useGetSwotAnalysisQuery({
+    variables: {
+      companyName
+    },
+    skip: companyName.length < 4
+  });
+
+  return {
+    swotAnalysis: {
+      strengths: data?.swotAnalysis?.strengths ?? [],
+      weaknesses: data?.swotAnalysis?.weaknesses ?? [],
+      opportunities: data?.swotAnalysis?.opportunities ?? [],
+      threats: data?.swotAnalysis?.threats ?? [],
+    },
+    loading,
+    ...(error && {error: {message: error.message}}),
+  }
 }

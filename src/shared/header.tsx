@@ -30,7 +30,7 @@ const links: LinkWithLabel[] = [
   {label: "SWOT Analysis", href: "/swot-analysis"},
 ]
 
-export default function AppMenu({theme, setTheme}: AppMenuType) {
+export default function Header({theme, setTheme}: AppMenuType) {
   const [activeLink, setActiveLink] = useState<string>("");
 
   const renderLink = (link: LinkWithLabel) => {

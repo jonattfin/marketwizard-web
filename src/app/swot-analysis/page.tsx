@@ -1,5 +1,12 @@
-import {Container, Input, InputGroup, Kbd, Card, Image, Grid, Center, Blockquote} from "@chakra-ui/react";
+'use client';
+
+import {Container, Input, InputGroup, Kbd, Card, Image, Grid, Center, Blockquote, Stack, Span} from "@chakra-ui/react";
 import {LuSearch} from "react-icons/lu";
+import {useSwotAnalysis} from "@/api/graphql/graphql-hooks";
+import Loading from "@/shared/loading";
+import {useMemo, useState} from "react";
+
+const MAX_CHARACTERS = 4
 
 type SwotCardItem = {
   name: string;
@@ -8,60 +15,56 @@ type SwotCardItem = {
   data?: string[],
 }
 
-const cardItems: SwotCardItem[] = [
-  {
-    name: "Strengths",
-    imageSrc: "https://images.unsplash.com/photo-1611974789855-9c2a0a7236a3",
-    description: "Characteristics of the business or project that give it an advantage over others",
-    data: [
-      "Brand loyalty and reputation",
-      "Easy-to-use software products",
-      "Strong distribution channels"
-    ]
-  },
-  {
-    name: "Weaknesses",
-    imageSrc: "https://images.unsplash.com/photo-1611974789855-9c2a0a7236a3",
-    description: "Characteristics that place the business or project at a disadvantage relative to others.",
-    data: [
-      "Dependence on hardware manufacturers",
-      "Past poor acquisitions",
-      "Security flaws criticism"
-    ]
-  },
-  {
-    name: "Opportunities",
-    imageSrc: "https://images.unsplash.com/photo-1611974789855-9c2a0a7236a3",
-    description: "Elements in the environment that the business or project could exploit to its advantage.",
-    data: [
-      "Cloud infrastructure growth",
-      "AI innovation and new products",
-      "Growth in emerging markets"
-    ]
-  },
-  {
-    name: "Threats",
-    imageSrc: "https://images.unsplash.com/photo-1611974789855-9c2a0a7236a3",
-    description: "Elements in the environment that could cause trouble for the business or project.",
-    data: [
-      "Intense competition (AWS, Google)",
-      "Rapid technological changes",
-      "Cybersecurity risks"
-    ]
-  }
-]
+export default function SwotAnalysisPage() {
+  const [companyName, setCompanyName] = useState("")
+  const {swotAnalysis, loading, error} = useSwotAnalysis(companyName);
 
-export default async function SwotAnalysisPage() {
+  const cardItems: SwotCardItem[] = useMemo(() => [
+    {
+      name: "Strengths",
+      imageSrc: "https://images.unsplash.com/photo-1611974789855-9c2a0a7236a3",
+      description: "Characteristics of the business or project that give it an advantage over others",
+      data: swotAnalysis.strengths
+    },
+    {
+      name: "Weaknesses",
+      imageSrc: "https://images.unsplash.com/photo-1611974789855-9c2a0a7236a3",
+      description: "Characteristics that place the business or project at a disadvantage relative to others.",
+      data: swotAnalysis.weaknesses
+    },
+    {
+      name: "Opportunities",
+      imageSrc: "https://images.unsplash.com/photo-1611974789855-9c2a0a7236a3",
+      description: "Elements in the environment that the business or project could exploit to its advantage.",
+      data: swotAnalysis.opportunities
+    },
+    {
+      name: "Threats",
+      imageSrc: "https://images.unsplash.com/photo-1611974789855-9c2a0a7236a3",
+      description: "Elements in the environment that could cause trouble for the business or project.",
+      data: swotAnalysis.threats
+    }
+  ], [swotAnalysis]);
+
+  if (loading) return <Loading/>;
+  if (error) return `Page ${JSON.stringify(error)}`;
+
   return (
     <Container>
       <Center>
-        <InputGroup maxW={"md"} flex="1" startElement={<LuSearch/>} endElement={<Kbd>⌘K</Kbd>}>
-          <Input placeholder="Enter the stock symbol to perform the SWOT analysis"/>
+        <InputGroup maxWidth={"md"} flex="1" startElement={<LuSearch/>} endElement={
+          <Span color="fg.muted" textStyle="xs">
+            {companyName.length} / {MAX_CHARACTERS}
+          </Span>
+        }>
+          <Input placeholder="Enter the stock symbol to perform the SWOT analysis" value={companyName} onChange={
+            (e) => setCompanyName(e.target.value)} maxLength={MAX_CHARACTERS}
+          />
         </InputGroup>
       </Center>
       <div>&nbsp;</div>
       <Grid templateColumns="repeat(2, 1fr)" gap="10">
-        {cardItems.map(SwotCard)}
+        {cardItems?.map(SwotCard)}
       </Grid>
     </Container>
   )

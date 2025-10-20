@@ -246,6 +246,7 @@ export type Query = {
   portfolioById?: Maybe<PortfolioDetailsDto>;
   portfolios?: Maybe<PortfoliosCollectionSegment>;
   stockBySymbol?: Maybe<StockDto>;
+  swotAnalysis: SwotAnalysis;
   watchlistAssets?: Maybe<WatchlistAssetsCollectionSegment>;
 };
 
@@ -265,6 +266,11 @@ export type QueryPortfoliosArgs = {
 
 export type QueryStockBySymbolArgs = {
   stockSymbol: Scalars['String']['input'];
+};
+
+
+export type QuerySwotAnalysisArgs = {
+  companyName: Scalars['String']['input'];
 };
 
 
@@ -343,9 +349,20 @@ export type StringOperationFilterInput = {
 
 export type Subscription = {
   __typename?: 'Subscription';
+  onPortfolioCreated: Scalars['UUID']['output'];
   onPortfolioDeleted: Scalars['UUID']['output'];
   onPortfolioUpdated: Scalars['UUID']['output'];
   onStockPriceUpdated: Array<StockQuoteDto>;
+};
+
+export type SwotAnalysis = {
+  __typename?: 'SwotAnalysis';
+  companyName: Scalars['String']['output'];
+  opportunities: Array<Scalars['String']['output']>;
+  response: Scalars['String']['output'];
+  strengths: Array<Scalars['String']['output']>;
+  threats: Array<Scalars['String']['output']>;
+  weaknesses: Array<Scalars['String']['output']>;
 };
 
 export type UpdatePortfolioInputDtoInput = {
@@ -442,6 +459,13 @@ export type GetStockBySymbolQueryVariables = Exact<{
 
 
 export type GetStockBySymbolQuery = { __typename?: 'Query', stockBySymbol?: { __typename?: 'StockDto', name?: string | null, description?: string | null, currentPrice?: number | null, marketCap?: number | null, symbol: string } | null };
+
+export type GetSwotAnalysisQueryVariables = Exact<{
+  companyName: Scalars['String']['input'];
+}>;
+
+
+export type GetSwotAnalysisQuery = { __typename?: 'Query', swotAnalysis: { __typename?: 'SwotAnalysis', response: string, strengths: Array<string>, weaknesses: Array<string>, threats: Array<string>, opportunities: Array<string> } };
 
 
 export const GetPortfolioByIdDocument = gql`
@@ -782,3 +806,47 @@ export type GetStockBySymbolQueryHookResult = ReturnType<typeof useGetStockBySym
 export type GetStockBySymbolLazyQueryHookResult = ReturnType<typeof useGetStockBySymbolLazyQuery>;
 export type GetStockBySymbolSuspenseQueryHookResult = ReturnType<typeof useGetStockBySymbolSuspenseQuery>;
 export type GetStockBySymbolQueryResult = Apollo.QueryResult<GetStockBySymbolQuery, GetStockBySymbolQueryVariables>;
+export const GetSwotAnalysisDocument = gql`
+    query GetSwotAnalysis($companyName: String!) {
+  swotAnalysis(companyName: $companyName) {
+    response
+    strengths
+    weaknesses
+    threats
+    opportunities
+  }
+}
+    `;
+
+/**
+ * __useGetSwotAnalysisQuery__
+ *
+ * To run a query within a React component, call `useGetSwotAnalysisQuery` and pass it any options that fit your needs.
+ * When your component renders, `useGetSwotAnalysisQuery` returns an object from Apollo Client that contains loading, error, and data properties
+ * you can use to render your UI.
+ *
+ * @param baseOptions options that will be passed into the query, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options;
+ *
+ * @example
+ * const { data, loading, error } = useGetSwotAnalysisQuery({
+ *   variables: {
+ *      companyName: // value for 'companyName'
+ *   },
+ * });
+ */
+export function useGetSwotAnalysisQuery(baseOptions: Apollo.QueryHookOptions<GetSwotAnalysisQuery, GetSwotAnalysisQueryVariables> & ({ variables: GetSwotAnalysisQueryVariables; skip?: boolean; } | { skip: boolean; }) ) {
+        const options = {...defaultOptions, ...baseOptions}
+        return Apollo.useQuery<GetSwotAnalysisQuery, GetSwotAnalysisQueryVariables>(GetSwotAnalysisDocument, options);
+      }
+export function useGetSwotAnalysisLazyQuery(baseOptions?: Apollo.LazyQueryHookOptions<GetSwotAnalysisQuery, GetSwotAnalysisQueryVariables>) {
+          const options = {...defaultOptions, ...baseOptions}
+          return Apollo.useLazyQuery<GetSwotAnalysisQuery, GetSwotAnalysisQueryVariables>(GetSwotAnalysisDocument, options);
+        }
+export function useGetSwotAnalysisSuspenseQuery(baseOptions?: Apollo.SkipToken | Apollo.SuspenseQueryHookOptions<GetSwotAnalysisQuery, GetSwotAnalysisQueryVariables>) {
+          const options = baseOptions === Apollo.skipToken ? baseOptions : {...defaultOptions, ...baseOptions}
+          return Apollo.useSuspenseQuery<GetSwotAnalysisQuery, GetSwotAnalysisQueryVariables>(GetSwotAnalysisDocument, options);
+        }
+export type GetSwotAnalysisQueryHookResult = ReturnType<typeof useGetSwotAnalysisQuery>;
+export type GetSwotAnalysisLazyQueryHookResult = ReturnType<typeof useGetSwotAnalysisLazyQuery>;
+export type GetSwotAnalysisSuspenseQueryHookResult = ReturnType<typeof useGetSwotAnalysisSuspenseQuery>;
+export type GetSwotAnalysisQueryResult = Apollo.QueryResult<GetSwotAnalysisQuery, GetSwotAnalysisQueryVariables>;

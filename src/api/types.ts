@@ -103,3 +103,12 @@ export type UpdatePortfolioType = {
 export type DeletePortfolioType = {
   portfolioId: string;
 }
+
+export type UseSwotAnalysisType = {
+  swotAnalysis: {
+    strengths?: string[];
+    weaknesses?: string[];
+    opportunities?: string[];
+    threats?: string[];
+  },
+} & BaseType;

@@ -109,4 +109,14 @@ query GetStockBySymbol($symbol: String!) {
   }
 }
 
+query GetSwotAnalysis($companyName: String!) {
+  swotAnalysis(companyName: $companyName) {
+    response
+    strengths
+    weaknesses
+    threats
+    opportunities
+  }
+}
+
 

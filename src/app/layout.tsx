@@ -11,9 +11,8 @@ import {SpeedInsights} from "@vercel/speed-insights/next"
 import "./globals.css";
 
 import apolloClient from "@/app/apolloClient";
-import AppMenu from "@/shared/app-menu";
-import Watchlist from "@/app/watchlist/_components/watchlist";
-import {Box, Container, Grid, GridItem, Theme} from "@chakra-ui/react";
+import Header from "@/shared/header";
+import {Box, Container, Grid, GridItem, Separator, Theme} from "@chakra-ui/react";
 import {ThemeContext} from "@emotion/react";
 import {useState} from "react";
 import {styled} from "storybook/theming";
@@ -22,6 +21,7 @@ import {
   QueryClientProvider,
 } from '@tanstack/react-query';
 import {ReactQueryDevtools} from '@tanstack/react-query-devtools'
+import Footer from "@/shared/footer";
 
 const geistSans = Geist({
   variable: "--font-geist-sans",
@@ -34,7 +34,7 @@ const geistMono = Geist_Mono({
 });
 
 const StyledContainer = styled(Box)`
-    min-height: 100vh;
+    min-height: 80vh;
 `;
 
 const queryClient = new QueryClient()
@@ -61,24 +61,21 @@ export default function RootLayout({
         <Provider>
           <ThemeContext value={theme}>
             <Theme appearance={theme}>
-              <header>
-              </header>
               <main>
                 <Container>
                   <Box padding="20px">
-                    <AppMenu theme={theme} setTheme={(theme) => setTheme(theme)}/>
-                    <div>&nbsp;</div>
+                    <Header theme={theme} setTheme={(theme) => setTheme(theme)}/>
+                    {/*<div>&nbsp;</div>*/}
                     <StyledContainer>
                       {children}
                     </StyledContainer>
+                    <div>&nbsp;</div>
+                    <Separator/>
+                    <div>&nbsp;</div>
+                    <Footer/>
                   </Box>
-                  {/*<GridItem>*/}
-                  {/*  <Watchlist/>*/}
-                  {/*</GridItem>*/}
                 </Container>
               </main>
-              <footer>
-              </footer>
               <Analytics/>
               <SpeedInsights/>
             </Theme>
