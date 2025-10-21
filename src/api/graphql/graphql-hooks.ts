@@ -5,12 +5,12 @@ import {
   UsePortfolioType,
   UseStockQuotesType,
   UseStockType, UseSwotAnalysisType,
-  UseWatchListAssetsType
+  UseWatchListAssetsType, UseWatchListType
 } from "@/api/types";
 import {
   useAddPortfolioMutation, useDeletePortfolioMutation,
   useGetPortfolioByIdQuery, useGetPortfoliosQuery, useGetStockBySymbolQuery, useGetSwotAnalysisQuery,
-  useGetWatchlistAssetsQuery,
+  useGetWatchlistAssetsQuery, useGetWatchlistsQuery,
   useOnStockPriceUpdatedSubscription, useUpdatePortfolioMutation
 } from "@/api/graphql/_generated/graphql";
 import {PAGE_SIZE} from "@/app/constants";
@@ -78,9 +78,30 @@ export const useStockQuotes = (): UseStockQuotesType => {
   }
 }
 
-export const useWatchlistAssets = (): UseWatchListAssetsType => {
-  const {data, loading, error} = useGetWatchlistAssetsQuery({
+export const useWatchlists = (): UseWatchListType => {
+  const {data, loading, error} = useGetWatchlistsQuery({
     variables: {}
+  });
+
+  return {
+    watchlists: data?.watchlists?.items?.map(item => {
+      return {
+        id: item?.id as string,
+        name: item?.name as string
+      }
+    }),
+    totalCount: data?.watchlists?.totalCount || 0,
+    loading,
+    ...(error && {error: {message: error.message}}),
+  }
+}
+
+export const useWatchlistAssets = (watchlistId?: string): UseWatchListAssetsType => {
+  const {data, loading, error} = useGetWatchlistAssetsQuery({
+    variables: {
+      watchlistId
+    },
+    skip: !watchlistId
   })
 
   return {

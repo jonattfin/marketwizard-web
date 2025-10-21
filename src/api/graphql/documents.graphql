@@ -71,8 +71,8 @@ mutation UpdatePortfolio(
   }
 }
 
-query GetWatchlistAssets {
-  watchlistAssets {
+query GetWatchlistAssets($watchlistId: UUID!) {
+  watchlistAssets(watchlistId: $watchlistId) {
     totalCount
     items {
       id
@@ -86,6 +86,16 @@ query GetWatchlistAssets {
         change
         percentChange
       }
+    }
+  }
+}
+
+query GetWatchlists {
+  watchlists {
+    totalCount
+    items {
+      id
+      name
     }
   }
 }

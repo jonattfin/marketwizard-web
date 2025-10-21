@@ -2,9 +2,9 @@
 
 import {Container, Input, InputGroup, Kbd, Card, Image, Grid, Center, Blockquote, Stack, Span} from "@chakra-ui/react";
 import {LuSearch} from "react-icons/lu";
-import {useSwotAnalysis} from "@/api/graphql/graphql-hooks";
 import Loading from "@/shared/loading";
 import {useMemo, useState} from "react";
+import hooks from "@/api/hooks";
 
 const MAX_CHARACTERS = 4
 
@@ -17,7 +17,7 @@ type SwotCardItem = {
 
 export default function SwotAnalysisPage() {
   const [companyName, setCompanyName] = useState("")
-  const {swotAnalysis, loading, error} = useSwotAnalysis(companyName);
+  const {swotAnalysis, loading, error} = hooks.useSwotAnalysis(companyName);
 
   const cardItems: SwotCardItem[] = useMemo(() => [
     {

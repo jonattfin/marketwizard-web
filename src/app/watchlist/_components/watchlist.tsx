@@ -14,11 +14,12 @@ import {
 } from "@chakra-ui/react"
 import {LuInfo, LuBookPlus} from "react-icons/lu"
 
-import {useMemo} from "react";
+import {useEffect, useMemo, useState} from "react";
 import hooks from "@/api/hooks";
 import {AssetDto, StockQuoteDto} from "@/api/types";
 import dayjs from "dayjs";
 import Link from "next/link";
+import Loading from "@/shared/loading";
 
 type WatchlistItem = {
   symbol: string;
@@ -33,13 +34,24 @@ type DataType = {
 }
 
 const Watchlist = () => {
-  const {watchlistAssets, totalCount, error: watchlistError} = hooks.useWatchlistAssets();
+  const {watchlists, loading: watchlistLoading, error: watchlistsError} = hooks.useWatchlists();
+
+  const [watchlistId, setWatchlistId] = useState<string | undefined>(undefined);
+
+  useEffect(() => {
+    if (watchlists && watchlists.length > 0 && !watchlistId) {
+      setWatchlistId(watchlists[0].id);
+    }
+  }, [watchlists])
+
+  const {watchlistAssets, loading: assetsLoading, error: assetsError} = hooks.useWatchlistAssets(watchlistId);
   const {stockQuotes, error} = hooks.useStockQuotes();
 
   const {data, date} = useMemo(() => createData(watchlistAssets, stockQuotes)
     , [watchlistAssets, stockQuotes]);
 
-  if (error || watchlistError) return `Error ${JSON.stringify(error)}`;
+  if (watchlistLoading || assetsLoading) return <Loading/>;
+  if (watchlistsError || assetsError || error) return `Error ${JSON.stringify(error)}`;
 
   const renderTag = (value: number | undefined) => {
     if (!value) {
@@ -53,16 +65,24 @@ const Watchlist = () => {
     )
   }
 
-  const watchlists = createListCollection({
-    items: [
-      {label: "Watchlist", value: "Watchlist"},
-    ],
+  const watchlistsCollection = createListCollection({
+    items: watchlists?.map(w => {
+      return {
+        value: w.id,
+        label: w.name
+      }
+    }) || []
   })
 
   return (
     <Card.Root overflow="hidden">
       <Card.Body>
-        <Select.Root variant={"subtle"} collection={watchlists} maxWidth={"xs"} defaultValue={[watchlists.items[0].value]}>
+        <Select.Root
+          variant={"subtle"}
+          collection={watchlistsCollection} maxWidth={"xs"} defaultValue={[watchlistId || ""]}
+          onValueChange={(e) => {
+            setWatchlistId(e.value[0])
+          }}>
           <Select.HiddenSelect/>
           <Select.Label>Select watchlist</Select.Label>
           <Select.Control>
@@ -76,7 +96,7 @@ const Watchlist = () => {
           <Portal>
             <Select.Positioner>
               <Select.Content>
-                {watchlists.items.map((watchlist) => (
+                {watchlistsCollection.items.map((watchlist) => (
                   <Select.Item item={watchlist} key={watchlist.value}>
                     {watchlist.label}
                     <Select.ItemIndicator/>

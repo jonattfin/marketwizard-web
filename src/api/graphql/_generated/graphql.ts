@@ -248,6 +248,7 @@ export type Query = {
   stockBySymbol?: Maybe<StockDto>;
   swotAnalysis: SwotAnalysis;
   watchlistAssets?: Maybe<WatchlistAssetsCollectionSegment>;
+  watchlists?: Maybe<WatchlistsCollectionSegment>;
 };
 
 
@@ -278,7 +279,16 @@ export type QueryWatchlistAssetsArgs = {
   order?: InputMaybe<Array<AssetDtoSortInput>>;
   skip?: InputMaybe<Scalars['Int']['input']>;
   take?: InputMaybe<Scalars['Int']['input']>;
+  watchlistId: Scalars['UUID']['input'];
   where?: InputMaybe<AssetDtoFilterInput>;
+};
+
+
+export type QueryWatchlistsArgs = {
+  order?: InputMaybe<Array<WatchlistDtoSortInput>>;
+  skip?: InputMaybe<Scalars['Int']['input']>;
+  take?: InputMaybe<Scalars['Int']['input']>;
+  where?: InputMaybe<WatchlistDtoFilterInput>;
 };
 
 export enum SortEnumType {
@@ -402,6 +412,34 @@ export type WatchlistAssetsCollectionSegment = {
   totalCount: Scalars['Int']['output'];
 };
 
+export type WatchlistDto = {
+  __typename?: 'WatchlistDto';
+  id: Scalars['UUID']['output'];
+  name: Scalars['String']['output'];
+};
+
+export type WatchlistDtoFilterInput = {
+  and?: InputMaybe<Array<WatchlistDtoFilterInput>>;
+  id?: InputMaybe<UuidOperationFilterInput>;
+  name?: InputMaybe<StringOperationFilterInput>;
+  or?: InputMaybe<Array<WatchlistDtoFilterInput>>;
+};
+
+export type WatchlistDtoSortInput = {
+  id?: InputMaybe<SortEnumType>;
+  name?: InputMaybe<SortEnumType>;
+};
+
+/** A segment of a collection. */
+export type WatchlistsCollectionSegment = {
+  __typename?: 'WatchlistsCollectionSegment';
+  /** A flattened list of the items. */
+  items?: Maybe<Array<WatchlistDto>>;
+  /** Information to aid in pagination. */
+  pageInfo: CollectionSegmentInfo;
+  totalCount: Scalars['Int']['output'];
+};
+
 export type GetPortfolioByIdQueryVariables = Exact<{
   id: Scalars['UUID']['input'];
 }>;
@@ -443,10 +481,17 @@ export type UpdatePortfolioMutationVariables = Exact<{
 
 export type UpdatePortfolioMutation = { __typename?: 'Mutation', updatePortfolio: { __typename?: 'UpdatePortfolioOutputDto', id: any } };
 
-export type GetWatchlistAssetsQueryVariables = Exact<{ [key: string]: never; }>;
+export type GetWatchlistAssetsQueryVariables = Exact<{
+  watchlistId: Scalars['UUID']['input'];
+}>;
 
 
 export type GetWatchlistAssetsQuery = { __typename?: 'Query', watchlistAssets?: { __typename?: 'WatchlistAssetsCollectionSegment', totalCount: number, items?: Array<{ __typename?: 'AssetDto', id: any, symbol: string, name: string, type?: AssetType | null, lastPrice?: number | null, quote?: { __typename?: 'StockQuoteDto', symbol: string, currentPrice?: any | null, change?: any | null, percentChange?: any | null } | null }> | null } | null };
+
+export type GetWatchlistsQueryVariables = Exact<{ [key: string]: never; }>;
+
+
+export type GetWatchlistsQuery = { __typename?: 'Query', watchlists?: { __typename?: 'WatchlistsCollectionSegment', totalCount: number, items?: Array<{ __typename?: 'WatchlistDto', id: any, name: string }> | null } | null };
 
 export type OnStockPriceUpdatedSubscriptionVariables = Exact<{ [key: string]: never; }>;
 
@@ -679,8 +724,8 @@ export type UpdatePortfolioMutationHookResult = ReturnType<typeof useUpdatePortf
 export type UpdatePortfolioMutationResult = Apollo.MutationResult<UpdatePortfolioMutation>;
 export type UpdatePortfolioMutationOptions = Apollo.BaseMutationOptions<UpdatePortfolioMutation, UpdatePortfolioMutationVariables>;
 export const GetWatchlistAssetsDocument = gql`
-    query GetWatchlistAssets {
-  watchlistAssets {
+    query GetWatchlistAssets($watchlistId: UUID!) {
+  watchlistAssets(watchlistId: $watchlistId) {
     totalCount
     items {
       id
@@ -711,10 +756,11 @@ export const GetWatchlistAssetsDocument = gql`
  * @example
  * const { data, loading, error } = useGetWatchlistAssetsQuery({
  *   variables: {
+ *      watchlistId: // value for 'watchlistId'
  *   },
  * });
  */
-export function useGetWatchlistAssetsQuery(baseOptions?: Apollo.QueryHookOptions<GetWatchlistAssetsQuery, GetWatchlistAssetsQueryVariables>) {
+export function useGetWatchlistAssetsQuery(baseOptions: Apollo.QueryHookOptions<GetWatchlistAssetsQuery, GetWatchlistAssetsQueryVariables> & ({ variables: GetWatchlistAssetsQueryVariables; skip?: boolean; } | { skip: boolean; }) ) {
         const options = {...defaultOptions, ...baseOptions}
         return Apollo.useQuery<GetWatchlistAssetsQuery, GetWatchlistAssetsQueryVariables>(GetWatchlistAssetsDocument, options);
       }
@@ -730,6 +776,49 @@ export type GetWatchlistAssetsQueryHookResult = ReturnType<typeof useGetWatchlis
 export type GetWatchlistAssetsLazyQueryHookResult = ReturnType<typeof useGetWatchlistAssetsLazyQuery>;
 export type GetWatchlistAssetsSuspenseQueryHookResult = ReturnType<typeof useGetWatchlistAssetsSuspenseQuery>;
 export type GetWatchlistAssetsQueryResult = Apollo.QueryResult<GetWatchlistAssetsQuery, GetWatchlistAssetsQueryVariables>;
+export const GetWatchlistsDocument = gql`
+    query GetWatchlists {
+  watchlists {
+    totalCount
+    items {
+      id
+      name
+    }
+  }
+}
+    `;
+
+/**
+ * __useGetWatchlistsQuery__
+ *
+ * To run a query within a React component, call `useGetWatchlistsQuery` and pass it any options that fit your needs.
+ * When your component renders, `useGetWatchlistsQuery` returns an object from Apollo Client that contains loading, error, and data properties
+ * you can use to render your UI.
+ *
+ * @param baseOptions options that will be passed into the query, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options;
+ *
+ * @example
+ * const { data, loading, error } = useGetWatchlistsQuery({
+ *   variables: {
+ *   },
+ * });
+ */
+export function useGetWatchlistsQuery(baseOptions?: Apollo.QueryHookOptions<GetWatchlistsQuery, GetWatchlistsQueryVariables>) {
+        const options = {...defaultOptions, ...baseOptions}
+        return Apollo.useQuery<GetWatchlistsQuery, GetWatchlistsQueryVariables>(GetWatchlistsDocument, options);
+      }
+export function useGetWatchlistsLazyQuery(baseOptions?: Apollo.LazyQueryHookOptions<GetWatchlistsQuery, GetWatchlistsQueryVariables>) {
+          const options = {...defaultOptions, ...baseOptions}
+          return Apollo.useLazyQuery<GetWatchlistsQuery, GetWatchlistsQueryVariables>(GetWatchlistsDocument, options);
+        }
+export function useGetWatchlistsSuspenseQuery(baseOptions?: Apollo.SkipToken | Apollo.SuspenseQueryHookOptions<GetWatchlistsQuery, GetWatchlistsQueryVariables>) {
+          const options = baseOptions === Apollo.skipToken ? baseOptions : {...defaultOptions, ...baseOptions}
+          return Apollo.useSuspenseQuery<GetWatchlistsQuery, GetWatchlistsQueryVariables>(GetWatchlistsDocument, options);
+        }
+export type GetWatchlistsQueryHookResult = ReturnType<typeof useGetWatchlistsQuery>;
+export type GetWatchlistsLazyQueryHookResult = ReturnType<typeof useGetWatchlistsLazyQuery>;
+export type GetWatchlistsSuspenseQueryHookResult = ReturnType<typeof useGetWatchlistsSuspenseQuery>;
+export type GetWatchlistsQueryResult = Apollo.QueryResult<GetWatchlistsQuery, GetWatchlistsQueryVariables>;
 export const OnStockPriceUpdatedDocument = gql`
     subscription OnStockPriceUpdated {
   onStockPriceUpdated {

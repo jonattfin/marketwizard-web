@@ -7,7 +7,9 @@ import {
   usePortfolios,
   useAddPortfolio,
   useDeletePortfolio,
-  useUpdatePortfolio
+  useUpdatePortfolio,
+  useWatchlists,
+  useSwotAnalysis
 } from "@/api/graphql/graphql-hooks";
 
 const api = {
@@ -18,7 +20,9 @@ const api = {
   usePortfolios,
   useAddPortfolio,
   useDeletePortfolio,
-  useUpdatePortfolio
+  useUpdatePortfolio,
+  useWatchlists,
+  useSwotAnalysis
 }
 
 export default api;

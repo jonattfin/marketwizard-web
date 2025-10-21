@@ -9,6 +9,14 @@ export type UseStockQuotesType = {
   stockQuotes?: StockQuoteDto[];
 } & BaseType;
 
+export type UseWatchListType = {
+  watchlists: {
+    id: string;
+    name: string;
+  }[],
+  totalCount: number;
+} & BaseType;
+
 export type UseWatchListAssetsType = {
   watchlistAssets?: AssetDto[] | null;
   totalCount: number;
