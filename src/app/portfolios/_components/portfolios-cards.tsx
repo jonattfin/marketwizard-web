@@ -59,7 +59,7 @@ function PortfolioCard({portfolio, onDeletePortfolio, onUpdatePortfolio}: Portfo
           </ChakraLink>
         </Card.Title>
         <Card.Description>
-          {portfolio.createdAt && (<div>Created at: {dayjs(portfolio.createdAt).format("DD/MM/YYYY")}</div>)}
+          {portfolio.createdAt && (<>Created at: {dayjs(portfolio.createdAt).format("DD/MM/YYYY")}</>)}
           <br/>
           {portfolio.description}
         </Card.Description>

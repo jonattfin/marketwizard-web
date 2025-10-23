@@ -36,7 +36,7 @@ export type CompanyOverviewType = {
   stock?: StockDto | null;
 }
 
-export function createCompanyOverview({stock}: CompanyOverviewType) {
+export function CompanyOverview({stock}: CompanyOverviewType) {
   return (
     <Stack>
       <Card.Root variant={"subtle"} id={COMPANY_OVERVIEW}>

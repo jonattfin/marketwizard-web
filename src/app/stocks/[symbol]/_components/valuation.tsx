@@ -4,7 +4,7 @@ import {ValuationChart} from "@/app/stocks/[symbol]/_components/overview";
 import {Button, Card, createListCollection, Flex, Listbox} from "@chakra-ui/react";
 import {COMPANY_VALUATION} from "@/app/stocks/[symbol]/_components/Menu";
 
-export function createValuation() {
+export function Valuation() {
   return (
     <Card.Root variant={"subtle"} id={COMPANY_VALUATION}>
       <Card.Header>Valuation</Card.Header>
@@ -12,7 +12,7 @@ export function createValuation() {
         Is AMZN undervalued compared to its fair value, analyst forecasts and its price relative to the market?
         <div>&nbsp;</div>
         <Flex justify="space-between">
-          {createValuationCollection()}
+          {ValuationCollection()}
           <ValuationChart/>
         </Flex>
       </Card.Body>
@@ -24,7 +24,7 @@ export function createValuation() {
   )
 }
 
-export function createValuationCollection() {
+export function ValuationCollection() {
   const values = [
     "Bellow fair value",
     "Significantly bellow fair value",

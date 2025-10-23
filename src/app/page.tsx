@@ -1,1 +1,5 @@
-export { default } from './portfolios/page';
+export default function Page() {
+  return (
+    <div>home page</div>
+  )
+}

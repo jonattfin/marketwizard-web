@@ -47,7 +47,7 @@ const Watchlist = () => {
   const {watchlistAssets, loading: assetsLoading, error: assetsError} = hooks.useWatchlistAssets(watchlistId);
   const {stockQuotes, error} = hooks.useStockQuotes();
 
-  const {data, date} = useMemo(() => createData(watchlistAssets, stockQuotes)
+  const {data, date} = useMemo(() => createData(watchlistAssets || [], stockQuotes)
     , [watchlistAssets, stockQuotes]);
 
   if (watchlistLoading || assetsLoading) return <Loading/>;
@@ -157,9 +157,9 @@ const Watchlist = () => {
   )
 }
 
-function createData(watchlistAssets: AssetDto[], stockQuotes: StockQuoteDto[]): DataType {
-  const data = watchlistAssets?.map((asset) => {
-    const stockQuote = stockQuotes?.find(q => q.symbol === asset.symbol) || asset.quote;
+function createData(watchlistAssets: AssetDto[] = [], stockQuotes: StockQuoteDto[] = []): DataType {
+  const data = watchlistAssets.map((asset) => {
+    const stockQuote = stockQuotes.find(q => q.symbol === asset.symbol) || asset.quote;
 
     return {
       symbol: asset.symbol,

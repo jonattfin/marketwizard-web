@@ -89,7 +89,7 @@ export const useWatchlists = (): UseWatchListType => {
         id: item?.id as string,
         name: item?.name as string
       }
-    }),
+    }) || [],
     totalCount: data?.watchlists?.totalCount || 0,
     loading,
     ...(error && {error: {message: error.message}}),

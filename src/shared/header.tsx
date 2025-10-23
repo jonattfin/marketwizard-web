@@ -60,7 +60,6 @@ export default function Header({theme, setTheme}: AppMenuType) {
           </HStack>
         </Flex>
 
-
         <div>
           <>
             <Switch.Root colorPalette="orange" checked={theme === "dark"} onCheckedChange={(e) => {
@@ -82,9 +81,7 @@ export default function Header({theme, setTheme}: AppMenuType) {
           </Avatar.Root>
         </div>
       </Flex>
-      <div>&nbsp;</div>
-      <Separator/>
-      <div>&nbsp;</div>
+
     </>
   )
 }

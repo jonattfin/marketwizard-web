@@ -29,12 +29,11 @@ export default function PortfolioDetails({id}: Readonly<PortfolioDetailsType>) {
           </Breadcrumb.Item>
         </Breadcrumb.List>
       </Breadcrumb.Root>
-      <div>&nbsp;</div>
       <Flex direction="column">
         <Flex gap="4" justify="flex-start">
           <Heading>{portfolio.name}</Heading>
         </Flex>
-        <div>&nbsp;</div>
+
         <Flex gap="4" justify="flex-end">
           <Button variant="outline" colorPalette={"green"} data-testid={"btn-add-transaction"}>Add transaction</Button>
         </Flex>
@@ -53,7 +52,6 @@ export default function PortfolioDetails({id}: Readonly<PortfolioDetailsType>) {
         </Blockquote.Content>
       </Blockquote.Root>
       <div>&nbsp;</div>
-
       <div>&nbsp;</div>
       <PortfolioTabs portfolio={portfolio}/>
     </>

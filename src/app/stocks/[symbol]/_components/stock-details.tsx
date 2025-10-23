@@ -2,10 +2,10 @@
 
 import hooks from "@/api/hooks";
 import Loading from "@/shared/loading";
-import {Avatar, Button, Card, Container, Flex, Grid, GridItem, Stack} from "@chakra-ui/react";
+import {Avatar, Button, Card, Flex, Grid, GridItem, Stack} from "@chakra-ui/react";
 
-import {createCompanyOverview} from "@/app/stocks/[symbol]/_components/overview";
-import {createValuation} from "@/app/stocks/[symbol]/_components/valuation";
+import {CompanyOverview} from "@/app/stocks/[symbol]/_components/overview";
+import {Valuation} from "@/app/stocks/[symbol]/_components/valuation";
 import CompanyMenu from "@/app/stocks/[symbol]/_components/Menu";
 
 export type StockDetailsProps = {
@@ -47,8 +47,8 @@ export default function StockDetails({symbol}: StockDetailsProps) {
         </GridItem>
         <GridItem colSpan={3}>
           <Stack>
-            {createCompanyOverview(stock)}
-            {createValuation()}
+            <CompanyOverview stock={stock}></CompanyOverview>
+            <Valuation/>
           </Stack>
         </GridItem>
       </Grid>

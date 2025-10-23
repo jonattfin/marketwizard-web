@@ -30,7 +30,7 @@ export default function PortfolioTabsComponent({portfolio}: PortfolioTabsCompone
         </Tabs.Trigger>
       </Tabs.List>
       <Tabs.Content value="overview">
-        <PortfolioOverview portfolio={portfolio} />
+        <PortfolioOverview />
       </Tabs.Content>
       <Tabs.Content value="holdings"><PortfolioHoldings portfolio={portfolio}/></Tabs.Content>
       <Tabs.Content value="analysys"><PortfolioAnalysis/></Tabs.Content>

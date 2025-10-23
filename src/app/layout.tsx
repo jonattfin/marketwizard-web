@@ -12,10 +12,9 @@ import "./globals.css";
 
 import apolloClient from "@/app/apolloClient";
 import Header from "@/shared/header";
-import {Box, Container, Grid, GridItem, Separator, Theme} from "@chakra-ui/react";
+import {Container, Flex, Separator, Theme} from "@chakra-ui/react";
 import {ThemeContext} from "@emotion/react";
 import {useState} from "react";
-import {styled} from "storybook/theming";
 import {
   QueryClient,
   QueryClientProvider,
@@ -32,10 +31,6 @@ const geistMono = Geist_Mono({
   variable: "--font-geist-mono",
   subsets: ["latin"],
 });
-
-const StyledContainer = styled(Box)`
-    min-height: 80vh;
-`;
 
 const queryClient = new QueryClient()
 
@@ -63,17 +58,22 @@ export default function RootLayout({
             <Theme appearance={theme}>
               <main>
                 <Container>
-                  <Box padding="20px">
-                    <Header theme={theme} setTheme={(theme) => setTheme(theme)}/>
-                    {/*<div>&nbsp;</div>*/}
-                    <StyledContainer>
+                  <Flex gap="20" direction="column" justify="flex-start" minHeight={"100vh"}>
+                    <div>
+                      <div>&nbsp;</div>
+                      <Header theme={theme} setTheme={(theme) => setTheme(theme)}/>
+                      <div>&nbsp;</div>
+                      <Separator/>
+                    </div>
+                    <div>
                       {children}
-                    </StyledContainer>
-                    <div>&nbsp;</div>
-                    <Separator/>
-                    <div>&nbsp;</div>
-                    <Footer/>
-                  </Box>
+                    </div>
+                    <>
+                      <div>&nbsp;</div>
+                      <Separator/>
+                      <Footer/>
+                    </>
+                  </Flex>
                 </Container>
               </main>
               <Analytics/>
