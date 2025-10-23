@@ -1,7 +1,8 @@
 # Market Wizard Web
 
-A modern web application to manage and analyze investment portfolios. Built with **Next.js** and **React**, styled with **Chakra UI**, and powered by **Apollo GraphQL** for efficient data fetching. T
-he project emphasizes scalability, design consistency, and developer productivity with tools like **Storybook** and **pnpm**.
+A modern web application to manage and analyze investment portfolios. Built with **Next.js** and **React**, styled with **Chakra UI**, 
+and powered by **Apollo GraphQL** for efficient data fetching. The project emphasizes scalability, design consistency, and developer productivity 
+with tools like **Storybook** and **pnpm**.
 
 ***
 
