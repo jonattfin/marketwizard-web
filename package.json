@@ -42,10 +42,10 @@
     "@eslint/eslintrc": "^3.3.1",
     "@graphql-codegen/typescript-operations": "^5.0.1",
     "@graphql-codegen/typescript-react-apollo": "^4.3.3",
-    "@storybook/addon-a11y": "9.1.13",
-    "@storybook/addon-docs": "9.1.13",
-    "@storybook/addon-vitest": "9.1.13",
-    "@storybook/nextjs-vite": "^9.1.13",
+    "@storybook/addon-a11y": "9.1.10",
+    "@storybook/addon-docs": "9.1.10",
+    "@storybook/addon-vitest": "9.1.10",
+    "@storybook/nextjs-vite": "^9.1.10",
     "@tanstack/eslint-plugin-query": "^5.91.0",
     "@types/node": "^24.6.2",
     "@types/react": "19.2.2",
@@ -54,9 +54,9 @@
     "@vitest/coverage-v8": "^3.2.4",
     "eslint": "^9.36.0",
     "eslint-config-next": "16.0.0",
-    "eslint-plugin-storybook": "9.1.13",
+    "eslint-plugin-storybook": "9.1.10",
     "playwright": "^1.55.1",
-    "storybook": "9.1.13",
+    "storybook": "9.1.10",
     "storybook-addon-apollo-client": "^9.0.0",
     "typescript": "^5.9.3",
     "vitest": "^3.2.4"
@@ -65,6 +65,12 @@
     "overrides": {
       "@types/react": "19.2.2",
       "@types/react-dom": "19.2.2"
-    }
+    },
+    "onlyBuiltDependencies": [
+      "@vercel/speed-insights",
+      "esbuild",
+      "sharp",
+      "unrs-resolver"
+    ]
   }
 }

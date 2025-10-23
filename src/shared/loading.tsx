@@ -2,7 +2,7 @@ import {HStack, Skeleton, SkeletonCircle, SkeletonText, Stack} from "@chakra-ui/
 
 export default function Loading() {
   return (
-     <Stack gap="6" maxW="xs">
+     <Stack gap="6">
       <HStack width="full">
         <SkeletonCircle size="10" />
         <SkeletonText noOfLines={2} />

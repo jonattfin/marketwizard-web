@@ -75,10 +75,9 @@ const Watchlist = () => {
   })
 
   return (
-    <Card.Root overflow="hidden">
+    <Card.Root overflow="hidden" variant={"subtle"}>
       <Card.Body>
         <Select.Root
-          variant={"subtle"}
           collection={watchlistsCollection} maxWidth={"xs"} defaultValue={[watchlistId || ""]}
           onValueChange={(e) => {
             setWatchlistId(e.value[0])

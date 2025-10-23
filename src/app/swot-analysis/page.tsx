@@ -72,7 +72,7 @@ export default function SwotAnalysisPage() {
 
 function SwotCard(card: SwotCardItem) {
   return (
-    <Card.Root overflow="hidden">
+    <Card.Root overflow="hidden" variant={"subtle"} key={card.name}>
       <Image
         src={card.imageSrc}
         alt="Green double couch with wooden legs"

@@ -1,5 +1,3 @@
-export default function Page() {
-  return (
-    <div>home page</div>
-  )
-}
+import Dashboard from "@/app/dashboard/page";
+
+export default Dashboard;

@@ -47,7 +47,7 @@ type PortfolioCardType = {
 
 function PortfolioCard({portfolio, onDeletePortfolio, onUpdatePortfolio}: PortfolioCardType) {
   return (
-    <Card.Root overflow="hidden">
+    <Card.Root overflow="hidden" variant={"subtle"}>
       <Image
         src={portfolio.imageUrl}
         alt={portfolio.description}

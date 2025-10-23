@@ -49,10 +49,11 @@ export default function RootLayout({
         href="https://fonts.googleapis.com/icon?family=Material+Icons"
       />
     </head>
+
+    <body className={`${geistSans.variable} ${geistMono.variable}`}>
     <QueryClientProvider client={queryClient}>
       <ReactQueryDevtools/>
       <ApolloProvider client={apolloClient}>
-        <body className={`${geistSans.variable} ${geistMono.variable}`}>
         <Provider>
           <ThemeContext value={theme}>
             <Theme appearance={theme}>
@@ -81,9 +82,10 @@ export default function RootLayout({
             </Theme>
           </ThemeContext>
         </Provider>
-        </body>
       </ApolloProvider>
     </QueryClientProvider>
+    </body>
+
     </html>
   );
 }
