@@ -6,12 +6,14 @@ import {
   Flex,
   HStack, Icon,
   Switch,
-  Separator
+  Separator, InputGroup, Input, IconButton
 } from "@chakra-ui/react"
 
 import {FaMoon, FaSun} from "react-icons/fa"
 import Link from "next/link";
 import {useState} from "react";
+import {LuSearch, LuVoicemail} from "react-icons/lu";
+import { SiCoinmarketcap } from "react-icons/si";
 
 export type AppMenuType = {
   theme: string;
@@ -32,6 +34,7 @@ const links: LinkWithLabel[] = [
 
 export default function Header({theme, setTheme}: AppMenuType) {
   const [activeLink, setActiveLink] = useState<string>("");
+  const [companyName, setCompanyName] = useState("")
 
   const renderLink = (link: LinkWithLabel) => {
     let colorPalette = "";
@@ -53,12 +56,21 @@ export default function Header({theme, setTheme}: AppMenuType) {
 
   return (
     <>
-      <Flex gap="4" justify="space-between">
+      <Flex gap="4" justify="space-around">
+        <IconButton variant={"ghost"} colorPalette={"border"}>
+          <SiCoinmarketcap /> Market Wizard.app
+        </IconButton>
         <Flex>
           <HStack wrap="wrap" gap="6">
             {links.map(renderLink)}
           </HStack>
         </Flex>
+
+        <InputGroup maxWidth={"md"} flex="1" startElement={<LuSearch/>}>
+          <Input placeholder="120k companies worldwide" value={companyName} onChange={
+            (e) => setCompanyName(e.target.value)}
+          />
+        </InputGroup>
 
         <div>
           <>
